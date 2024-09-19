@@ -1,8 +1,9 @@
-*## DB설계 - ERDcloud
+* ## DB설계 - ERDcloud
 
-*## 스토리보드 - justinmind
+* ## 스토리보드 - justinmind
 
 * 협업 툴 - github
+oracle 21c, elcipse, jdk 17, spring boot
 
 MOSCOW MSCW
 
