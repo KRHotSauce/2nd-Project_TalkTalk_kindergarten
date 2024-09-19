@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Entity View</title>
+</head>
+<body>
+    <h1>Entity Information</h1>
+    <div th:if="${boardEntity != null}">
+        <p>ID: <span th:text="${boardEntity.board_info_idx}"></span></p>
+        <p>Name: <span th:text="${boardEntity.board_name}"></span></p>
+    </div>
+    <div th:if="${boardEntity == null}">
+        <p>No entity found.</p>
+    </div>
+</body>
+</html>

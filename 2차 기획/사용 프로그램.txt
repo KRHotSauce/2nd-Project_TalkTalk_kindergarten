@@ -1,0 +1,4 @@
+IDE : 이클립스
+sql : oracle 디벨로퍼
+DB ER 설계 : erdcloud
+버전관리 : git
