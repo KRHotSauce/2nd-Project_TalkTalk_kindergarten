@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -10,8 +11,9 @@ public class BoardInfoEntity {
 
 
 	@Id
+	@Column
 	Long board_info_idx;
-	
+	@Column
 	String board_name;
 	
 	

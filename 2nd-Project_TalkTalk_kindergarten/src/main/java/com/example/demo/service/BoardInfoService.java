@@ -8,13 +8,15 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.BoardInfoEntity;
 import com.example.demo.repository.BoardInfoRepository;
 
+
 @Service
 public class BoardInfoService {
 
 	@Autowired
 	private BoardInfoRepository boardInfoRepository;
 	
-	public Optional<BoardInfoEntity> getFirstEntity(){
-		return boardInfoRepository.findById(1L);
+	public BoardInfoEntity getFirstEntity(){
+		return boardInfoRepository.findById(1L).orElse(null);
+		
 	}
 }

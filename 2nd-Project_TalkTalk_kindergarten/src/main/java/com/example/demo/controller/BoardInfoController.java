@@ -11,7 +11,6 @@ import com.example.demo.service.BoardInfoService;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -23,13 +22,10 @@ public class BoardInfoController {
 	@GetMapping("/")
 	public String getboardFirstEntity(Model model) {
 		
-		Optional<BoardInfoEntity> boardEntity=boardInfoService.getFirstEntity();
-		if(boardEntity.isPresent()) {
-			model.addAttribute("boardEntity", boardEntity);
-		}
-		else {
-			model.addAttribute("boardEntity", null);
-		}
+		BoardInfoEntity boardEntity=boardInfoService.getFirstEntity();
+		
+		model.addAttribute("boardEntity", boardEntity);
+	
 		return "board";
 	}
 	
