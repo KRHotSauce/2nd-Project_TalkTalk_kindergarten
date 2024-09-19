@@ -14,7 +14,7 @@ CREATE TABLE content_temp (
     content_image  VARCHAR2(200),
     view_count     NUMBER DEFAULT 1 NOT NULL,
     content_tree   NUMBER NOT NULL,
-    CONSTRAINT PK_CONTENT_TEMP PRIMARY KEY (content_idx, board_info_idx)
+    CONSTRAINT PK_CONTENT_TEMP PRIMARY KEY (content_idx)
 );
 
 CREATE TABLE board_temp (
@@ -92,4 +92,6 @@ INSERT INTO content_temp (content_idx, board_info_idx, user_id, writer, content_
 VALUES (9, 1, 9, 'User Nine', '공지사항 3', SYSDATE, NULL, 1, 0);
 INSERT INTO content_temp (content_idx, board_info_idx, user_id, writer, content_name, content_date, content_image, view_count, content_tree)
 VALUES (10, 2, 10, 'User Ten', '자유게시판 3', SYSDATE, NULL, 1, 0);
+
+commit;
 
