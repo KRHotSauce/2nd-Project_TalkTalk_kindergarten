@@ -11,16 +11,18 @@
 </head>
 <body>
 <div th:fragment="mainTopMenu" class="mt-2 me-2">
-<div class="btn-group"  role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-primary" onclick="location.href='login'">로그인</button>
-    <button type="button" class="btn btn-primary" onclick="location.href='register'">회원가입</button>
-
- <!--   <div>(이름) 님 환영합니다!</div>
-    <button type="button" class="btn btn-primary" onclick="location.href='login'">회원정보수정</button>
-    <button type="button" class="btn btn-primary" onclick="location.href='register'">로그아웃</button>-->
-
-
-</div>
-</div>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <div th:if="${session.parentsLoginDTO != null}">
+                <div th:text="${session.parentsLoginDTO.loginId} + ' 님 환영합니다!'"></div>
+                <button type="button" class="btn btn-primary" onclick="location.href='profile'">회원정보수정</button>
+                <form action="@/logout">
+                <button type="button" class="btn btn-primary" onclick="location.href='logout'">로그아웃</button>
+            </div>
+            <div th:if="${session.parentsLoginDTO == null}">
+                <button type="button" class="btn btn-primary" onclick="location.href='login'">로그인</button>
+                <button type="button" class="btn btn-primary" onclick="location.href='register'">회원가입</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

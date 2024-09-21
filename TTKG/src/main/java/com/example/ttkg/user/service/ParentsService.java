@@ -1,10 +1,13 @@
 package com.example.ttkg.user.service;
 
 import com.example.ttkg.user.DTO.ParentsDTO;
+import com.example.ttkg.user.DTO.ParentsLoginDTO;
 import com.example.ttkg.user.model.ParentsEntity;
 import com.example.ttkg.user.repository.ParentsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ParentsService {
@@ -40,6 +43,15 @@ public class ParentsService {
 
         return parentsEntity;
 
+    }
+    /**로그인 할때 아이디,비밀번호 여부*/
+    public boolean checkLogin(ParentsLoginDTO parentsLoginDTO){
+        Optional<ParentsEntity> parents=parentsRepository.findByLoginId(parentsLoginDTO.getLoginId());
+        if(parents.isPresent()) {
+        ParentsEntity parentsEntity=parents.get();
+        return parentsEntity.getPassword().equals(parentsLoginDTO.getPassword());
+        }
+        return false;
     }
 
 }
