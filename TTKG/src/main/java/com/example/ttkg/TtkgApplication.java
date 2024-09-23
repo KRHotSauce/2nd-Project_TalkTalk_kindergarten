@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TtkgApplication {
 
     public static void main(String[] args) {
+        System.setProperty("server.servlet.context-path", "/talktalkkinder");
         SpringApplication.run(TtkgApplication.class, args);
         System.out.println("실행중");
     }

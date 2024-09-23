@@ -13,4 +13,6 @@ public class ParentsLoginDTO {
     @NotBlank(message = "비밀번호를 입력해주십시오.")
     private String password;
 
+    private String nickname;
+
 }
