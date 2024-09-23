@@ -14,7 +14,4 @@ public interface ParentsRepository extends JpaRepository<ParentsEntity, Long> {
     boolean existsByNickname(String nickname);
     Optional<ParentsEntity> findByLoginId(String loginId);
     void deleteByloginId(String loginId);
-    List
-
-
 }
