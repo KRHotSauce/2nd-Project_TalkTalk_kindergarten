@@ -167,10 +167,11 @@ public class UserController {
         return "Login/delete_account_success";
     }
 
-    @PostMapping("searchParents_pro")
-    public String searchParents_pro(Model model,HttpSession session) {
-        
-    }
+
+//    @PostMapping("searchParents_pro")
+//    public String searchParents_pro(Model model,HttpSession session) {
+//
+//    }
 
 
 

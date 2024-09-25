@@ -1,0 +1,57 @@
+/* 네비게이션 바 스타일 */
+.navbar {
+    background-color: #343a40;
+    width: 100%; /* 좌우로 네비게이션 바가 늘어나도록 설정 */
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+}
+
+/* 드롭다운 메뉴 스타일 - 기본적으로 숨김 */
+.dropdown-grid {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 마우스 오버 시 드롭다운 메뉴가 표시되도록 설정 */
+.navbar:hover .dropdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4열 그리드 */
+    gap: 10px;
+}
+
+/* 각 그리드 항목을 한 줄씩 배치 */
+.dropdown-grid div {
+    padding: 10px;
+}
+
+.dropdown-grid a {
+    display: block; /* 각 항목을 한 줄에 하나씩 표시 */
+    padding: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    text-align: center;
+    color: #343a40;
+    text-decoration: none;
+}
+
+.dropdown-grid a:hover {
+    background-color: #e9ecef;
+}
+
+/* 모바일에서 숨겨지는 드롭다운 */
+@media (max-width: 767px) {
+    .dropdown-grid {
+        display: none !important;
+    }
+}
