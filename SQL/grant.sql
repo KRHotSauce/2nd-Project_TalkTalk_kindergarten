@@ -1,0 +1,1 @@
+grant all PRIVILEGES to c##krhotsauce_db;
