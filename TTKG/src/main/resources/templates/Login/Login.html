@@ -15,7 +15,7 @@
     <div th:if="${loginFailed}" class="alert alert-danger" role="alert">
         <p th:text="${loginFailed}"></p>
     </div>
-    <form th:action="@{/login_pro}" th:object="${parentsLoginDTO}" method="post" class="mt-3">
+    <form th:action="@{/login_pro}" th:object="${userLoginDTO}" method="post" class="mt-3">
         <div class="form-group">
             <label for="loginId">아이디</label>
             <input type="text" id="loginId" name="loginId" class="form-control" required>

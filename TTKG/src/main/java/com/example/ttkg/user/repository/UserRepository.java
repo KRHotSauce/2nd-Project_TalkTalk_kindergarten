@@ -1,17 +1,16 @@
 package com.example.ttkg.user.repository;
 
-import com.example.ttkg.user.model.ParentsEntity;
+import com.example.ttkg.user.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ParentsRepository extends JpaRepository<ParentsEntity, Long> {
+public interface UserRepository extends JpaRepository<UserEntity, Long> {
     boolean existsByLoginId(String loginId);
     boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
-    Optional<ParentsEntity> findByLoginId(String loginId);
+    Optional<UserEntity> findByLoginId(String loginId);
     void deleteByloginId(String loginId);
 }

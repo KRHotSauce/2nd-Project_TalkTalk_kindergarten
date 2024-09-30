@@ -1,13 +1,10 @@
 package com.example.ttkg.user.controller;
 
-import com.example.ttkg.user.DTO.ParentsDTO;
-import com.example.ttkg.user.DTO.ParentsLoginDTO;
-import com.example.ttkg.user.model.ParentsEntity;
-import com.example.ttkg.user.service.ParentsService;
+import com.example.ttkg.user.DTO.UserRegiDTO;
+import com.example.ttkg.user.DTO.UserLoginDTO;
+import com.example.ttkg.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import jakarta.websocket.Session;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,35 +15,35 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class UserController {
 
-    private final ParentsService parentsService;
+    private final UserService userService;
 
-    public UserController(ParentsService parentsService) {
-        this.parentsService = parentsService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/register")
     public String toRegisterPage(Model model) {
-    model.addAttribute("parentsDTO",new ParentsDTO());
+    model.addAttribute("parentsDTO",new UserRegiDTO());
         return "Login/Register";
     }
 
     @PostMapping("/register_pro")
-    public String registerPro(@Valid @ModelAttribute("parentsDTO") ParentsDTO parentsDTO
+    public String registerPro(@Valid @ModelAttribute("parentsDTO") UserRegiDTO userRegiDTO
     , BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         //비밀번호 일치 유효성검사
-        if (!parentsDTO.getPassword().equals(parentsDTO.getConfirmPassword())) {
+        if (!userRegiDTO.getPassword().equals(userRegiDTO.getConfirmPassword())) {
             bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "비밀번호가 일치하지 않습니다.");
         }
 
         //비밀번호 외의 유효성 검사
         if(bindingResult.hasErrors()) {
             model.addAttribute("org.springframework.validation.BindingResult.parentsDTO", bindingResult);
-            model.addAttribute("parentsDTO", parentsDTO);
+            model.addAttribute("parentsDTO", userRegiDTO);
             return "Login/Register";
 
         }
         // 사용자 등록
-        parentsService.registerNewParent(parentsDTO);
+        userService.registerNewParent(userRegiDTO);
 
         // 회원가입 성공 시 메시지 추가
         redirectAttributes.addFlashAttribute("successMessage", "회원가입 되었습니다");
@@ -64,26 +61,26 @@ public class UserController {
 
     @GetMapping("/login")
     public String toLoginPage(Model model) {
-        model.addAttribute("parentsLoginDTO",new ParentsLoginDTO());
+        model.addAttribute("parentsLoginDTO",new UserLoginDTO());
         return "Login/Login";
     }
 
     @PostMapping("login_pro")
-    public String loginPro(@Valid @ModelAttribute("parentsLoginDTO")ParentsLoginDTO parentsLoginDTO,
+    public String loginPro(@Valid @ModelAttribute("parentsLoginDTO") UserLoginDTO userLoginDTO,
                            BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes, HttpSession session) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("org.springframework.validation.BindingResult.parentsLoginDTO", bindingResult);
-            model.addAttribute("parentsLoginDTO", parentsLoginDTO);
+            model.addAttribute("parentsLoginDTO", userLoginDTO);
             return "Login/Login"; // 오류가 있을 경우 로그인 페이지로 돌아감
         }
-        else if(parentsService.checkLogin(parentsLoginDTO)){
-            session.setAttribute("parentsLoginDTO", parentsLoginDTO);
+        else if(userService.checkLogin(userLoginDTO)){
+            session.setAttribute("parentsLoginDTO", userLoginDTO);
             return "redirect:login_success";
         }
         else{
             model.addAttribute("loginFailed","아이디 또는 비밀번호가 일치하지 않습니다");
-            model.addAttribute("parentsLoginDTO",parentsLoginDTO);
+            model.addAttribute("parentsLoginDTO", userLoginDTO);
             return "Login/Login";
         }
     }
@@ -109,20 +106,20 @@ public class UserController {
     }
     @GetMapping("editProfileConfirmPassword")
     public String editProfileConfirmPassword(Model model,HttpSession session) {
-        model.addAttribute("parentsLoginDTO",(ParentsLoginDTO)session.getAttribute("parentsLoginDTO"));
+        model.addAttribute("parentsLoginDTO",(UserLoginDTO)session.getAttribute("parentsLoginDTO"));
         return "Login/editProfileConfirmPassword";
     }
 
     @PostMapping("editProfileConfirmPassword_pro")
     public String editProfileConfirmPassword(Model model,HttpSession session,@RequestParam String confirmPassword) {
-        ParentsLoginDTO confirmPassDTO = (ParentsLoginDTO) session.getAttribute("parentsLoginDTO");
+        UserLoginDTO confirmPassDTO = (UserLoginDTO) session.getAttribute("parentsLoginDTO");
         if(confirmPassDTO == null){
             return "Login/ErrorPage";
         }
-        else if(parentsService.chekcPassword(confirmPassDTO,confirmPassword)
-        && parentsService.getParentsEntitybyLoginID(confirmPassDTO.getLoginId())!=null){
+        else if(userService.chekcPassword(confirmPassDTO,confirmPassword)
+        && userService.getParentsEntitybyLoginID(confirmPassDTO.getLoginId())!=null){
 
-            model.addAttribute("parentsDTO",parentsService.getParentsEntitybyLoginID(confirmPassDTO.getLoginId()));
+            model.addAttribute("parentsDTO", userService.getParentsEntitybyLoginID(confirmPassDTO.getLoginId()));
             return "Login/editProfile";
         }
         else{
@@ -140,7 +137,7 @@ public class UserController {
     }
 
     @PostMapping("updateProfile")
-    public String updateProfile(@Valid @ModelAttribute("parentsDTO") ParentsDTO parentsUpdateDTO
+    public String updateProfile(@Valid @ModelAttribute("parentsDTO") UserRegiDTO parentsUpdateDTO
             , BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
         if (!parentsUpdateDTO.getPassword().equals(parentsUpdateDTO.getConfirmPassword())) {
             bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "비밀번호가 일치하지 않습니다.");
@@ -152,7 +149,7 @@ public class UserController {
             return "Login/editProfile";
             //비밀번호 외의 유효성 검사
         }
-        parentsService.UpdateParentsProfile(parentsUpdateDTO,parentsUpdateDTO.getLoginId());
+        userService.UpdateParentsProfile(parentsUpdateDTO,parentsUpdateDTO.getLoginId());
 
         return "/Login/updateProfileSuccess";
 
@@ -161,8 +158,8 @@ public class UserController {
 
     @PostMapping("deleteAccount")
     public String deleteAccount(HttpSession session) {
-        ParentsLoginDTO parentsLoginDTO=(ParentsLoginDTO)session.getAttribute("parentsLoginDTO");
-        parentsService.DeleteAccountMethod(parentsLoginDTO.getLoginId());
+        UserLoginDTO userLoginDTO =(UserLoginDTO)session.getAttribute("parentsLoginDTO");
+        userService.DeleteAccountMethod(userLoginDTO.getLoginId());
         session.removeAttribute("parentsLoginDTO");
         return "Login/delete_account_success";
     }

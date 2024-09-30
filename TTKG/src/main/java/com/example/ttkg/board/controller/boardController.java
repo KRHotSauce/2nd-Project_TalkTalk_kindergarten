@@ -1,17 +1,15 @@
 package com.example.ttkg.board.controller;
 
-import com.example.ttkg.user.service.ParentsService;
+import com.example.ttkg.user.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 
 @Controller
 public class boardController {
 
-    private ParentsService parentsService;
+    private UserService userService;
 
     @GetMapping("/boardmain")
     public String getallcontents(Model model) {

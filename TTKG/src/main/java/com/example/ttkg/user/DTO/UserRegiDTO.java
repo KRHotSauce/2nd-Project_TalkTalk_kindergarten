@@ -1,15 +1,16 @@
 package com.example.ttkg.user.DTO;
 
-import jakarta.validation.constraints.AssertTrue;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
-public class ParentsDTO {
-
+public class UserRegiDTO {
     @NotBlank(message = "아이디를 입력해주십시오.")
     @Pattern(regexp = "^[A-Za-z0-9]{4,20}$", message = "4~20자리의 영문과 숫자로 구성해주십시오.")
     private String loginId;
@@ -33,5 +34,12 @@ public class ParentsDTO {
     @NotBlank(message = "성함을 입력해 주십시오.")
     private String name;
 
+    private String userEmail;
+    private char userKind;
+    private String userName;
+    private String userNickname;
+    private Date resiDate;
+    private String profileImg;
+    private Boolean verified;
 }
 
