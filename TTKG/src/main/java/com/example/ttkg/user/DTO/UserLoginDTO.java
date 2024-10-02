@@ -7,12 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserLoginDTO {
-
     private Long userId;
-
-    @NotBlank(message = "아이디를 입력해주십시오.")
-    private String loginId;
-
-    private String nickname;
+    private String userNickname;
 
 }

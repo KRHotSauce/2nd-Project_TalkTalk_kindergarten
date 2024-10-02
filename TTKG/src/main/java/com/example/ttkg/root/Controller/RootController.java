@@ -12,4 +12,5 @@ public class RootController {
         return "root/ErrorPage";
     }
 
+
 }

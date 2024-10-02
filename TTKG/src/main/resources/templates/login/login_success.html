@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
 <!--    <link id="contextPathHolder" th:data-contextPath="${@environment.getProperty('server.servlet.context-path')}"/>-->
 <!--    <script type="text/javascript">-->
@@ -11,7 +11,7 @@
     <script>
         window.onload = function() {
             alert("로그인에 성공했습니다!"); // 알림창 표시
-            window.location.href = "boardmain"; // 알림창 확인 후 보드메인으로 이동
+            window.location.href = "/talktalkkinder/" // 알림창 확인 후 보드메인으로 이동
         };
     </script>
 </head>
