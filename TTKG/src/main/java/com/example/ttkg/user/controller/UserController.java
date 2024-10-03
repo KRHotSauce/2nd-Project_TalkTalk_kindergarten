@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String register(@RequestParam(value="userKind")String userKind, Model model) {
+    public String register(@RequestParam(value = "userKind") String userKind, Model model) {
         UserDTO userDTO = new UserDTO();
         userDTO.setUserKind(userKind);
         model.addAttribute("userDTO", userDTO);
@@ -39,12 +39,12 @@ public class UserController {
     }
 
     @PostMapping("/register_pro")
-    public String register_pro(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model){
-        if(result.hasErrors()){
+    public String register_pro(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model) {
+        if (result.hasErrors()) {
             System.out.println("레지스터 프로");
-            System.out.println("에러 : "+ result.getAllErrors());
-            System.out.println("userKind : "+ userDTO.getUserKind());
-            model.addAttribute("userDTO" , userDTO);
+            System.out.println("에러 : " + result.getAllErrors());
+            System.out.println("userKind : " + userDTO.getUserKind());
+            model.addAttribute("userDTO", userDTO);
             return "login/register";
         }
 
@@ -54,17 +54,17 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String login(@RequestParam(value="error",required = false)String error, Model model) {
-        if(error!=null)
-            model.addAttribute("loginError","아이디 또는 비밀번호가 올바르지 않습니다");
+    public String login(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null)
+            model.addAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다");
         return "login/login";
     }
-    
-    
+
+
     @PostMapping("login_pro")
-    public String login_pro(@RequestParam String loginId, @RequestParam String password, HttpSession session,Model model) {
+    public String login_pro(@RequestParam String loginId, @RequestParam String password, HttpSession session, Model model) {
         //로그인 로직 로그인 아이디로 entity 찾은 후 비교 그 이후 loginId로 UserLoginDTO 불러냄
-        if(userService.LoginUserService(loginId, password)){
+        if (userService.CheckPasswordByLoginId(loginId, password)) {
             UserLoginDTO userLoginDTO = userService.getUserLoginDTO(loginId);
 
             session.setAttribute("userLoginDTO", userLoginDTO);
@@ -76,14 +76,38 @@ public class UserController {
                 System.out.println("세션에 userLoginDTO가 없습니다.");
             }
             return "login/login_success";
-        }
-        else{
-            model.addAttribute("loginError","아이디 또는 비밀번호가 올바르지 않습니다.");
-                    return "login/login";
+        } else {
+            model.addAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다.");
+            return "login/login";
         }
     }
 
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("userLoginDTO");
+        return "login/logout_success";
+    }
+
+    @GetMapping("/editProfileConfirmPassword")
+    public String editProfileConfirmPassword(@SessionAttribute("userLoginDTO") UserLoginDTO userLoginDTO, Model model) {
+        model.addAttribute("userLoginDTO", userLoginDTO);
+        return "login/editProfileConfirmPassword";
+    }
+
+
+    @PostMapping("/editProfileConfirmPassword_pro")
+    public String editProfileConfirmPassword_pro(@Valid @SessionAttribute("userLoginDTO")UserLoginDTO userLoginDTO,
+                                                 @RequestParam("password")String password,
+                                                 Model model) {
+        if(userService.CheckPasswordByUserId(userLoginDTO.getUserId(), password)){
+            UserDTO userDTO=userService.getUserByUserId(userLoginDTO.getUserId());
+            model.addAttribute("userDTO",userDTO);
+            return "login/editProfile";
+        }
+        model.addAttribute("userLoginDTO", userLoginDTO);
+        return "login/editProfileConfirmPassword";
+    }
 
 
 }

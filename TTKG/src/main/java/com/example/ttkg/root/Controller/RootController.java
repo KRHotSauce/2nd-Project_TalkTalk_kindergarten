@@ -12,5 +12,9 @@ public class RootController {
         return "root/ErrorPage";
     }
 
+    @GetMapping("/")
+    public String RootPage() {
+        return "/index";
+    }
 
 }

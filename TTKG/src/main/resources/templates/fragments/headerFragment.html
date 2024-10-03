@@ -84,10 +84,10 @@
                     <div th:if="${session.userLoginDTO != null}">
                         <!-- 로그인 된 경우 닉네임과 드롭다운 메뉴 표시 -->
                         <div class="dropdown">
-                            <span style="color: #cccccc" th:text="(${session.userLoginDTO.getUserNickname()})">님, 환영합니다!</span>
+                            <span style="color: #cccccc" th:text="(${session.userLoginDTO.getUserNickname()})+'님 환영합니다!'"></span>
                             <div class="dropdown-content">
                                 <a th:href="@{/logout}">로그아웃</a>
-                                <a th:href="@{/profile/edit}">회원정보 수정</a>
+                                <a th:href="@{/editProfileConfirmPassword}">회원정보 수정</a>
                             </div>
                         </div>
                     </div>
