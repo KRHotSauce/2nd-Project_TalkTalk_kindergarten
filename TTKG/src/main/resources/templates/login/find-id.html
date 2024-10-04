@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>아이디 찾기</title>
+</head>
+<body>
+
+<div class="find-id-container">
+    <h2>아이디 찾기</h2>
+
+    <!-- 에러 메시지 표시 -->
+    <div th:if="${errorMessage}" style="color: red;">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
+    <form th:action="@{/find-id_pro}" method="post">
+        <label for="userName">이름</label>
+        <input type="text" id="userName" name="userName" placeholder="이름을 입력하세요" required>
+
+        <label for="userEmail">이메일</label>
+        <input type="email" id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" required>
+
+        <button type="submit">아이디 찾기</button>
+    </form>
+</div>
+
+</body>
+</html>

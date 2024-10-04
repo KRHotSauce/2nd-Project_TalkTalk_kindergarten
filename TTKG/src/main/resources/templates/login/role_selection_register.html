@@ -3,11 +3,24 @@
 <head>
     <title>회원가입/회원종류선택</title>
     <th:block th:replace="fragments/metaFragment :: metadataFragment"></th:block>
+    <style>
+        .extra-options {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .extra-options a {
+            display: block;
+            margin: 5px 0;
+            text-decoration: none;
+            color: #4CAF50;
+        }
+    </style>
 </head>
 
 <body>
 <!-- Top menu 영역-->
-<header th:replace="fragments/headerFragment::headerFragment"></header>
+<!--<header th:replace="fragments/headerFragment::headerFragment"></header>-->
 <!-- Left Sidebar 영역 -->
 <!--<div th:replace="fragments/leftSidebarFragments::leftSidebarFragments"></div>-->
 <!-- Main content 영역 -->
@@ -18,9 +31,12 @@
         <a th:href="@{register?userKind=T}">선생님으로 가입하기</a>
     </div>
 </div>
+<div class="extra-options">
+    <a th:href="@{/login}">이미 계정이 있습니까? 로그인</a>
+</div>
 
 <!--footer 영역-->
-<footer th:replace="fragments/footerFragment::footerFragment"></footer>
+<!--<footer th:replace="fragments/footerFragment::footerFragment"></footer>-->
 
 <!--bootstrap javascript-->
 
