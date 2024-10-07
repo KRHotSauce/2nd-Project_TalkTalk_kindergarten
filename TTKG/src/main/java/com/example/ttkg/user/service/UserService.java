@@ -89,6 +89,7 @@ public class UserService {
             userEntityRegister.setProfileImg(null);
             userEntityRegister.setVerified(false);
             userEntityRegister.setResiDate(LocalDateTime.now()); //등록날짜 저장
+            userEntityRegister.setAuthprovider(UserEntity.AuthProvider.LOCAL);
             userRepository.save(userEntityRegister);//DB에 회원가입 저장
         }
     }

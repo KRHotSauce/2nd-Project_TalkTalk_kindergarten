@@ -8,6 +8,7 @@
         body {
             font-family: Arial, sans-serif;
         }
+
         .form-container {
             width: 400px;
             margin: 0 auto;
@@ -16,9 +17,11 @@
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+
         .form-container h2 {
             text-align: center;
         }
+
         .form-container input[type="text"],
         .form-container input[type="password"],
         .form-container input[type="email"] {
@@ -28,11 +31,13 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
+
         .form-container input[type="file"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
         }
+
         .form-container button {
             width: 100%;
             padding: 10px;
@@ -42,9 +47,11 @@
             border-radius: 5px;
             cursor: pointer;
         }
+
         .form-container button:hover {
             background-color: #45a049;
         }
+
         .valid {
             border-color: green;
         }
@@ -53,12 +60,26 @@
             border-color: red;
         }
     </style>
+    <script type="text/javascript">
+        function setFormAction() {
+            // email hidden input 요소에서 값을 가져옴
+            const emailValue = document.getElementById('googleEmail').value;
+            const form = document.getElementById('registerForm');
+
+            // email 값이 비어 있는지 확인하여 action 설정
+            if (emailValue === '') {
+                form.action = '/google-register_pro'; // 이메일이 없으면 registerPro로 전송
+            } else {
+                form.action = '/register_pro'; // 이메일이 있으면 google_register_pro로 전송
+            }
+        }
+    </script>
 </head>
 <body>
 
 <div class="form-container">
     <h2>회원가입</h2>
-    <form th:action="@{/register_pro}" method="post" th:object="${userDTO}" novalidate>
+    <form id="registerForm" th:action="@{/register_pro}" method="post" th:object="${userDTO}" novalidate>
         <!-- 아이디 입력 -->
         <label for="loginId">아이디</label>
         <input type="text" id="loginId" name="loginId" th:field="*{loginId}" placeholder="ID를 입력하세요" required>
@@ -68,20 +89,33 @@
 
         <!-- 비밀번호 입력 -->
         <label for="password">비밀번호</label>
-        <input type="password" id="password" name="password" th:field="*{password}" placeholder="비밀번호를 입력하세요" required><!-- 비밀번호 입력 -->
+        <input type="password" id="password" name="password" th:field="*{password}" placeholder="비밀번호를 입력하세요" required>
+        <!-- 비밀번호 입력 -->
         <span id="passwordError" class="error-message"></span> <br> <!-- 오류 메시지 표시 -->
 
         <!-- 이메일 입력 -->
-        <label for="userEmail">이메일</label>
-        <input type="email" th:field="*{userEmail}" id="userEmail" name="userEmail" placeholder="ex)address@site.com" required>
-        <span id="userEmailError" class="error-message"></span> <br> <!-- 오류 메시지 표시 -->
+        <div th:if="${email!=null}">
+            <label for="googleEmail">이메일</label>
+            <input type="email" th:field="*{userEmail}" id="googleEmail" name="userEmail" th:value="${email}" readonly
+                   required>
+        </div>
+
+        <div th:if="${email==null}">
+            <label for="userEmail">이메일</label>
+            <input type="email" th:field="*{userEmail}" id="userEmail" name="userEmail"
+                   placeholder="ex)address@site.com" required>
+            <span id="userEmailError" class="error-message"></span><!-- 오류 메시지 표시 -->
+        </div>
+        <br>
         <!-- 이름 입력 -->
         <label for="userName">이름</label>
         <input type="text" th:field="*{userName}" id="userName" name="userName" placeholder="이름을 입력하세요" required>
         <span id="userNameError" class="error-message"></span> <br> <!-- 오류 메시지 표시 -->
         <!-- 닉네임 입력 -->
         <label for="userNickname">닉네임</label>
-        <input type="text" th:field="*{userNickname}" id="userNickname" name="userNickname" placeholder="닉네임을 입력하세요" required> <button type="button" id="checkUserNicknameButton">중복 검사</button>
+        <input type="text" th:field="*{userNickname}" id="userNickname" name="userNickname" placeholder="닉네임을 입력하세요"
+               required>
+        <button type="button" id="checkUserNicknameButton">중복 검사</button>
         <span id="userNicknameError" class="error-message"></span> <br> <!-- 오류 메시지 표시 -->
         <span id="checkUserNicknameError" class="error-message"></span>
         <!-- 프로필 이미지 업로드 -->
@@ -89,7 +123,7 @@
         <input type="file" th:field="*{profileImg}" id="profileImg" name="profileImg" accept="image/*">
 
         <!-- 사용자 유형 T=선생님 P=학부모 (hidden field) -->
-            <input type="hidden" th:field="*{userKind}" id="userKind" name="userKind" th:value="${userDTO.userKind}">
+        <input type="hidden" th:field="*{userKind}" id="userKind" name="userKind" th:value="${userDTO.userKind}">
 
 
         <!-- 회원가입 버튼 -->
@@ -155,65 +189,65 @@
 
 <!-- 아이디 및 닉네임 중복검사 -->
 <script>
-    document.addEventListener('DOMContentLoaded',function (){
-        const checkLoginIdButton=document.getElementById('checkLoginIdButton');
-        const checkUserNicknameButton=document.getElementById('checkUserNicknameButton')
-        const submitButton=document.querySelector('form button[type="submit"]')
-        const submitError=document.getElementById('submitError')
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkLoginIdButton = document.getElementById('checkLoginIdButton');
+        const checkUserNicknameButton = document.getElementById('checkUserNicknameButton')
+        const submitButton = document.querySelector('form button[type="submit"]')
+        const submitError = document.getElementById('submitError')
 
         //중복체크 여부 변수
-        let loginIdCheckedFlag=false;
-        let userNicknameCheckedFlag=false;
+        let loginIdCheckedFlag = false;
+        let userNicknameCheckedFlag = false;
 
         //아이디 중복검사
-        checkLoginIdButton.addEventListener('click',function (){
-            const loginId=document.getElementById('loginId').value;
+        checkLoginIdButton.addEventListener('click', function () {
+            const loginId = document.getElementById('loginId').value;
 
             fetch(`/talktalkkinder/api/check-loginId?loginId=${loginId}`)
                 .then(Response => Response.json())
                 .then(isTaken => {
-                    const checkLoginIdError=document.getElementById('checkLoginIdError');
-                    if(isTaken){
-                        checkLoginIdError.textContent='사용중인 아이디입니다.';
-                        checkLoginIdError.className='error-message';
-                        loginIdCheckedFlag=false;
-                    } else{
-                        checkLoginIdError.textContent='사용 가능한 아이디입니다.';
-                        checkLoginIdError.className='success-message';
-                        loginIdCheckedFlag=true;
+                    const checkLoginIdError = document.getElementById('checkLoginIdError');
+                    if (isTaken) {
+                        checkLoginIdError.textContent = '사용중인 아이디입니다.';
+                        checkLoginIdError.className = 'error-message';
+                        loginIdCheckedFlag = false;
+                    } else {
+                        checkLoginIdError.textContent = '사용 가능한 아이디입니다.';
+                        checkLoginIdError.className = 'success-message';
+                        loginIdCheckedFlag = true;
                     }
                 })
-                .catch(error => console.error('Error:',error)); //콘솔에 에러 띄우는거인듯
+                .catch(error => console.error('Error:', error)); //콘솔에 에러 띄우는거인듯
         });
 
-        checkUserNicknameButton.addEventListener('click',function (){
-            const userNickname=document.getElementById('userNickname').value;
+        checkUserNicknameButton.addEventListener('click', function () {
+            const userNickname = document.getElementById('userNickname').value;
 
             fetch(`/talktalkkinder/api/check-userNickname?userNickname=${userNickname}`)
-                .then(Response=>Response.json())
-                .then(isTaken=>{
-                    const checkUserNicknameError=document.getElementById('checkUserNicknameError');
+                .then(Response => Response.json())
+                .then(isTaken => {
+                    const checkUserNicknameError = document.getElementById('checkUserNicknameError');
 
-                    if(isTaken){
-                        checkUserNicknameError.textContent='사용중인 닉네임입니다.';
-                        checkUserNicknameError.className='error-message';
-                        userNicknameCheckedFlag=false; //사용중일시 실패
-                    } else{
-                        checkUserNicknameError.textContent='사용 가능한 닉네임입니다.';
-                        checkUserNicknameError.className='success-message';
-                        userNicknameCheckedFlag=true; //중복 아닐시 성공
+                    if (isTaken) {
+                        checkUserNicknameError.textContent = '사용중인 닉네임입니다.';
+                        checkUserNicknameError.className = 'error-message';
+                        userNicknameCheckedFlag = false; //사용중일시 실패
+                    } else {
+                        checkUserNicknameError.textContent = '사용 가능한 닉네임입니다.';
+                        checkUserNicknameError.className = 'success-message';
+                        userNicknameCheckedFlag = true; //중복 아닐시 성공
                     }
                 })
-                .catch(error=>console.error('Error:',error)); //콘솔에 에러 띄우는거인듯
+                .catch(error => console.error('Error:', error)); //콘솔에 에러 띄우는거인듯
         });
 
         //submit 클릭 시 중복 체크 여부 확인
-        submitButton.addEventListener('click',function (event){
+        submitButton.addEventListener('click', function (event) {
             //안됐을때 폼 제출 중단
-            if(!loginIdCheckedFlag||!userNicknameCheckedFlag){
+            if (!loginIdCheckedFlag || !userNicknameCheckedFlag) {
                 event.preventDefault();
-                submitError.textContent='중복 검사를 먼저 진행해 주세요.';
-                submitError.className='error-message';
+                submitError.textContent = '중복 검사를 먼저 진행해 주세요.';
+                submitError.className = 'error-message';
             }
         })
 

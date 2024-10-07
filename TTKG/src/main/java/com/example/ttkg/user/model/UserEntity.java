@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.security.AuthProvider;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -25,37 +26,48 @@ public  class UserEntity {
             strategy = GenerationType.SEQUENCE, // SEQUENCE 전략 사용
             generator = "USER_SEQ_GENERATOR"    // 생성기 이름
     )
-    @Column(name = "user_id")
+    @Column(name = "user_id", updatable = false, nullable = false)
     private Long userId;
 
-    @Column(name = "login_id", nullable = false, length = 255)
+    @Column(name = "login_id", nullable = true, length = 255)
     private String loginId;
 
-    @Column(name = "password", nullable = false, length = 255)
+    @Column(name = "password", nullable = true, length = 255)
     private String password;
 
     @Column(name = "user_email", nullable = false, length = 255)
     private String userEmail;
 
-    @Column(name = "user_kind", nullable = false, length = 1)
+    @Column(name = "user_kind", nullable = true, length = 1)
     private String userKind;
 
-    @Column(name = "user_name", nullable = false, length = 255)
+    @Column(name = "user_name", nullable = true, length = 255)
     private String userName;
 
-    @Column(name = "user_nickname", nullable = false, length = 255)
+    @Column(name = "user_nickname", nullable = true, length = 255)
     private String userNickname;
 
-    @Column(name = "resi_date", nullable = false)
+    @Column(name = "resi_date", nullable = true)
     private LocalDateTime resiDate;
 
     @Column(name = "profile_img", length = 255)
     private String profileImg;
 
     @Convert(converter=VerifiedConverter.class)
-    @Column(name = "verified", nullable = false)
+    @Column(name = "verified", nullable = true)
     private Boolean verified;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name="authprovider", nullable = false)
+    private AuthProvider authprovider;
+
+    public enum AuthProvider{
+        LOCAL,
+        GOOGLE
+    }
+
 }
+
+
 
 

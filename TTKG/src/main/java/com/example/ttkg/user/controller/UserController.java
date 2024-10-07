@@ -28,15 +28,18 @@ public class UserController {
 
 
     //유저 역할 이동
-    @GetMapping("/roleSelect")
-    public String roleSelect(Model model) {
+    @PostMapping("/roleSelect")
+    public String roleSelect(@RequestParam("email")String email, Model model) {
+        model.addAttribute("email",email);
         return "login/role_selection_register";
     }
 
     /**회원가입 뷰 이동*/
     @GetMapping("/register")
-    public String register(@RequestParam(value = "userKind") String userKind, Model model) {
+    public String register(@RequestParam(value = "userKind") String userKind,
+                           @RequestParam("email")String email, Model model) {
         UserDTO userDTO = new UserDTO();
+        model.addAttribute("email",email);
         userDTO.setUserKind(userKind); //이전 뷰에서 유저 종류 받아옴
         model.addAttribute("userDTO", userDTO);
         return "login/register";
@@ -159,4 +162,5 @@ public class UserController {
             return "login/find-pass";
         }
     }
+
 }
