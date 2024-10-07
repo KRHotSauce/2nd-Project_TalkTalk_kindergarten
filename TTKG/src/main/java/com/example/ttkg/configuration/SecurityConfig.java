@@ -34,22 +34,22 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .loginPage("login")
-                        .defaultSuccessUrl("/", true)
-                        .permitAll()
-                        .userInfoEndpoint(userInfo->userInfo
-                                .userService(customOAuth2UserService())
-                        )
                 );
+//                .oauth2Login(oauth2 -> oauth2
+//                        .loginPage("login")
+//                        .defaultSuccessUrl("/login/google-login_success", true)
+//                        .permitAll()
+//                        .userInfoEndpoint(userInfo->userInfo
+//                                .userService(customOAuth2UserService())
+//                        )
+//                );
         return http.build();
     }
 
-    @Bean
-    public CustomOAuth2UserService customOAuth2UserService(){
-        return new CustomOAuth2UserService(userRepository);
-    }
+//    @Bean
+//    public CustomOAuth2UserService customOAuth2UserService(){
+//        return new CustomOAuth2UserService(userRepository);
+//    }
 
 }
 

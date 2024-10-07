@@ -1,18 +1,12 @@
 package com.example.ttkg.board.controller;
 
-<<<<<<< HEAD
-import com.example.ttkg.user.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-=======
 import com.example.ttkg.board.Dto.BoardCreateRequest;
 import com.example.ttkg.board.Dto.BoardDto;
 import com.example.ttkg.board.Dto.BoardSearchRequest;
 import com.example.ttkg.board.entity.Board;
 import com.example.ttkg.board.entity.BoardCategory;
 import com.example.ttkg.board.service.BoardService;
-import com.example.ttkg.user.service.ParentsService;
+import com.example.ttkg.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;
->>>>>>> boardFeature
 
 
 @Controller
