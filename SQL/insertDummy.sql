@@ -1,3 +1,12 @@
+INSERT INTO kinder (kinderCode, officeedu, subofficeedu, kindername, establish, rppnname, idgrname, edate, odate, addr, tel_no, fax_no, opertime, cl_cnt3, cl_cnt4, cl_cnt5, mix_cl_cnt, sh_cl_cnt, prmstf_cnt, ag3fp_cnt, ag4fp_cnt, ag5fp_cnt, mixfp_cnt, spcnfp_cnt, pp_cnt3, pp_cnt4, pp_cnt5, mixpp_cnt, chpp_cnt, pbnttmng)
+VALUES ('TBD', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+
+
+
+
+
+
+
 INSERT INTO User (user_id, login_id, password, user_email, user_kind, user_name, user_nickname, resi_date, profile_img, verified)
 VALUES (user_seq.NEXTVAL, 'user1', 'password1', 'user1@example.com', 'P', 'John Doe', 'johnd', SYSDATE, 'profile1.png', 1);
 
@@ -5,8 +14,9 @@ INSERT INTO User (user_id, login_id, password, user_email, user_kind, user_name,
 VALUES (user_seq.NEXTVAL, 'user2', 'password2', 'user2@example.com', 'T', 'Jane Smith', 'janes', SYSDATE, 'profile2.png', 0);
 
 
+
 INSERT INTO kinder (kinderCode, officeedu, subofficeedu, kindername, establish, rppnname, idgrname, edate, odate, addr, tel_no, fax_no, opertime, cl_cnt3, cl_cnt4, cl_cnt5, mix_cl_cnt, sh_cl_cnt, prmstf_cnt, ag3fp_cnt, ag4fp_cnt, ag5fp_cnt, mixfp_cnt, spcnfp_cnt, pp_cnt3, pp_cnt4, pp_cnt5, mixpp_cnt, chpp_cnt, pbnttmng)
-VALUES (kinder_seq.NEXTVAL, 'Office1', 'Sub1', 'Kinder1', 1, 'Person1', 'ID1', SYSDATE, SYSDATE, 'Address1', '123-4567', '123-4568', '09:00-18:00', 10, 20, 15, 5, 3, 10, 5, 6, 7, 2, 1, 3, 4, 5, 2, 2);
+VALUES ('undefined', 'Office1', 'Sub1', 'Kinder1', 1, 'Person1', 'ID1', SYSDATE, SYSDATE, 'Address1', '123-4567', '123-4568', '09:00-18:00', 10, 20, 15, 5, 3, 10, 5, 6, 7, 2, 1, 3, 4, 5, 2, 2);
 
 INSERT INTO kinder (kinderCode, officeedu, subofficeedu, kindername, establish, rppnname, idgrname, edate, odate, addr, tel_no, fax_no, opertime, cl_cnt3, cl_cnt4, cl_cnt5, mix_cl_cnt, sh_cl_cnt, prmstf_cnt, ag3fp_cnt, ag4fp_cnt, ag5fp_cnt, mixfp_cnt, spcnfp_cnt, pp_cnt3, pp_cnt4, pp_cnt5, mixpp_cnt, chpp_cnt, pbnttmng)
 VALUES (kinder_seq.NEXTVAL, 'Office2', 'Sub2', 'Kinder2', 2, 'Person2', 'ID2', SYSDATE, SYSDATE, 'Address2', '234-5678', '234-5679', '08:00-17:00', 15, 25, 12, 4, 2, 12, 6, 8, 5, 3, 2, 2, 4, 3, 1, 3);

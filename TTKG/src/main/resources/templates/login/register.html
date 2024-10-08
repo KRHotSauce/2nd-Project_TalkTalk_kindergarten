@@ -204,7 +204,7 @@
             const loginId = document.getElementById('loginId').value;
 
             fetch(`/talktalkkinder/api/check-loginId?loginId=${loginId}`)
-                .then(Response => Response.json())
+                .then(response => response.json())
                 .then(isTaken => {
                     const checkLoginIdError = document.getElementById('checkLoginIdError');
                     if (isTaken) {
@@ -224,7 +224,7 @@
             const userNickname = document.getElementById('userNickname').value;
 
             fetch(`/talktalkkinder/api/check-userNickname?userNickname=${userNickname}`)
-                .then(Response => Response.json())
+                .then(response => response.json())
                 .then(isTaken => {
                     const checkUserNicknameError = document.getElementById('checkUserNicknameError');
 

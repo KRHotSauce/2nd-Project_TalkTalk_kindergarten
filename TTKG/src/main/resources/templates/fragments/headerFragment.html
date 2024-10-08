@@ -69,13 +69,13 @@
                         <a class="nav-link" href="kinderInfoMain">유치원정보</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">유치원·어린이집 정보</a>
+                        <a class="nav-link" href="#">톡톡게시판</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">알리미 소식</a>
+                        <a class="nav-link" th:href="@{/childInfoMain}">자녀 페이지</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">자료실</a>
+                        <a class="nav-link" href="#">우리 아이 유치원</a>
                     </li>
                 </ul>
 
@@ -86,8 +86,8 @@
                         <div class="dropdown">
                             <span style="color: #cccccc" th:text="(${session.userLoginDTO.getUserNickname()})+'님 환영합니다!'"></span>
                             <div class="dropdown-content">
-                                <a th:href="@{/logout}">로그아웃</a>
                                 <a th:href="@{/editProfileConfirmPassword}">회원정보 수정</a>
+                                <a th:href="@{/logout}">로그아웃</a>
                             </div>
                         </div>
                     </div>
