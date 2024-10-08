@@ -59,12 +59,12 @@ public  class UserEntity {
     @Column(name = "verified", nullable = true)
     private Boolean verified;
 
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private Set<User_childEntity> user_childEntities=new HashSet<>();
+
     @Enumerated(EnumType.STRING)
     @Column(name="authprovider", nullable = false)
     private AuthProvider authprovider;
-
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
-    private Set<User_childEntity> user_childEntities=new HashSet<>();
 
     public enum AuthProvider{
         LOCAL,
