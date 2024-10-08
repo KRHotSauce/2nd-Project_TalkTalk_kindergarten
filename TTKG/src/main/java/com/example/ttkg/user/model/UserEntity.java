@@ -8,6 +8,8 @@ import lombok.Setter;
 import java.security.AuthProvider;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @SequenceGenerator(
         name = "USER_SEQ_GENERATOR", // 시퀀스 생성기의 이름
@@ -60,6 +62,9 @@ public  class UserEntity {
     @Enumerated(EnumType.STRING)
     @Column(name="authprovider", nullable = false)
     private AuthProvider authprovider;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    private Set<User_childEntity> user_childEntities=new HashSet<>();
 
     public enum AuthProvider{
         LOCAL,

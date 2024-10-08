@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <!--    <link id="contextPathHolder" th:data-contextPath="${@environment.getProperty('server.servlet.context-path')}"/>-->
+    <!--    <script type="text/javascript">-->
+    <!--        const contextPath = $('#contextPathHolder').attr('data-contextPath');-->
+    <!--    </script>-->
+
+    <meta charset="UTF-8">
+    <title>로그인 필요</title>
+    <script>
+        window.onload = function() {
+            alert("로그인이 필요합니다"); // 알림창 표시
+            window.location.href = "/talktalkkinder/login" // 알림창 확인 후 보드메인으로 이동
+        };
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -23,7 +23,7 @@ CREATE TABLE Users (
 );
 
 CREATE TABLE kinder (
-    kinderCode NUMBER NOT NULL,
+    kinderCode VARCHAR2(255) NOT NULL,
     officeedu VARCHAR2(255) NULL,
     subofficeedu VARCHAR2(255) NULL,
     kindername VARCHAR2(255) NULL,
@@ -57,8 +57,8 @@ CREATE TABLE kinder (
 
 CREATE TABLE child (
     child_id NUMBER NOT NULL,
-    name VARCHAR2(255) NOT NULL,
-    age DATE NOT NULL,
+    name VARCHAR2(255) null,
+    age DATE,
     height NUMBER NULL,
     weight NUMBER NULL,
     allergy VARCHAR2(255) NULL,
@@ -95,7 +95,7 @@ CREATE TABLE payment (
 CREATE TABLE User_child (
     user_id NUMBER NOT NULL,
     child_id NUMBER NOT NULL,
-    kinderCode NUMBER NOT NULL
+    kinderCode VARCHAR2(255)
 );
 
 CREATE TABLE Album (
