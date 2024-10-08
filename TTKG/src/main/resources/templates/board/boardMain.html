@@ -22,20 +22,20 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between mb-3">
         <h2>게시글 목록</h2>
-        <a th:href="@{/board/write(category=${category})}" class="btn btn-success">글쓰기</a>
+        <a th:href="@{/board/write(category=${category}, page=${param.page})}" class="btn btn-success">글쓰기</a>
     </div>
 
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="col">글 번호</th>
+            <th scope="col"><a th:onclick="|location.href='@{/board/main(category = ${category}, sortType = boardIdx, page = ${param.page})}'|">글 번호</a></th>
             <th scope="col">글 제목</th>
             <th scope="col">작성자</th>
-            <th scope="col">작성 일자</th>
+            <th scope="col"><a th:onclick="|location.href='@{/board/main(category = ${category}, sortType=date, page=${param.page})}'|">작성 일자</a></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="board : ${boards}" th:onclick="|location.href='@{/board/read(boardIdx=${board.boardIdx}, category=${category})}'|">
+        <tr th:each="board : ${boards}" th:onclick="|location.href='@{/board/read(boardIdx=${board.boardIdx}, category=${category}, page=${param.page})}'|">
             <td th:text="${board.boardIdx}"></td>
             <td th:text="${board.title}"></td>
             <td th:text="${board.author}"></td>

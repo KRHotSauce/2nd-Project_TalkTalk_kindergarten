@@ -57,7 +57,7 @@
         <!-- 저장 및 취소 버튼 -->
         <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">저장</button>
-            <a th:href="@{/board/main(category=${category})}" class="btn btn-secondary">취소</a>
+            <a th:href="@{/board/main(category=${param.category}, page=${param.page})}" class="btn btn-secondary">취소</a>
         </div>
     </form>
 </div>

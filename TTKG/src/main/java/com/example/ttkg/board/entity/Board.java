@@ -1,5 +1,6 @@
 package com.example.ttkg.board.entity;
 
+import com.example.ttkg.user.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,6 +19,8 @@ public class Board extends BaseEntity{
 
     @Enumerated(EnumType.STRING)
     private BoardCategory category;
+
+    /*private UserEntity user;*/
 
     @Column(name = "title")
     private String title;

@@ -10,6 +10,7 @@ import com.example.ttkg.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,8 +48,6 @@ public class boardController {
         if (sortType != null) {
             if (sortType.equals("date")) {
                 pageRequest = PageRequest.of(page - 1, 10, Sort.by("createdAt").descending());
-            } else if (sortType.equals("comment")) {
-                pageRequest = PageRequest.of(page - 1, 10, Sort.by("commentCnt").descending());
             }
         }
 
@@ -78,7 +77,8 @@ public class boardController {
 
     @PostMapping("/write_pro")
     public String writeProPage(@ModelAttribute BoardCreateRequest req, Model model, Board board,
-                               @RequestParam(value = "category", defaultValue = "FREE")String category) throws IOException {
+                               @RequestParam(value = "category", defaultValue = "FREE")String category,
+                               Authentication auth) throws IOException {
         BoardCategory boardCategory = BoardCategory.of(category);
 
         if (boardCategory == null) {
@@ -87,7 +87,9 @@ public class boardController {
             return "printMessage";
         }
 
-        Long savedBoardId = boardService.writeBoard(req, boardCategory);
+        System.out.println(auth.getName());
+
+        Long savedBoardId = boardService.writeBoard(req, boardCategory/*, Long.parseLong(auth.getName()), auth*/);
         return "redirect:board/read?boardIdx=" + savedBoardId;
     }
 

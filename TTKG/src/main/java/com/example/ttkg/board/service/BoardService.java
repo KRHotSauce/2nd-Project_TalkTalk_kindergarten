@@ -5,10 +5,14 @@ import com.example.ttkg.board.Dto.BoardDto;
 import com.example.ttkg.board.entity.Board;
 import com.example.ttkg.board.entity.BoardCategory;
 import com.example.ttkg.board.repository.BoardRepository;
+import com.example.ttkg.user.model.UserEntity;
+import com.example.ttkg.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -19,10 +23,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+    private final UserRepository userRepository;
 
     public void write(Board board){
         boardRepository.save(board);
@@ -45,8 +51,10 @@ public class BoardService {
     }
 
     @Transactional
-    public Long writeBoard(BoardCreateRequest req, BoardCategory category) throws IOException {
-        Board savedBoard = boardRepository.save(req.toEntity(category));
+    public Long writeBoard(BoardCreateRequest req, BoardCategory category/*, Long loginId, Authentication auth*/) throws IOException {
+        /*UserEntity loginUser = userRepository.findByUserId(loginId);*/
+
+        Board savedBoard = boardRepository.save(req.toEntity(category/*, loginUser*/));
 
         return savedBoard.getBoardIdx();
     }
@@ -58,6 +66,9 @@ public class BoardService {
             } else {
                 return boardRepository.findAllByCategoryAndUserNickname(category, keyword, pageRequest);
             }*/
+        }
+        if(category == BoardCategory.of("ALL")){
+            return boardRepository.findAll(pageRequest);
         }
         return boardRepository.findAllByCategory(category, pageRequest);
     }
