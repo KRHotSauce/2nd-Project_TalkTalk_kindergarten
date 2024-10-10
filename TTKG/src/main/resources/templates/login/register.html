@@ -119,8 +119,6 @@
         <span id="userNicknameError" class="error-message"></span> <br> <!-- 오류 메시지 표시 -->
         <span id="checkUserNicknameError" class="error-message"></span>
         <!-- 프로필 이미지 업로드 -->
-        <label for="profileImg">프로필 이미지</label>
-        <input type="file" th:field="*{profileImg}" id="profileImg" name="profileImg" accept="image/*">
 
         <!-- 사용자 유형 T=선생님 P=학부모 (hidden field) -->
         <input type="hidden" th:field="*{userKind}" id="userKind" name="userKind" th:value="${userDTO.userKind}">

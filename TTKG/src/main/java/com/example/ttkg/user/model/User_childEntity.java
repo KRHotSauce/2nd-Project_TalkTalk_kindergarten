@@ -8,20 +8,20 @@ import java.io.Serializable;
 @Setter
 @Getter
 @Entity
-@Table(name="user_child")
+@Table(name="User_child")
 public class User_childEntity {
 
     @EmbeddedId
-    private User_Child_Id user_child_id;
+    private User_Child_Idx user_child_idx;
 
     @ManyToOne
-    @MapsId("user_id")
-    @JoinColumn(name="user_id")
+    @MapsId("user_idx")
+    @JoinColumn(name="user_idx")
     private UserEntity user;
 
     @ManyToOne
-    @MapsId("child_id")
-    @JoinColumn(name="child_id")
+    @MapsId("child_idx")
+    @JoinColumn(name="child_idx")
     private ChildEntity child;
 
     @Column(name="kindercode")

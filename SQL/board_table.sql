@@ -25,3 +25,23 @@ ALTER TABLE boards ADD CONSTRAINT PK_BOARDS PRIMARY KEY (
 ALTER TABLE comments ADD CONSTRAINT PK_COMMENTS PRIMARY KEY (
    comment_idx
 );
+ALTER TABLE boards ADD CONSTRAINT FK_User_TO_content_1 FOREIGN KEY (
+   user_idx
+)
+REFERENCES Users (
+   user_idx
+) ON DELETE CASCADE;
+
+ALTER TABLE comments ADD CONSTRAINT FK_User_TO_comments FOREIGN KEY (
+   user_idx
+)
+REFERENCES Users (
+   user_idx
+) ON DELETE CASCADE;
+
+ALTER TABLE comments ADD CONSTRAINT FK_Board_TO_comments FOREIGN KEY (
+   board_idx
+)
+REFERENCES boards (
+   board_idx
+) ON DELETE CASCADE;

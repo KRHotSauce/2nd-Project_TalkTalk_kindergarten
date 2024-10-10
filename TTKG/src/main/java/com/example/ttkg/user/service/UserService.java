@@ -36,15 +36,13 @@ public class UserService {
     //dto를 받아 entity로 변환
     public UserEntity convertToEntityFromDTO(UserDTO userDTO) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setUserId(userDTO.getUserId());
+        userEntity.setUserIdx(userDTO.getUserIdx());
         userEntity.setLoginId(userDTO.getLoginId());
         userEntity.setPassword(userDTO.getPassword());
         userEntity.setUserEmail(userDTO.getUserEmail());
         userEntity.setUserNickname(userDTO.getUserNickname());
         userEntity.setUserName(userDTO.getUserName());
-        userEntity.setUserKind(userDTO.getUserKind());
-        userEntity.setProfileImg(userDTO.getProfileImg());
-        userEntity.setVerified(userDTO.isVerified());
+        userEntity.setUserKind(userDTO.getUserKind()==1);
         userEntity.setResiDate(userDTO.getResiDate());
         return userEntity;
     }
@@ -52,15 +50,13 @@ public class UserService {
     public UserDTO convertToDTOFromEntity(UserEntity userEntity) {
         UserDTO userDTO = new UserDTO();
         String encryptedPassword=passwordEncoder.encode(userEntity.getPassword());
-        userDTO.setUserId(userEntity.getUserId());
+        userDTO.setUserIdx(userEntity.getUserIdx());
         userDTO.setLoginId(userEntity.getLoginId());
         userDTO.setPassword(encryptedPassword);
         userDTO.setUserEmail(userEntity.getUserEmail());
         userDTO.setUserNickname(userEntity.getUserNickname());
         userDTO.setUserName(userEntity.getUserName());
-        userDTO.setUserKind(userEntity.getUserKind());
-        userDTO.setProfileImg(userEntity.getProfileImg());
-        userDTO.setVerified(userEntity.getVerified());
+        userDTO.setUserKind(userEntity.isUserKind() ? 1 : 0);
         userDTO.setResiDate(userEntity.getResiDate());
         return userDTO;
     }
@@ -85,11 +81,8 @@ public class UserService {
             userEntityRegister.setUserEmail(userDTO.getUserEmail());
             userEntityRegister.setUserNickname(userDTO.getUserNickname());
             userEntityRegister.setUserName(userDTO.getUserName());
-            userEntityRegister.setUserKind(userDTO.getUserKind());
-            userEntityRegister.setProfileImg(null);
-            userEntityRegister.setVerified(false);
+            userEntityRegister.setUserKind(userDTO.getUserKind()==1);
             userEntityRegister.setResiDate(LocalDateTime.now()); //등록날짜 저장
-            userEntityRegister.setAuthprovider(UserEntity.AuthProvider.LOCAL);
             userRepository.save(userEntityRegister);//DB에 회원가입 저장
         }
     }
@@ -104,14 +97,14 @@ public class UserService {
         }
         return false;
     }
-    /**같은 유저존재확인 userId로 구분*/
-    public boolean CheckPasswordByUserId(long userId, String password) {
-       return passwordEncoder.matches(password, userRepository.findByUserId(userId).getPassword());
+    /**같은 유저존재확인 UserIdx로 구분*/
+    public boolean CheckPasswordByUserIdx(long UserIdx, String password) {
+       return passwordEncoder.matches(password, userRepository.findByUserIdx(UserIdx).getPassword());
     }
 
-    /** userId받아서 유저 DTO 뱉는 메서드*/
-    public UserDTO getUserByUserId(long userId) {
-        UserEntity userEntity=userRepository.findByUserId(userId);
+    /** UserIdx받아서 유저 DTO 뱉는 메서드*/
+    public UserDTO getUserByUserIdx(long UserIdx) {
+        UserEntity userEntity=userRepository.findByUserIdx(UserIdx);
         return convertToDTOFromEntity(userEntity);
     }
 
@@ -119,14 +112,14 @@ public class UserService {
     public UserLoginDTO getUserLoginDTO(String loginId) {
         UserEntity userEntity = userRepository.findByLoginId(loginId).orElseThrow();
         UserLoginDTO userLoginDTO = new UserLoginDTO();
-        userLoginDTO.setUserId(userEntity.getUserId());
+        userLoginDTO.setUserIdx(userEntity.getUserIdx());
         userLoginDTO.setUserNickname(userEntity.getUserNickname());
         return userLoginDTO;
     }
 
     /*유저 정보 업데이트 서비스*/
     public void updateUser(UserDTO userDTO) {
-        if (userRepository.existsByUserId(userDTO.getUserId())) {
+        if (userRepository.existsByUserIdx(userDTO.getUserIdx())) {
             System.out.println("서비스 실행됨");
             userRepository.save(convertToEntityFromDTO(userDTO));
         }

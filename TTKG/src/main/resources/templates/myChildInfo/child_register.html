@@ -67,9 +67,9 @@
 
 <form th:action="child_register_pro" method="post" th:object="${childDTO}" novalidate>
     <label for="name">자녀 이름</label>
-    <input type="text" id="name" name="name" th:field="*{name}" placeholder="자녀의 이름을 입력하세요.">
+    <input type="text" id="name" name="name" th:field="*{child_name}" placeholder="자녀의 이름을 입력하세요.">
     <label for="age">생년월일</label>
-    <input type="date" id="age" name="age" th:field="*{age}" placeholder="자녀의 이름을 입력하세요.">
+    <input type="date" id="age" name="age" th:field="*{child_birth}" placeholder="자녀의 이름을 입력하세요.">
 
     <button type="submit">등록</button>
     <button type="button" th:onclick="|location.href='@{/childInfoMain}'|">취소</button>

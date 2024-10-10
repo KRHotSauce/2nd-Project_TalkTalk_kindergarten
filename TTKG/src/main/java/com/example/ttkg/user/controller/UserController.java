@@ -41,7 +41,7 @@ public class UserController {
 
 //        model.addAttribute("email",email);
         UserDTO userDTO = new UserDTO();
-        userDTO.setUserKind(userKind); //이전 뷰에서 유저 종류 받아옴
+        userDTO.setUserKind(Integer.parseInt(userKind)); //이전 뷰에서 유저 종류 받아옴
         model.addAttribute("userDTO", userDTO);
         return "login/register";
     }
@@ -99,8 +99,8 @@ public class UserController {
     public String editProfileConfirmPassword_pro(@Valid @SessionAttribute("userLoginDTO")UserLoginDTO userLoginDTO,
                                                  @RequestParam("password")String password,
                                                  Model model) {
-        if(userService.CheckPasswordByUserId(userLoginDTO.getUserId(), password)){
-            UserDTO userDTO=userService.getUserByUserId(userLoginDTO.getUserId());
+        if(userService.CheckPasswordByUserIdx(userLoginDTO.getUserIdx(), password)){
+            UserDTO userDTO=userService.getUserByUserIdx(userLoginDTO.getUserIdx());
             model.addAttribute("userDTO",userDTO);
             return "login/editProfile";
         }
@@ -119,7 +119,7 @@ public class UserController {
         }
         else {
             UserLoginDTO userLoginDTO=(UserLoginDTO)session.getAttribute("userLoginDTO");
-            userLoginDTO.setUserId(userDTO.getUserId());
+            userLoginDTO.setUserIdx(userDTO.getUserIdx());
             userLoginDTO.setUserNickname(userDTO.getUserNickname());
             session.setAttribute("userLoginDTO", userLoginDTO); //수정된 데이터 세션에 다시 넣어줌
             return "login/updateProfileSuccess";
