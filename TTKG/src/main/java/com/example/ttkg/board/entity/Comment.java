@@ -22,8 +22,8 @@ public class Comment extends BaseEntity{
     @Column(name = "body")
     private String body;
 
-    @Column(name = "user_idx")
-    private Long userIdx;
+    @Column(name = "user_id")
+    private Long userId;
 
     @ManyToOne
     @JoinColumn(name = "board_idx", referencedColumnName = "boardIdx")

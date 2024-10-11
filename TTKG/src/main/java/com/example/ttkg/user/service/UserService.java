@@ -106,7 +106,7 @@ public class UserService {
     }
     /**같은 유저존재확인 userId로 구분*/
     public boolean CheckPasswordByUserId(long userId, String password) {
-       return passwordEncoder.matches(password, userRepository.findByUserId(userId).getPassword());
+        return passwordEncoder.matches(password, userRepository.findByUserId(userId).getPassword());
     }
 
     /** userId받아서 유저 DTO 뱉는 메서드*/

@@ -20,7 +20,7 @@ public class BoardDto {
     private String image;
     private Long viewCount;
     private String body;
-    private Long userIdx;
+    private Long userId;
 
     public static BoardDto of(Board board, String formattedCreatedAt){
         return BoardDto.builder()
@@ -33,7 +33,7 @@ public class BoardDto {
                 .image(board.getImage())
                 .viewCount(board.getViewCount())
                 .body(board.getBody())
-                .userIdx(board.getUserIdx())
+                .userId(board.getUserId())
                 .build();
     }
 

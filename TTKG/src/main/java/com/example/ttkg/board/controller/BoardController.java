@@ -1,12 +1,17 @@
 package com.example.ttkg.board.controller;
 
 import com.example.ttkg.board.Dto.BoardCreateRequest;
-import com.example.ttkg.board.Dto.BoardDto;
 import com.example.ttkg.board.Dto.BoardSearchRequest;
 import com.example.ttkg.board.entity.Board;
 import com.example.ttkg.board.entity.BoardCategory;
+import com.example.ttkg.board.repository.CommentRepository;
 import com.example.ttkg.board.service.BoardService;
+import com.example.ttkg.board.service.CommentService;
+import com.example.ttkg.user.DTO.UserLoginDTO;
+import com.example.ttkg.user.repository.UserRepository;
 import com.example.ttkg.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -19,16 +24,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
-import java.util.List;
 
 
 @Controller
-public class boardController {
+@RequiredArgsConstructor
+public class BoardController {
 
     private UserService userService;
 
     @Autowired
     private BoardService boardService;
+    private final UserRepository userRepository;
+    private final CommentService commentService;
 
     @GetMapping("/board/main")
     public String getAllContents(Model model,
@@ -59,7 +66,8 @@ public class boardController {
 
 
     @GetMapping("/board/write")
-    public String toWritePage(Model model, @RequestParam(value = "category", defaultValue = "FREE")String category) {
+    public String toWritePage(Model model, @RequestParam(value = "category", defaultValue = "FREE")String category,
+                              HttpSession session) {
         BoardCategory boardCategory = BoardCategory.of(category);
         if (boardCategory == null) {
             model.addAttribute("message", "카테고리가 존재하지 않습니다.");
@@ -69,6 +77,8 @@ public class boardController {
 
         /*model.addAttribute("message", savedBoardId + "번 글이 등록되었습니다.");
         model.addAttribute("nextUrl", "/boards/" + category + "/" + savedBoardId);*/
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
+        model.addAttribute("author", userRepository.findByUserId(userLoginDTO.getUserId()).getUserName());
         model.addAttribute("category", category);
         model.addAttribute("boardCreateRequest", new BoardCreateRequest());
 
@@ -78,18 +88,16 @@ public class boardController {
     @PostMapping("/write_pro")
     public String writeProPage(@ModelAttribute BoardCreateRequest req, Model model, Board board,
                                @RequestParam(value = "category", defaultValue = "FREE")String category,
-                               Authentication auth) throws IOException {
+                               HttpSession session) throws IOException {
         BoardCategory boardCategory = BoardCategory.of(category);
-
         if (boardCategory == null) {
             model.addAttribute("message", "카테고리가 존재하지 않습니다.");
             model.addAttribute("nextUrl", "/");
             return "printMessage";
         }
 
-        System.out.println(auth.getName());
-
-        Long savedBoardId = boardService.writeBoard(req, boardCategory/*, Long.parseLong(auth.getName()), auth*/);
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
+        Long savedBoardId = boardService.writeBoard(req, boardCategory, userLoginDTO.getUserId());
         return "redirect:board/read?boardIdx=" + savedBoardId;
     }
 
@@ -100,7 +108,10 @@ public class boardController {
     }
 
     @GetMapping("/board/read")
-    public String toReadPage(Model model, @RequestParam(value = "boardIdx") Long boardIdx) {
+    public String toReadPage(Model model, @RequestParam(value = "boardIdx") Long boardIdx, HttpSession session) {
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
+        model.addAttribute("comments", commentService.findAll(boardIdx));
+        model.addAttribute("user", userRepository.findByUserId(userLoginDTO.getUserId()));
         model.addAttribute("content", boardService.boardRead(boardIdx));
         return "board/read";
     }

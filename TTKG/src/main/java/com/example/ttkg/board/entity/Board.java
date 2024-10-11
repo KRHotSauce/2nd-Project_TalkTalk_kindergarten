@@ -37,8 +37,8 @@ public class Board extends BaseEntity{
     @Column(name = "view_count")
     private Long viewCount;
 
-    @Column(name = "user_idx")
-    private Long userIdx;
+    @Column(name = "user_id")
+    private Long userId;
 
     /*public void update(BoardDto dto){
         this.title = dto.getTitle();

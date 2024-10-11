@@ -11,16 +11,15 @@ public class BoardCreateRequest {
 
     private String title;
     private String body;
-    private String author;
     private MultipartFile uploadImage;
 
-    public Board toEntity(BoardCategory category/*, UserEntity user*/) {
+    public Board toEntity(BoardCategory category, UserEntity user) {
         return Board.builder()
-                .userIdx(1L)
+                .userId(user.getUserId())
                 .category(category)
                 .title(title)
                 .body(body)
-                .author(author)
+                .author(user.getUserName())
                 .viewCount(0L)
                 .build();
     }

@@ -39,7 +39,7 @@
         <!-- 작성자 -->
         <div class="mb-3">
             <label for="author" class="form-label">작성자</label>
-            <input type="text" class="form-control" id="author" name="author" placeholder="작성자를 입력하세요">
+            <input type="text" class="form-control" id="author" name="author" th:value="${author}" readonly>
         </div>
 
         <!-- 작성일자 (자동 입력 가능, 수정 시)

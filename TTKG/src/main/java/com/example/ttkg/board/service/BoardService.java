@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -28,6 +27,7 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+
     private final UserRepository userRepository;
 
     public void write(Board board){
@@ -51,10 +51,10 @@ public class BoardService {
     }
 
     @Transactional
-    public Long writeBoard(BoardCreateRequest req, BoardCategory category/*, Long loginId, Authentication auth*/) throws IOException {
+    public Long writeBoard(BoardCreateRequest req, BoardCategory category, Long userIdx) throws IOException {
         /*UserEntity loginUser = userRepository.findByUserId(loginId);*/
-
-        Board savedBoard = boardRepository.save(req.toEntity(category/*, loginUser*/));
+        UserEntity user = userRepository.findByUserId(userIdx);
+        Board savedBoard = boardRepository.save(req.toEntity(category, user));
 
         return savedBoard.getBoardIdx();
     }
@@ -88,4 +88,5 @@ public class BoardService {
 
         return BoardDto.of(board, board.getCreatedAt().format(dateFormatter));
     }
+
 }
