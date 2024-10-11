@@ -38,7 +38,7 @@ public class ChildController {
     @PostMapping("/child_register_pro")
     public String child_register_pro(ChildDTO childDTO, HttpSession session) {
         UserLoginDTO userLoginDTO=(UserLoginDTO)session.getAttribute("userLoginDTO");
-        childService.RegisterChild(childDTO, userLoginDTO.getUserId());
+        childService.RegisterChild(childDTO, userLoginDTO.getUserIdx());
         return "myChildInfo/child_register_success";
     }
 }

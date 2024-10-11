@@ -33,7 +33,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if(user==null) {
             UserEntity newUser=new UserEntity();
             newUser.setUserEmail(email);
-            newUser.setAuthprovider(UserEntity.AuthProvider.GOOGLE);
             userRepository.save(newUser);
 
         }

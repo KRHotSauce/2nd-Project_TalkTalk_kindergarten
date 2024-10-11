@@ -28,8 +28,8 @@ public  class UserEntity {
             strategy = GenerationType.SEQUENCE, // SEQUENCE 전략 사용
             generator = "USER_SEQ_GENERATOR"    // 생성기 이름
     )
-    @Column(name = "user_id", updatable = false, nullable = false)
-    private Long userId;
+    @Column(name = "user_idx", updatable = false, nullable = false)
+    private Long userIdx;
 
     @Column(name = "login_id", nullable = true, length = 255)
     private String loginId;
@@ -41,7 +41,7 @@ public  class UserEntity {
     private String userEmail;
 
     @Column(name = "user_kind", nullable = true, length = 1)
-    private String userKind;
+    private boolean userKind;
 
     @Column(name = "user_name", nullable = true, length = 255)
     private String userName;
@@ -52,24 +52,20 @@ public  class UserEntity {
     @Column(name = "resi_date", nullable = true)
     private LocalDateTime resiDate;
 
-    @Column(name = "profile_img", length = 255)
-    private String profileImg;
-
-    @Convert(converter=VerifiedConverter.class)
-    @Column(name = "verified", nullable = true)
-    private Boolean verified;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name="authprovider", nullable = false)
-    private AuthProvider authprovider;
+    @Column(name="kinderCode", nullable = true, length = 255)
+    private String kinderCode;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private Set<User_childEntity> user_childEntities=new HashSet<>();
 
-    public enum AuthProvider{
-        LOCAL,
-        GOOGLE
-    }
+//    @Enumerated(EnumType.STRING)
+//    @Column(name="authprovider", nullable = false)
+//    private AuthProvider authprovider;
+//
+//    public enum AuthProvider{
+//        LOCAL,
+//        GOOGLE
+//    }
 
 }
 
