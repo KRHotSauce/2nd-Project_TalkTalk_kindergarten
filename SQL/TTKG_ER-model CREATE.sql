@@ -1,5 +1,5 @@
 -- 기존 테이블 삭제
-drop table user cascade constraints;
+drop table "User" cascade constraints;
 DROP TABLE Users CASCADE CONSTRAINTS;
 DROP TABLE class_teacher CASCADE CONSTRAINTS;
 DROP TABLE kinderDetail CASCADE CONSTRAINTS;
@@ -14,6 +14,7 @@ DROP TABLE meal_plan CASCADE CONSTRAINTS;
 DROP TABLE kinder_introduction CASCADE CONSTRAINTS;
 DROP TABLE kinder CASCADE CONSTRAINTS;
 
+ALTER TABLE Users DROP COLUMN kinder_code;
 
 -- 테이블 생성
 CREATE TABLE Users (

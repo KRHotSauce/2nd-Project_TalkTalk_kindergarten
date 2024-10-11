@@ -1,5 +1,6 @@
 package com.example.ttkg.user.model;
 
+import com.example.ttkg.kinder.model.KinderEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,15 +18,16 @@ public class User_childEntity {
     @ManyToOne
     @MapsId("user_idx")
     @JoinColumn(name="user_idx")
-    private UserEntity user;
+    private UserEntity users;
 
     @ManyToOne
     @MapsId("child_idx")
     @JoinColumn(name="child_idx")
     private ChildEntity child;
 
-    @Column(name="kindercode")
-    private String kinderCode;
+    @ManyToOne
+    @JoinColumn(name="kinderCode",referencedColumnName = "kinderCode")
+    KinderEntity kinderCode;
 
     public User_childEntity(){
         this.kinderCode=null;

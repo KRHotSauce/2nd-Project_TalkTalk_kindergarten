@@ -41,7 +41,7 @@ public class ChildService {
         if(!user_childRepository.existsById(userChildIdx)){
             User_childEntity user_childEntity=new User_childEntity();
             user_childEntity.setUser_child_idx(userChildIdx);
-            user_childEntity.setUser(userRepository.findByUserIdx(user_idx));
+            user_childEntity.setUsers(userRepository.findByUserIdx(user_idx));
             user_childEntity.setChild(saveChildEntity);
             user_childRepository.save(user_childEntity);
         }
