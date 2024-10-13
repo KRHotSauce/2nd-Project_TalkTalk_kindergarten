@@ -27,9 +27,8 @@ public class MealPlanEntity {
             )
     long mealIdx;
 
-    @ManyToOne
-    @JoinColumn(name="kinderCode",referencedColumnName = "kinderCode")
-    KinderEntity kinderCode;
+    @Column(name="kindercode")
+    String kinderCode;
 
     @Column(name="kind")
     int kind;

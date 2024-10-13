@@ -1,11 +1,10 @@
 package com.example.ttkg.kinder.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Table(name="kinder")
@@ -16,11 +15,12 @@ public class KinderEntity {
         @Column(name="kindercode")
         private String kinderCode;  // 기본 키
         @Column(name="kindername")
-        private String kindername;
+        private String kinderName;
         @Column(name="addr")
         private String addr;
         @Column(name="establish")
         private int establish;
+
 
     }
 

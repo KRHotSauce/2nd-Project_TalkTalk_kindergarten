@@ -38,7 +38,9 @@ public class MealPlanRestController {
             @PathVariable String kinderCode,
             @RequestParam(value = "startDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME) LocalDate start,
             @RequestParam(value = "endDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME) LocalDate end) {
-        System.out.println("컨트롤러 실행중");
+        System.out.println("컨트롤러 실행중 kinderCode : "+kinderCode);
+        System.out.println("날짜 정보 : "+start);
+
         return mealPlanService.getMealPlanMonthly(kinderCode,start,end);
     }
 

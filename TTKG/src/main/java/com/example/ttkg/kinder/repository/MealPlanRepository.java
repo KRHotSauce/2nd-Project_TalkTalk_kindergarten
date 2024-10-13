@@ -10,5 +10,6 @@ import java.util.List;
 
 @Repository
 public interface MealPlanRepository extends JpaRepository<MealPlanEntity, Long> {
-    List<MealPlanEntity> findByKinderCodeAndMealDateBetween(KinderEntity kinderEntity, LocalDate start, LocalDate end);
+    List<MealPlanEntity> findAllByKinderCodeAndMealDateBetween(String kinderCode, LocalDate start, LocalDate end);
+    List<MealPlanEntity> findAllByMealDateBetween(LocalDate start, LocalDate end);
 }

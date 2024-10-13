@@ -1,10 +1,20 @@
 package com.example.ttkg.kinder.controller;
 
+import com.example.ttkg.kinder.model.KinderEntity;
+import com.example.ttkg.kinder.service.KinderService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Optional;
+
 @Controller
 public class KinderController {
+
+    KinderService kinderService;
+
+    public KinderController(KinderService kinderService) {
+        this.kinderService = kinderService;
+    }
 
     @GetMapping("kinderPage")
     public String KinderPage() {
@@ -13,6 +23,8 @@ public class KinderController {
 
     @GetMapping("kinderMeal")
     public String KinderMeal() {
+
+        System.out.println("유치원 이름 : "+kinderService.findByKinderCode("K001").getKinderName());
         return "kinderPage/kinderMeal/kinderMeal";
     }
 
