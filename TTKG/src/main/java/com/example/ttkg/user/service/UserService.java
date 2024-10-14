@@ -4,7 +4,6 @@ import com.example.ttkg.user.DTO.UserDTO;
 import com.example.ttkg.user.DTO.UserLoginDTO;
 import com.example.ttkg.user.model.UserEntity;
 import com.example.ttkg.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,17 +15,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
-
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
 
-    @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JavaMailSender mailSender) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -103,9 +99,13 @@ public class UserService {
     }
 
     /** UserIdx받아서 유저 DTO 뱉는 메서드*/
-    public UserDTO getUserByUserIdx(long UserIdx) {
+    public UserDTO getUserDTOByUserIdx(long UserIdx) {
         UserEntity userEntity=userRepository.findByUserIdx(UserIdx);
         return convertToDTOFromEntity(userEntity);
+    }
+
+    public UserEntity getUserEntityByUserIdx(long UserIdx) {
+        return userRepository.findByUserIdx(UserIdx);
     }
 
     /** 로그인시 로그인 아이디로 세션에 저장할 유저 로그인 DTO 뱉는 서비스*/

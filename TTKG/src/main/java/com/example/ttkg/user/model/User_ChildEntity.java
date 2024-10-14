@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
 @Setter
 @Getter
 @Entity
 @Table(name="User_child")
-public class User_childEntity {
+public class User_ChildEntity {
 
     @EmbeddedId
     private User_Child_Idx user_child_idx;
@@ -29,7 +28,7 @@ public class User_childEntity {
     @JoinColumn(name="kinderCode",referencedColumnName = "kinderCode")
     KinderEntity kinderCode;
 
-    public User_childEntity(){
+    public User_ChildEntity(){
         this.kinderCode=null;
     }
 

@@ -6,9 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.security.AuthProvider;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,7 +56,7 @@ public  class UserEntity {
     KinderEntity kinderCode;
 
     @OneToMany(mappedBy = "users",cascade = CascadeType.REMOVE)
-    private Set<User_childEntity> user_childEntities=new HashSet<>();
+    private Set<User_ChildEntity> user_childEntities=new HashSet<>();
 
 //    @Enumerated(EnumType.STRING)
 //    @Column(name="authprovider", nullable = false)

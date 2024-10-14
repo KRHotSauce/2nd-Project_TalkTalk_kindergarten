@@ -4,7 +4,6 @@ import com.example.ttkg.user.DTO.UserDTO;
 import com.example.ttkg.user.DTO.UserLoginDTO;
 import com.example.ttkg.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration;
@@ -100,7 +99,7 @@ public class UserController {
                                                  @RequestParam("password")String password,
                                                  Model model) {
         if(userService.CheckPasswordByUserIdx(userLoginDTO.getUserIdx(), password)){
-            UserDTO userDTO=userService.getUserByUserIdx(userLoginDTO.getUserIdx());
+            UserDTO userDTO=userService.getUserDTOByUserIdx(userLoginDTO.getUserIdx());
             model.addAttribute("userDTO",userDTO);
             return "login/editProfile";
         }
@@ -109,7 +108,7 @@ public class UserController {
     }
 
     /**회원정보 수정 프로세스 컨트롤러*/
-    @PutMapping("editProfile_pro")
+    @PatchMapping("editProfile_pro")
     public String editProfile_pro(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model
     ,HttpSession session) {
         if (result.hasErrors()) {

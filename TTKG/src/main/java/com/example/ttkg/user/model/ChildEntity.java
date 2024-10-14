@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,15 +25,18 @@ public class ChildEntity {
             generator = "CHILD_SEQ_GENERATOR"
     )
     @Column(name = "child_idx")
-    private long child_idx;
+    private long childIdx;
 
     @Column(name = "child_name", nullable = true, length = 255)
-    private String child_name;
+    private String childName;
 
     @Column(name = "child_birth", nullable = true)
-    private LocalDate child_birth;
+    private LocalDate childBirth;
+
+    @Column(name="kindercode",nullable = true)
+    private String kinderCode;
 
 
     @OneToMany(mappedBy = "child",cascade = CascadeType.REMOVE)
-    private Set<User_childEntity> user_childEntities=new HashSet<>();
+    private Set<User_ChildEntity> user_childEntities=new HashSet<>();
 }

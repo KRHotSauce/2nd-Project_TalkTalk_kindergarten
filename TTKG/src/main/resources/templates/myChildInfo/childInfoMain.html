@@ -12,6 +12,14 @@
 
 <div class="container mt-4">
     <div class="main-content-style">
+        <div th:if="${existChildFlag}">
+            <div th:each="child : ${childList}">
+               아이 이름 : <span th:text="${child.childName}"></span>
+               아이 생일 : <span th:text="${child.childBirth}"></span>
+                아이유치원 : <span th:if="${child.kinderCode!=null}" th:text="${child.kinderCode}"></span>
+            </div>
+        </div>
+
         <div>
             <a th:href="@{child_register}">자녀 등록</a>
         </div>
