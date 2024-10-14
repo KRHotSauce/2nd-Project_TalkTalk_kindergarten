@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meal Plan Calendar</title>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+<div id='calendar'></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var kinderCode = "K001"; // 특정 유치원의 코드를 지정합니다.
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: function(fetchInfo, successCallback, failureCallback) {
+                var startDate = fetchInfo.startStr.split('T')[0]; // YYYY-MM-DD 형식으로 변환
+                var endDate = fetchInfo.endStr.split('T')[0]; // YYYY-MM-DD 형식으로 변환
+
+                $.ajax({
+                    url: '/talktalkkinder/lesson_plan/kinder/' + kinderCode,
+                    type: 'GET',
+                    data: {
+                        startDate: startDate,
+                        endDate: endDate
+                    },
+                    success: function(response) {
+                        var events = response.map(function(plan) {
+                            return {
+                                title: plan.body,
+                                start: plan.lessonDate,
+                                allDay: true
+                            };
+                        });
+                        successCallback(events);
+                    },
+                    error: function() {
+                        alert('Failed to load events');
+                    }
+                });
+            }
+        });
+        calendar.render();
+    });
+</script>
+</body>
+</html>

@@ -28,13 +28,39 @@ VALUES (MEAL_PLAN_SEQ.nextval, 'K002', 2, '잡채와 밥', '국내산', TO_DATE(
 INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
 VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '피자와 스프', '국내산', TO_DATE('2024-11-05', 'YYYY-MM-DD'));
 
-INSERT INTO users (
-    USER_IDX, LOGIN_ID, PASSWORD, USER_EMAIL, USER_KIND, USER_NAME, 
-    USER_NICKNAME, RESI_DATE, KINDERCODE
-) VALUES (
-    USER_SEQ.nextval, 'dummy1234', 'test1234!', 'john.doe@example.com', 1, 
-    'John Doe', 'Johnny', TO_DATE('2023-10-14', 'YYYY-MM-DD'), 'K001'
-);
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-10-22', 'YYYY-MM-DD'), 'Lesson Plan 1 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K001', TO_DATE('2024-11-06', 'YYYY-MM-DD'), 'Lesson Plan 2 for K001');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-11-19', 'YYYY-MM-DD'), 'Lesson Plan 3 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-11-15', 'YYYY-MM-DD'), 'Lesson Plan 4 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-10-31', 'YYYY-MM-DD'), 'Lesson Plan 5 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K001', TO_DATE('2024-10-09', 'YYYY-MM-DD'), 'Lesson Plan 6 for K001');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-10-01', 'YYYY-MM-DD'), 'Lesson Plan 7 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-11-21', 'YYYY-MM-DD'), 'Lesson Plan 8 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-11-25', 'YYYY-MM-DD'), 'Lesson Plan 9 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K001', TO_DATE('2024-11-23', 'YYYY-MM-DD'), 'Lesson Plan 10 for K001');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-10-05', 'YYYY-MM-DD'), 'Lesson Plan 11 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-10-05', 'YYYY-MM-DD'), 'Lesson Plan 12 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-11-12', 'YYYY-MM-DD'), 'Lesson Plan 13 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K001', TO_DATE('2024-11-25', 'YYYY-MM-DD'), 'Lesson Plan 14 for K001');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-11-04', 'YYYY-MM-DD'), 'Lesson Plan 15 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K001', TO_DATE('2024-10-24', 'YYYY-MM-DD'), 'Lesson Plan 16 for K001');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-11-12', 'YYYY-MM-DD'), 'Lesson Plan 17 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K001', TO_DATE('2024-10-13', 'YYYY-MM-DD'), 'Lesson Plan 18 for K001');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K001', TO_DATE('2024-11-10', 'YYYY-MM-DD'), 'Lesson Plan 19 for K001');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-10-29', 'YYYY-MM-DD'), 'Lesson Plan 20 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-11-05', 'YYYY-MM-DD'), 'Lesson Plan 21 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-10-31', 'YYYY-MM-DD'), 'Lesson Plan 22 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-10-01', 'YYYY-MM-DD'), 'Lesson Plan 23 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-10-12', 'YYYY-MM-DD'), 'Lesson Plan 24 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-11-16', 'YYYY-MM-DD'), 'Lesson Plan 25 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-10-25', 'YYYY-MM-DD'), 'Lesson Plan 26 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K001', TO_DATE('2024-11-14', 'YYYY-MM-DD'), 'Lesson Plan 27 for K001');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-10-28', 'YYYY-MM-DD'), 'Lesson Plan 28 for K003');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K002', TO_DATE('2024-10-26', 'YYYY-MM-DD'), 'Lesson Plan 29 for K002');
+INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-10-08', 'YYYY-MM-DD'), 'Lesson Plan 30 for K003');
+
+
+
 
 
 SELECT * FROM NLS_DATABASE_PARAMETERS WHERE PARAMETER = 'NLS_CHARACTERSET';

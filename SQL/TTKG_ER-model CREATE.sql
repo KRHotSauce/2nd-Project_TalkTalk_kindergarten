@@ -185,3 +185,9 @@ ALTER TABLE kinder_community ADD CONSTRAINT FK_User_TO_kinder_community FOREIGN 
 ALTER TABLE kinder_community ADD CONSTRAINT FK_kinder_TO_kinder_community FOREIGN KEY (kinderCode) REFERENCES kinder (kinderCode);
 ALTER TABLE class_teacher ADD CONSTRAINT FK_User_TO_class_teacher FOREIGN KEY (teacher_idx) REFERENCES Users (user_idx);
 ALTER TABLE class_teacher ADD CONSTRAINT FK_kinder_TO_class_teacher FOREIGN KEY (kinderCode) REFERENCES kinder (kinderCode);
+
+--이후 수정사항 (컬럼추가 제약조건 추가 등등)
+
+--child에 kindercode추가
+alter table child add kindercode varchar2(255);
+alter table child add constraint FK_kinder_TO_CHILD FOREIGN KEY (kindercode) references kinder (kindercode);
