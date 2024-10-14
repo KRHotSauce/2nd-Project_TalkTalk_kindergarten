@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 public class TtkgApplication {
 
     public static void main(String[] args) {
-        System.setProperty("server.servlet.context-path", "/talktalkkinder");
+        System.setProperty("server.servlet.context-path", "ttt/talktalkkinder");
         SpringApplication.run(TtkgApplication.class, args);
         System.out.println("실행중");
     }

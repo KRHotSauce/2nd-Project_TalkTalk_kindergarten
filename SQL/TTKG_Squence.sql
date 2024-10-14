@@ -7,8 +7,7 @@ drop sequence PAYMENT_SEQ;
 drop sequence USER_ID_SEQ;
 drop sequence USER_SEQ;
 
-
-
+select * from kinder;
 
 -- User 시퀀스 및 트리거
 CREATE SEQUENCE user_seq START WITH 1 INCREMENT BY 1;
