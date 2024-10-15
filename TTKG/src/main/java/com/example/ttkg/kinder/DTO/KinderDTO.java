@@ -12,5 +12,5 @@ public class KinderDTO {
     private String kinderCode;  // 기본 키
     private String kinderName;
     private String addr;
-    private int establish;
+    private String establish;
 }
