@@ -8,14 +8,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class BoardCreateRequest {
-
+    
+    // edit을 위한 속성
+    private Long boardIdx;
     private String title;
     private String body;
-    private MultipartFile uploadImage;
+    private BoardCategory category;
 
-    public Board toEntity(BoardCategory category, UserEntity user) {
+    public Board toEntity(UserEntity user) {
         return Board.builder()
-                .userId(user.getUserId())
+                .userIdx(user.getUserIdx())
                 .category(category)
                 .title(title)
                 .body(body)

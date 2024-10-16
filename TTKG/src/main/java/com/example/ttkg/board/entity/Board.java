@@ -1,5 +1,7 @@
 package com.example.ttkg.board.entity;
 
+import com.example.ttkg.board.Dto.BoardCreateRequest;
+import com.example.ttkg.board.Dto.BoardDto;
 import com.example.ttkg.user.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "boards")
+@Table(name = "tt_boards")
 public class Board extends BaseEntity{
 
     @Id
@@ -37,12 +39,17 @@ public class Board extends BaseEntity{
     @Column(name = "view_count")
     private Long viewCount;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "user_idx")
+    private Long userIdx;
 
     /*public void update(BoardDto dto){
         this.title = dto.getTitle();
         this.body = dto.getBody();
     }*/
+
+    public void update(BoardCreateRequest boardCreateRequest) {
+        this.title = boardCreateRequest.getTitle();
+        this.body = boardCreateRequest.getBody();
+    }
 
 }

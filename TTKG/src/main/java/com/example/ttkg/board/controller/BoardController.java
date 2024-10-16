@@ -1,6 +1,7 @@
 package com.example.ttkg.board.controller;
 
 import com.example.ttkg.board.Dto.BoardCreateRequest;
+import com.example.ttkg.board.Dto.BoardDto;
 import com.example.ttkg.board.Dto.BoardSearchRequest;
 import com.example.ttkg.board.entity.Board;
 import com.example.ttkg.board.entity.BoardCategory;
@@ -78,7 +79,7 @@ public class BoardController {
         /*model.addAttribute("message", savedBoardId + "번 글이 등록되었습니다.");
         model.addAttribute("nextUrl", "/boards/" + category + "/" + savedBoardId);*/
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
-        model.addAttribute("author", userRepository.findByUserId(userLoginDTO.getUserId()).getUserName());
+        model.addAttribute("author", userRepository.findByUserIdx(userLoginDTO.getUserIdx()).getUserName());
         model.addAttribute("category", category);
         model.addAttribute("boardCreateRequest", new BoardCreateRequest());
 
@@ -87,17 +88,17 @@ public class BoardController {
 
     @PostMapping("/write_pro")
     public String writeProPage(@ModelAttribute BoardCreateRequest req, Model model, Board board,
-                               @RequestParam(value = "category", defaultValue = "FREE")String category,
                                HttpSession session) throws IOException {
+        String category = "FREE";
         BoardCategory boardCategory = BoardCategory.of(category);
         if (boardCategory == null) {
             model.addAttribute("message", "카테고리가 존재하지 않습니다.");
             model.addAttribute("nextUrl", "/");
             return "printMessage";
         }
-
+        System.out.println(req.getCategory());
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
-        Long savedBoardId = boardService.writeBoard(req, boardCategory, userLoginDTO.getUserId());
+        Long savedBoardId = boardService.writeBoard(req, boardCategory, userLoginDTO.getUserIdx());
         return "redirect:board/read?boardIdx=" + savedBoardId;
     }
 
@@ -111,9 +112,22 @@ public class BoardController {
     public String toReadPage(Model model, @RequestParam(value = "boardIdx") Long boardIdx, HttpSession session) {
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
         model.addAttribute("comments", commentService.findAll(boardIdx));
-        model.addAttribute("user", userRepository.findByUserId(userLoginDTO.getUserId()));
+        model.addAttribute("user", userRepository.findByUserIdx(userLoginDTO.getUserIdx()));
         model.addAttribute("content", boardService.boardRead(boardIdx));
         return "board/read";
+    }
+
+    @GetMapping("/board/edit")
+    public String editBoard(@RequestParam(value = "boardIdx") Long boardIdx, Model model){
+        model.addAttribute("content", boardService.boardRead(boardIdx));
+        model.addAttribute("boardCreateRequest", new BoardCreateRequest());
+        return "board/edit";
+    }
+
+    @PostMapping("/edit_pro")
+    public String doEditBoard(@ModelAttribute BoardCreateRequest req, Model model){
+        boardService.boardEdit(req);
+        return "redirect:board/read?boardIdx=" + req.getBoardIdx();
     }
 
 

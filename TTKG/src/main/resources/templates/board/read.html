@@ -13,7 +13,7 @@
 <body>
 <div class="container mt-4">
     <h1 class="mb-4" th:text="${content.title}">게시글 제목</h1>
-    <p class="text-muted"th:text="'작성자: ' + ${content.author} + ' | 작성일: ' + ${content.formattedCreatedAt}">작성자: 홍길동 | 작성일: 2023-09-20</p>
+    <p class="text-muted"th:text="'작성자: ' + ${content.author} + ' | 작성일: ' + ${content.formattedAt}">작성자: 홍길동 | 작성일: 2023-09-20</p>
     <div class="card mb-4 custom-card">
         <div class="card-body" th:text="${content.body}">
             <!--<p>게시글 내용이 여기에 들어갑니다. 내용을 추가해 주세요.</p>
@@ -34,30 +34,38 @@
             <button class="none_content" type="button" onclick="commentSubmit()">등록</button>
         </div>
     </div>
-    <a th:href="@{/board/main(category=${param.category}, page=${param.page})}" class="btn btn-primary">목록으로 돌아가기</a>
+    <div>
+        <button type="button" th:if="${user.userIdx == content.userIdx}" th:onclick="|location.href='@{/board/edit(boardIdx=${content.boardIdx}, category=${param.category}, page=${param.page})}'|" th:text="수정"></button>
+        <!--삭제 function이랑 연결  confirm 으로 예 아니오 받아서 아니오면 그냥 냅두고 예 이면 ajax 통신으로 삭제 및 redirect 시키기-->
+        <button type="button" th:if="${user.userIdx == content.userIdx}"  id="delete_button" th:text="삭제"></button>
+        <button th:onclick="|location.href='@{/board/main(category=${param.category}, page=${param.page})}'|" th:text="목록"></button>
+    </div>
 </div>
 <script th:inline="javascript">
+    var input = document.getElementById("comment");
+    var userIdx = [[${user.userIdx}]];
+    var boardIdx = [[${param.boardIdx}]];
+
     $(document).ready(function() {
         // 페이지 로드 시 댓글을 불러옴
         loadComments();
     });
+    // 댓글 save 해주는 및  ajax함수
     function commentSubmit() {
-        var comment = document.getElementById("comment");
-        var userIdx = [[${user.userId}]];
-        var boardIdx = [[${param.boardIdx}]];
-
         $.ajax({
             type: "POST",
             url: `/talktalkkinder/board/comment/write`,
             data: JSON.stringify({
-                body: comment.value,
+                body: input.value,
                 userIdx: userIdx,
+                <!--배열로 가져와지는 문제가 생겨 [0]을 삽입-->
                 boardIdx: boardIdx[0]
             }),
             contentType: "application/json",
             success: function(response) {
                 console.log("commentSubmit 완료");
                 comment.value = '';
+                <!--저장 하나 새로 했으니 다시 불러오기-->
                 loadComments();
             },
             error: function(response) {
@@ -71,7 +79,7 @@
         var boardIdx = [[${param.boardIdx}]];
         $.ajax({
             type: "GET",
-            url: `/talktalkkinder/board/comment/read?boardIdx=` + boardIdx, // 실제 API 경로 수정 필요
+            url: `/talktalkkinder/board/comment/read?boardIdx=` + boardIdx,
             success: function(response) {
                 console.log("loadComments 완료");
                 renderComments(response);  // 서버로부터 받은 댓글 데이터를 화면에 렌더링
@@ -85,19 +93,19 @@
     // 댓글을 렌더링하는 함수
     function renderComments(comments) {
         const $commentsSection = $('#comments-section');
-        $commentsSection.empty(); // 기존 댓글을 모두 지움
+        $commentsSection.empty(); <!--기존 댓글을 모두 지움-->
 
-        // 댓글 데이터가 없을 경우 표시
+        <!--댓글 데이터가 없을 경우 표시-->
         if (comments.length === 0) {
             $commentsSection.append('<p>댓글이 없습니다. 첫 번째 댓글을 작성해보세요!</p>');
         } else {
-            // 댓글이 있을 경우 순회하면서 HTML 요소로 렌더링
+            <!--댓글이 있을 경우 순회하면서 HTML 요소로 렌더링-->
             comments.forEach(function(comment) {
                 const $commentElement = $(`
                     <div class="comment">
                         <div class="comment-header">
-                            <strong>작성자: ${comment.userId}</strong>
-                            <span>작성일: ${new Date(comment.createdAt).toLocaleString()}</span>
+                            <strong>작성자: ${comment.userName}</strong>
+                            <span>작성일: ${new Date(comment.formattedAt).toLocaleString()}</span>
                         </div>
                         <div class="comment-body">
                             ${comment.body}
@@ -105,18 +113,36 @@
                     </div>
                 `);
 
-                // 댓글을 comments-section에 추가
+                <!--댓글을 comments-section에 추가-->
                 $commentsSection.append($commentElement);
             });
             console.log("renderComments 완료");
         }
     }
-    var input = document.getElementById("comment");
+    <!--인풋 엔터 감지 추가-->
     input.addEventListener('keydown', function(event) {
         if (event.key === 'Enter') {
             commentSubmit();
         }
     });
+    function deleteBoard() {
+        if(!confirm("게시글을 삭제하시겠습니까?"))
+            return
+        $.ajax({
+            type: "POST",
+            url: `/talktalkkinder/board/delete`,
+            data: { boardIdx : boardIdx },
+            success: function(response) {
+                alert("게시글이 성공적으로 삭제되었습니다.")
+                location.href="/talktalkkinder/board/main";
+            },
+            error: function(error) {
+                console.error('Error during delete:', error);
+            }
+        });
+
+    }
+    document.getElementById("delete_button").addEventListener("click", deleteBoard);
 </script>
 <script th:inline="javascript">
 

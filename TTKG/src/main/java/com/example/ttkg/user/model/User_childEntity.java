@@ -24,7 +24,7 @@ public class User_childEntity {
     @JoinColumn(name="child_idx")
     private ChildEntity child;
 
-    @Column(name="kindercode")
+    @Column(name="kinderCode")
     private String kinderCode;
 
     public User_childEntity(){

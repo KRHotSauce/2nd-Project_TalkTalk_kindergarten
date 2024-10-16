@@ -11,19 +11,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Getter
-@Table(name = "comments")
+@Table(name = "tt_comments")
 public class Comment extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_idx_generator")
     @SequenceGenerator(name="comment_idx_generator", sequenceName = "comment_idx_seq", allocationSize = 1)
-    private long commentIdx;
+    private Long commentIdx;
 
     @Column(name = "body")
     private String body;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "user_idx")
+    private Long userIdx;
 
     @ManyToOne
     @JoinColumn(name = "board_idx", referencedColumnName = "boardIdx")

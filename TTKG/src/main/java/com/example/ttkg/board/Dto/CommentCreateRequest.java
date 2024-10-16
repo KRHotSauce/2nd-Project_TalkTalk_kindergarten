@@ -14,7 +14,7 @@ public class CommentCreateRequest {
 
     public Comment toEntity(Board board, UserEntity user) {
         return Comment.builder()
-                .userId(user.getUserId())
+                .userIdx(user.getUserIdx())
                 .boardIdx(board)
                 .body(body)
                 .build();
