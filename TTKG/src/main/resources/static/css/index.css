@@ -1,0 +1,26 @@
+html,
+body {
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 100%;
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: #fefefe;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
