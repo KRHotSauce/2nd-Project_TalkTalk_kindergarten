@@ -24,9 +24,14 @@ public class User_ChildEntity {
     @JoinColumn(name="child_idx")
     private ChildEntity child;
 
+<<<<<<< HEAD:TTKG/src/main/java/com/example/ttkg/user/model/User_ChildEntity.java
     @ManyToOne
     @JoinColumn(name="kinderCode",referencedColumnName = "kinderCode")
     KinderEntity kinderCode;
+=======
+    @Column(name="kinderCode")
+    private String kinderCode;
+>>>>>>> c883d78b2c57469af9d5d06daf46de7b0ac218fc:TTKG/src/main/java/com/example/ttkg/user/model/User_childEntity.java
 
     public User_ChildEntity(){
         this.kinderCode=null;

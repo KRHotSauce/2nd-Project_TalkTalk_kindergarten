@@ -1,57 +1,270 @@
-/* 네비게이션 바 스타일 */
-.navbar {
-    background-color: #343a40;
-    width: 100%; /* 좌우로 네비게이션 바가 늘어나도록 설정 */
+html,
+body {
+  width: 100%;
 }
 
-.navbar a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
+* {
+  box-sizing: border-box;
 }
 
-/* 드롭다운 메뉴 스타일 - 기본적으로 숨김 */
-.dropdown-grid {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #f8f9fa;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+body {
+  font-size: 100%;
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  background-color: #fefefe;
 }
 
-/* 마우스 오버 시 드롭다운 메뉴가 표시되도록 설정 */
-.navbar:hover .dropdown-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4열 그리드 */
-    gap: 10px;
+a {
+  text-decoration: none;
+  color: black;
 }
 
-/* 각 그리드 항목을 한 줄씩 배치 */
-.dropdown-grid div {
-    padding: 10px;
+header {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+#top_nav {
+  border-bottom: 1px solid lightgray;
+}
+#top_nav .all_wrapper {
+  display: grid;
+  grid-template-areas: "icon menu menu menu menu login";
+  align-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-.dropdown-grid a {
-    display: block; /* 각 항목을 한 줄에 하나씩 표시 */
-    padding: 10px;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    text-align: center;
-    color: #343a40;
-    text-decoration: none;
+.top_nav_logo {
+  grid-area: icon;
 }
 
-.dropdown-grid a:hover {
-    background-color: #e9ecef;
+.top_nav_navbar {
+  grid-area: menu;
 }
 
-/* 모바일에서 숨겨지는 드롭다운 */
-@media (max-width: 767px) {
-    .dropdown-grid {
-        display: none !important;
-    }
+.top_nav_user {
+  grid-area: login;
+}
+
+.all_wrapper {
+  width: 100%;
+  min-width: 1150px;
+  margin: 0px auto;
+  position: relative;
+}
+
+.top_nav_logo {
+  width: 100%;
+  text-align: center;
+}
+
+.top_nav_navbar {
+  width: 100%;
+}
+
+.top_nav_navbar_menu li {
+  width: 25%;
+  float: left;
+  font-size: 1rem;
+  line-height: 75px;
+  height: 75px;
+  text-align: center;
+  position: relative;
+  font-weight: 500;
+}
+
+.top_nav_navbar_menu li {
+  float: left;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.top_nav_navbar_menu li:first-child::before {
+  content: "";
+  display: block;
+  line-height: 0;
+  height: 10px;
+  width: 1px;
+  border-left: 2px dotted #cccccc;
+  position: absolute;
+  top: 33px;
+  left: 0;
+}
+
+.top_nav_navbar_menu li::after {
+  content: "";
+  display: block;
+  line-height: 0;
+  height: 10px;
+  width: 1px;
+  border-right: 2px dotted #cfcfcf;
+  position: absolute;
+  top: 33px;
+  right: 0;
+}
+
+.top_nav_navbar_menu li a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.top_nav_navbar_menu li a:hover {
+  color: forestgreen;
+}
+
+.top_nav_loginBox {
+  display: flex;
+  justify-content: space-around;
+}
+
+.top_nav_drop {
+  width: 100%;
+  position: absolute;
+  top: 75px;
+  left: 0px;
+  background-color: #f8fafe;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  z-index: 1000;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s; /* 애니메이션 효과 */
+}
+
+/* 요소 줄수에 따른 조절 필요 */
+body header .slide_down {
+  max-height: 200px;
+}
+
+/* dropmenu grid설정 */
+.top_nav_drop {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+/* 첫줄과 마지막 그리드에 요소 안 넣으려는 발악 */
+.top_nav_drop div:nth-child(1) {
+  grid-column: 2;
+}
+.top_nav_drop div:nth-child(2) {
+  grid-column: 3;
+}
+.top_nav_drop div:nth-child(3) {
+  grid-column: 4;
+}
+.top_nav_drop div:nth-child(4) {
+  grid-column: 5;
+}
+
+.top_nav_drop div:nth-child(5) {
+  grid-column: 2;
+}
+.top_nav_drop div:nth-child(6) {
+  grid-column: 3;
+}
+.top_nav_drop div:nth-child(7) {
+  grid-column: 4;
+}
+.top_nav_drop div:nth-child(8) {
+  grid-column: 5;
+}
+
+.top_nav_drop div:nth-child(9) {
+  grid-column: 2;
+}
+.top_nav_drop div:nth-child(10) {
+  grid-column: 3;
+}
+.top_nav_drop div:nth-child(11) {
+  grid-column: 4;
+}
+.top_nav_drop div:nth-child(12) {
+  grid-column: 5;
+}
+
+.top_nav_drop div:nth-child(13) {
+  grid-column: 2;
+}
+.top_nav_drop div:nth-child(14) {
+  grid-column: 3;
+}
+.top_nav_drop div:nth-child(15) {
+  grid-column: 4;
+}
+.top_nav_drop div:nth-child(16) {
+  grid-column: 5;
+}
+
+.top_nav_drop div {
+  text-align: center;
+}
+
+.top_nav_drop div a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  line-height: 50px;
+}
+
+.top_nav_drop div a:hover {
+  color: forestgreen;
+  text-decoration: underline;
+}
+
+.top_nav_user_box{
+  position: relative;
+  text-align: center;
+}
+
+.top_nav_user_box span {
+  display: block;
+}
+
+.top_nav_user_info {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 20px;
+  list-style: none;
+  background: white;
+  z-index: 1001;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.5s; /* 애니메이션 효과 */
+  display: flex;
+  flex-direction: column;
+}
+
+.top_nav_user_info a {
+  line-height: 40px
+}
+
+.top_nav_user_info a:nth-child(1) {
+  margin-top: 10px
+}
+
+.top_nav_user_info a:nth-child(2) {
+  margin-bottom: 10px
+}
+
+.top_nav_user .top_nav_user_box .slide_down {
+  max-height: 120px;
+}
+
+.top_nav_user_info a{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.top_nav_user_info a:hover {
+  color: forestgreen;
+  text-decoration: underline;
 }
