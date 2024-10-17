@@ -13,7 +13,7 @@ public class KinderController {
         this.kinderService = kinderService;
     }
 
-    @GetMapping("kinderPage")
+    @GetMapping("kinderPage/kinderMain")
     public String KinderPage() {
         return "kinderPage/kinderMain";
     }

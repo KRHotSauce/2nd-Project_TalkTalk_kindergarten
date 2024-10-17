@@ -1,8 +1,10 @@
 /* 헤더 스타일 */
 header {
-    background-color: rgb(0, 252, 155);
-    border-bottom: 1px solid #e0e0e0;
+    background-color: teal;
     position: relative;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: initial;
+
 }
 
 .navbar-nav {
@@ -43,4 +45,7 @@ header {
 
 .nav-item {
     margin-right: 50px;
+}
+.context-xl{
+    color: #1a1d20;
 }
