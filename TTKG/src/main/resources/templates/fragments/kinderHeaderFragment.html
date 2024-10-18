@@ -27,7 +27,7 @@
                                 <li><a class="dropdown-item" th:href="@{/greeting}">인사말</a></li>
                                 <li><a class="dropdown-item" th:href="@{/teacher_intro}">선생님 소개</a></li>
                                 <li><a class="dropdown-item" th:href="@{/overview}">유치원 전경</a></li>
-                                <li><a class="dropdown-item" th:href="@{/notice}">공지사항</a></li>
+                                <li><a class="dropdown-item" th:href="@{/notice(page=1)}">공지사항</a></li>
                             </ul>
                         </li>
                         <li class="nav-item dropdown">
@@ -46,19 +46,10 @@
                             <a class="nav-link" aria-current="page" th:href="@{/kinderMeal}">식단표</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">소통공간</a>
+                            <a class="nav-link" th:href="@{kinderCommunity(page=1)}">소통공간</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">사진 앨범</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="false">Dropdown</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
+                            <a class="nav-link" th:href="@{/kinderAlbum(page=1)}">사진 앨범</a>
                         </li>
                     </ul>
                 </div>

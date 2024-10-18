@@ -60,6 +60,49 @@ INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) 
 INSERT INTO lesson_plan_monthly (lessonplan_idx, kinderCode, lesson_date, body) VALUES (LESSON_PLAN_MONTHLY_SEQ.nextval, 'K003', TO_DATE('2024-10-08', 'YYYY-MM-DD'), 'Lesson Plan 30 for K003');
 
 
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-01-10', 'YYYY-MM-DD'), 'Notice 1');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-01-15', 'YYYY-MM-DD'), 'Notice 2');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-01-20', 'YYYY-MM-DD'), 'Notice 3');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-02-01', 'YYYY-MM-DD'), 'Notice 4');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-02-05', 'YYYY-MM-DD'), 'Notice 5');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-02-10', 'YYYY-MM-DD'), 'Notice 6');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-02-15', 'YYYY-MM-DD'), 'Notice 7');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-02-20', 'YYYY-MM-DD'), 'Notice 8');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-03-01', 'YYYY-MM-DD'), 'Notice 9');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-03-05', 'YYYY-MM-DD'), 'Notice 10');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-03-10', 'YYYY-MM-DD'), 'Notice 11');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-03-15', 'YYYY-MM-DD'), 'Notice 12');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-03-20', 'YYYY-MM-DD'), 'Notice 13');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-03-25', 'YYYY-MM-DD'), 'Notice 14');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-04-01', 'YYYY-MM-DD'), 'Notice 15');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-04-05', 'YYYY-MM-DD'), 'Notice 16');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-04-10', 'YYYY-MM-DD'), 'Notice 17');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-04-15', 'YYYY-MM-DD'), 'Notice 18');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-04-20', 'YYYY-MM-DD'), 'Notice 19');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-04-25', 'YYYY-MM-DD'), 'Notice 20');
+INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
+VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-05-01', 'YYYY-MM-DD'), 'Notice 21');
+
 
 
 
