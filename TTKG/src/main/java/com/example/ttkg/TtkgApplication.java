@@ -14,6 +14,5 @@ public class TtkgApplication {
         SpringApplication.run(TtkgApplication.class, args);
         System.out.println("실행중");
     }
-    //자녀 엔티티 등록로직차례
 
 }

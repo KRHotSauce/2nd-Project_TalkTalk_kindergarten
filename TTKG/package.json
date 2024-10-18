@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "bourbon": "^7.3.0"
+    "bootstrap": "^5.3.3",
+    "bourbon": "^7.3.0",
+    "dotenv": "^16.4.5"
   }
 }

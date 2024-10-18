@@ -1,6 +1,9 @@
 -- 기존 테이블 삭제
-drop table user cascade constraints;
+drop table "User" cascade constraints;
 DROP TABLE Users CASCADE CONSTRAINTS;
+DROP TABLE boards CASCADE CONSTRAINTS;
+DROP TABLE CHILD CASCADE CONSTRAINTS;
+DROP TABLE ALBUM CASCADE CONSTRAINTS;
 DROP TABLE class_teacher CASCADE CONSTRAINTS;
 DROP TABLE kinderDetail CASCADE CONSTRAINTS;
 DROP TABLE TT_boards CASCADE CONSTRAINTS;
@@ -14,6 +17,7 @@ DROP TABLE meal_plan CASCADE CONSTRAINTS;
 DROP TABLE kinder_introduction CASCADE CONSTRAINTS;
 DROP TABLE kinder CASCADE CONSTRAINTS;
 
+ALTER TABLE Users DROP COLUMN kinder_code;
 
 -- 테이블 생성
 CREATE TABLE Users (
@@ -33,7 +37,7 @@ CREATE TABLE kinderDetail (
     officeedu VARCHAR2(255),
     subofficeedu VARCHAR2(255),
     kindername VARCHAR2(255),
-    establish NUMBER,
+    establish VARCHAR2(255),
     rppnname VARCHAR2(255),
     idgrname VARCHAR2(255),
     edate DATE,
@@ -41,6 +45,7 @@ CREATE TABLE kinderDetail (
     addr VARCHAR2(255),
     tel_no VARCHAR2(255),
     fax_no VARCHAR2(255),
+    hpaddr VARCHAR2(255),
     opertime VARCHAR2(255),
     cl_cnt3 NUMBER,
     cl_cnt4 NUMBER,
@@ -143,7 +148,7 @@ CREATE TABLE kinder (
     kinderCode VARCHAR2(255) PRIMARY KEY,
     kindername VARCHAR2(255),
     addr VARCHAR2(255),
-    establish NUMBER
+    establish varchar2(255)
 );
 
 CREATE TABLE kinder_community (
@@ -182,3 +187,12 @@ ALTER TABLE kinder_community ADD CONSTRAINT FK_User_TO_kinder_community FOREIGN 
 ALTER TABLE kinder_community ADD CONSTRAINT FK_kinder_TO_kinder_community FOREIGN KEY (kinderCode) REFERENCES kinder (kinderCode);
 ALTER TABLE class_teacher ADD CONSTRAINT FK_User_TO_class_teacher FOREIGN KEY (teacher_idx) REFERENCES Users (user_idx);
 ALTER TABLE class_teacher ADD CONSTRAINT FK_kinder_TO_class_teacher FOREIGN KEY (kinderCode) REFERENCES kinder (kinderCode);
+
+--이후 수정사항 (컬럼추가 제약조건 추가 등등)
+
+--child에 kindercode추가
+alter table child add kindercode varchar2(255);
+alter table child add constraint FK_kinder_TO_CHILD FOREIGN KEY (kindercode) references kinder (kindercode);
+
+
+commit;

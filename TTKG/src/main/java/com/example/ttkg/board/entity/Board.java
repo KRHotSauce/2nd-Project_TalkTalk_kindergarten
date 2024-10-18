@@ -17,6 +17,7 @@ public class Board extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_idx_generator")
     @SequenceGenerator(name="board_idx_generator", sequenceName = "board_idx_seq", allocationSize = 1)
+    @Column(name="board_idx")
     private Long boardIdx;
 
     @Enumerated(EnumType.STRING)

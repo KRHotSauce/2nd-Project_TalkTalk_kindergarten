@@ -1,13 +1,12 @@
 package com.example.ttkg.user.model;
 
 
+import com.example.ttkg.kinder.model.KinderEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.security.AuthProvider;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -52,11 +51,12 @@ public  class UserEntity {
     @Column(name = "resi_date", nullable = true)
     private LocalDateTime resiDate;
 
-    @Column(name="kinderCode", nullable = true, length = 255)
-    private String kinderCode;
+    @ManyToOne
+    @JoinColumn(name="kinderCode",referencedColumnName = "kinderCode")
+    KinderEntity kinderCode;
 
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
-    private Set<User_childEntity> user_childEntities=new HashSet<>();
+    @OneToMany(mappedBy = "users",cascade = CascadeType.REMOVE)
+    private Set<User_ChildEntity> user_childEntities=new HashSet<>();
 
 //    @Enumerated(EnumType.STRING)
 //    @Column(name="authprovider", nullable = false)

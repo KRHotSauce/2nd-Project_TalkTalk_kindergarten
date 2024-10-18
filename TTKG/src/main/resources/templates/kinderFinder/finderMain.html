@@ -1,0 +1,90 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+    <head>
+        <title>톡톡유치원:유치원파인더</title>
+        <th:block
+            th:replace="fragments/metaFragment :: metadataFragment"></th:block>
+        <script type="text/javascript"
+            src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ihu6c8i0aa"></script>
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    </head>
+    <body>
+        <!-- Top menu 영역-->
+        <header th:replace="fragments/headerFragment::headerFragment"></header>
+        <!-- Left Sidebar 영역 -->
+        <!-- Main content 영역 -->
+
+        <div class="container mt-4">
+            <div class="main-content-style">
+                <div id="map" style="width:100%;height:400px;"></div>
+                <script>
+            var mapOptions={
+                center:new naver.maps.LatLng(37.3595704,127.105399),
+                zoom:10
+            };
+            var map=new naver.maps.Map('map',mapOptions);
+           
+
+        </script>
+            </div>
+            <p></p>
+            <div>
+                <table id="resultTable"
+                    style="border-collapse: collapse;"></table>
+                <script>
+                $(document).ready(function() {
+    // AJAX를 통해 프록시 경로로 API 호출
+    $.ajax({
+        url: "/talktalkkinder/api/kinder-finder/init",  // Spring Boot에서 설정한 프록시 경로
+        method: "GET",
+        dataType: "json",  // 응답을 JSON으로 기대
+        success: function(data) {
+            console.log(data);  // 데이터가 제대로 오는지 확인
+
+            // 테이블로 데이터를 표시하는 함수 호출
+            displayData(data);
+        },
+        error: function(xhr, status, error) {
+            console.error("AJAX Error:", status, error);  // 오류 출력
+        }
+    });
+
+    // 데이터를 테이블로 표시하는 함수
+    function displayData(data) {
+        let resultTable = "<table style='border: 1px solid black; width: 100%; background-color: white;'>";
+
+        // 첫 번째 행: 컬럼명(헤더)
+        resultTable += "<tr>";
+        $.each(data.kinderInfo[0], function(key) {
+            resultTable += `<th style='border: 1px solid black; padding: 5px; background-color: lightgray;'>${key}</th>`;
+        });
+        resultTable += "</tr>";
+
+        // 데이터 행 생성
+        $.each(data.kinderInfo, function(index, row) {
+            resultTable += "<tr>";
+            $.each(row, function(key, value) {
+                resultTable += `<td style='border: 1px solid black; padding: 5px;'>${value}</td>`;
+            });
+            resultTable += "</tr>";
+        });
+kk
+        resultTable += "</table>";
+
+        // 테이블을 화면에 삽입
+        $("#resultTable").html(resultTable);
+    }
+});
+
+
+            </script>
+            </div>
+        </div>
+
+        <!--footer 영역-->
+        <footer th:replace="fragments/footerFragment::footerFragment"></footer>
+
+        <!--bootstrap javascript-->
+
+    </body>
+</html>
