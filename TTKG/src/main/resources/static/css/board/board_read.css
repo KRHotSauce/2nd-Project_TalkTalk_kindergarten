@@ -1,0 +1,116 @@
+/*read 안 모든 버튼 적용*/
+.read_container button{
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+}
+
+.read_container > .text-muted, .read_title, .comment_title {
+    padding-left: 15px !important;
+}
+
+.read_container {
+    min-height: 620px;
+    margin-bottom: 1.5rem
+}
+
+.read_title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.text-muted {
+    margin-bottom: 10px;
+}
+
+.read_container .comment_body {
+    margin-bottom: 0px !important;
+}
+
+.card-body {
+    line-height: 25px;
+}
+
+.read_container .comment_box {
+    margin: 20px 0 !important;
+}
+
+.comment-card-element{
+    position: relative;
+}
+
+.comment-card-element .comment_author {
+    position: absolute;
+    margin: 15px;
+    top: 0px;
+    left: 0px;
+    font-weight: bold;
+}
+
+.comment-card-element label{
+    width: 100%;
+}
+
+.comment-card-element input{
+    width: 100%;
+    padding: 40px 40px 40px 15px;
+}
+
+.comment-card-element button {
+    position: absolute;
+    top: 57px;
+    right: 10px;
+    background-color: inherit;
+    color: lightgray;
+    cursor: none;
+}
+
+.comment-card-element .comment_alive {
+    color: forestgreen;
+    background-color: #CCE4C3;
+}
+
+.action_buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.action_buttons div button:first-child {
+    margin-right: 10px
+}
+
+.comment_title {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 15px 0;
+}
+
+#comments-section .comment {
+    padding: 10px 0;
+    padding-left: 15px;
+}
+
+#comments-section .comment:nth-child(2n){
+    background-color: rgb(240,240,240);
+}
+
+.comment-header {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.comment-header span {
+    line-height: 13px;
+    padding: 2px;
+    font-size: 10px;
+    border-radius: 5px;
+    margin-left: 8px;
+    color: forestgreen;
+    background-color: #CCE4C3;
+}
+
+.comment-body {
+    margin: 10px 0;
+}

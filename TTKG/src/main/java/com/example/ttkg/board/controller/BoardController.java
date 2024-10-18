@@ -42,7 +42,7 @@ public class BoardController {
     public String getAllContents(Model model,
                                  @RequestParam(value = "category", defaultValue = "FREE")String category,
                                  @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-                                 @RequestParam(value = "sortType", required = false) String sortType,
+                                 @RequestParam(value = "sortType", required = false, defaultValue = "idx_descend") String sortType,
                                  @RequestParam(value = "searchType", required = false) String searchType,
                                  @RequestParam(value = "keyword", required = false) String keyword) {
         BoardCategory boardCategory = BoardCategory.of(category);
@@ -52,13 +52,20 @@ public class BoardController {
             return "printMessage";
         }
 
-        PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by("boardIdx").descending());
+        PageRequest pageRequest = PageRequest.of(page - 1, 10, Sort.by("boardIdx").descending());  // 기본값으로 내림차순 정렬
+
         if (sortType != null) {
-            if (sortType.equals("date")) {
-                pageRequest = PageRequest.of(page - 1, 10, Sort.by("createdAt").descending());
-            }
+            pageRequest = switch (sortType) {
+                case "date_descend" -> PageRequest.of(page - 1, 10, Sort.by("createdAt").descending());
+                case "date_ascend" -> PageRequest.of(page - 1, 10, Sort.by("createdAt").ascending());
+                case "idx_descend" -> PageRequest.of(page - 1, 10, Sort.by("boardIdx").descending());
+                case "idx_ascend" -> PageRequest.of(page - 1, 10, Sort.by("boardIdx").ascending());
+                default -> pageRequest;
+            };
         }
 
+        model.addAttribute("page", page);
+        model.addAttribute("sortType", sortType);
         model.addAttribute("category", category);
         model.addAttribute("boards", boardService.getBoardList(boardCategory, pageRequest, searchType, keyword));
         model.addAttribute("boardSearchRequest", new BoardSearchRequest(sortType, searchType, keyword));
@@ -109,7 +116,8 @@ public class BoardController {
     }
 
     @GetMapping("/board/read")
-    public String toReadPage(Model model, @RequestParam(value = "boardIdx") Long boardIdx, HttpSession session) {
+    public String toReadPage(Model model, @RequestParam(value = "boardIdx") Long boardIdx,
+                             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page, HttpSession session) {
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
         model.addAttribute("comments", commentService.findAll(boardIdx));
         model.addAttribute("user", userRepository.findByUserIdx(userLoginDTO.getUserIdx()));
