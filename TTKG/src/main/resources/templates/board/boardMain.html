@@ -120,8 +120,9 @@
 
         $("#paging-ul").html(pageHtml);
 
-        const category = [[${param.category}]]
-        let none_selected_divs = document.querySelectorAll(".board_sort_wrapper div")
+        // category param에 따른 게시판 색 활성화
+        const category = [[${param.category}]];
+        let none_selected_divs = document.querySelectorAll(".board_sort_wrapper div");
         none_selected_divs.forEach((div) => div.classList.remove("selected"));
         let item = 1;
         switch (category[0]) {
@@ -212,6 +213,7 @@
     let boards = [[${boards}]].content;
     listUp(boards);
 
+    // input에 데이터 들어갈 시 버튼 활성화
     $("#searchInput").keyup(function(){
         if (event.keyCode === 13) {
             let value = $("#searchInput").val();

@@ -88,7 +88,6 @@ public class BoardService {
 
     public BoardDto boardRead(Long id){
         Board board = boardRepository.findById(id).get();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         return BoardDto.of(board);
     }

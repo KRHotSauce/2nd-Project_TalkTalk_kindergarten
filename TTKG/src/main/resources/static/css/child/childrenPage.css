@@ -1,0 +1,30 @@
+.main_container {
+    max-width: var(--max-content-width);
+}
+
+.children_table {
+    width: 100%;
+    text-align: center;
+}
+
+.children_table tr {
+    line-height: 30px;
+}
+
+.children_table th {
+    font-weight:bold;
+}
+
+.child_add_button{
+    margin-top: 20px;
+    display: flex;
+    justify-content: end;
+}
+
+.child_add_button a{
+    display: block;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--main-color);
+    color: var(--sub-color);
+}

@@ -1,18 +1,13 @@
 /*read 안 모든 버튼 적용*/
-.read_container button{
+.main_container button{
     padding: 10px;
     border-radius: 8px;
     border: none;
     font-weight: bold;
 }
 
-.read_container > .text-muted, .read_title, .comment_title {
+.main_container > .text-muted, .read_title, .comment_title {
     padding-left: 15px !important;
-}
-
-.read_container {
-    min-height: var(--max-content-height);
-    margin-bottom: 1.5rem
 }
 
 .read_title {
@@ -24,7 +19,7 @@
     margin-bottom: 10px;
 }
 
-.read_container .comment_body {
+.main_container .comment_body {
     margin-bottom: 0px !important;
 }
 
@@ -32,7 +27,7 @@
     line-height: 25px;
 }
 
-.read_container .comment_box {
+.main_container .comment_box {
     margin: 20px 0 !important;
 }
 
@@ -74,6 +69,7 @@
 .action_buttons {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 1.5rem;
 }
 
 .action_buttons div button:first-child {

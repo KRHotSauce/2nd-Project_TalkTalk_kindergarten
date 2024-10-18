@@ -269,3 +269,8 @@ body header .slide_down {
   color: var(--sub-color);
   text-decoration: underline;
 }
+
+/*중간 컨테이너 크기 최소값 지정*/
+.main_container {
+    min-height: var(--max-content-height);
+}

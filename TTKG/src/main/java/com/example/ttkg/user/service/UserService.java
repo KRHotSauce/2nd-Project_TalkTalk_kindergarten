@@ -2,6 +2,7 @@ package com.example.ttkg.user.service;
 
 import com.example.ttkg.user.DTO.UserDTO;
 import com.example.ttkg.user.DTO.UserLoginDTO;
+import com.example.ttkg.user.DTO.UserViewDTO;
 import com.example.ttkg.user.model.UserEntity;
 import com.example.ttkg.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +103,11 @@ public class UserService {
     public UserDTO getUserDTOByUserIdx(long UserIdx) {
         UserEntity userEntity=userRepository.findByUserIdx(UserIdx);
         return convertToDTOFromEntity(userEntity);
+    }
+
+    public UserViewDTO getUserViewDTOByUserIdx(Long userIdx) {
+        UserEntity userEntity = userRepository.findByUserIdx(userIdx);
+        return UserViewDTO.of(userEntity);
     }
 
     public UserEntity getUserEntityByUserIdx(long UserIdx) {

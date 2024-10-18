@@ -31,8 +31,8 @@
                 <h1 hidden>카테고리</h1>
                 <ul class="top_nav_navbar_menu">
                     <li><a th:href="@{/finderMain}">유치원정보</a></li>
-                    <li><a th:href="@{/board/main}">톡톡게시판</a></li>
-                    <li><a th:href="@{/childInfoMain}">자녀 페이지</a></li>
+                    <li><a th:href="@{/board/main(category=FREE)}">톡톡게시판</a></li>
+                    <li><a th:href="@{/children}">자녀 페이지</a></li>
                     <li>
                         <a th:href="@{/kinderPage/kinderMain}">우리 아이 유치원</a>
                     </li>
@@ -91,7 +91,7 @@
             <a href="#">자유게시판</a>
         </div>
         <div>
-            <a href="#">자녀 등록</a>
+            <a th:href="@{/child_register}">자녀 등록</a>
         </div>
         <div hidden>
             <a href="#">공시자료 다운로드</a>
