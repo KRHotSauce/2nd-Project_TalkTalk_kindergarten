@@ -17,6 +17,7 @@ public class Comment extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_idx_generator")
     @SequenceGenerator(name="comment_idx_generator", sequenceName = "comment_idx_seq", allocationSize = 1)
+    @Column(name = "comment_idx")
     private Long commentIdx;
 
     @Column(name = "body")

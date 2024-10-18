@@ -1,5 +1,5 @@
 footer {
-  background-color: #cce4c3;
+  background-color: var(--main-color);
 }
 
 .footer_link {
@@ -8,7 +8,7 @@ footer {
 
 .footer_wrapper {
   width: 100%;
-  max-width: 1012px;
+  max-width: var(--max-content-width);
   margin: 0 auto;
 }
 
@@ -43,6 +43,6 @@ footer {
   margin-top: 5px;
   padding: 10px;
   border-radius: 5px;
-  background-color: #f0ebc8;
+  background-color: var(--another-color);
   border: 1px solid gray;
 }

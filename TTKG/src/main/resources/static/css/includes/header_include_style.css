@@ -52,6 +52,7 @@ header {
 
 .all_wrapper {
   width: 100%;
+  /*글씨 깨지는 지점 확인*/
   min-width: 1150px;
   margin: 0px auto;
   position: relative;
@@ -114,7 +115,7 @@ header {
 }
 
 .top_nav_navbar_menu li a:hover {
-  color: forestgreen;
+  color: var(--sub-color);
 }
 
 .top_nav_loginBox {
@@ -213,7 +214,7 @@ body header .slide_down {
 }
 
 .top_nav_drop div a:hover {
-  color: forestgreen;
+  color: var(--sub-color);
   text-decoration: underline;
 }
 
@@ -265,6 +266,6 @@ body header .slide_down {
 }
 
 .top_nav_user_info a:hover {
-  color: forestgreen;
+  color: var(--sub-color);
   text-decoration: underline;
 }
