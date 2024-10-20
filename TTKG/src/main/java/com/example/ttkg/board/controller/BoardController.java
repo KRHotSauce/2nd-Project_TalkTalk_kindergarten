@@ -5,15 +5,12 @@ import com.example.ttkg.board.Dto.BoardDto;
 import com.example.ttkg.board.Dto.BoardSearchRequest;
 import com.example.ttkg.board.entity.Board;
 import com.example.ttkg.board.entity.BoardCategory;
-<<<<<<< HEAD:TTKG/src/main/java/com/example/ttkg/board/controller/boardController.java
-import com.example.ttkwg.board.service.BoardService;
-=======
+import com.example.ttkg.board.service.BoardService;
 import com.example.ttkg.board.repository.CommentRepository;
 import com.example.ttkg.board.service.BoardService;
 import com.example.ttkg.board.service.CommentService;
 import com.example.ttkg.user.DTO.UserLoginDTO;
 import com.example.ttkg.user.repository.UserRepository;
->>>>>>> boardFeature:TTKG/src/main/java/com/example/ttkg/board/controller/BoardController.java
 import com.example.ttkg.user.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
