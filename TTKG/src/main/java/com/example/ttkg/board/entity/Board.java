@@ -1,5 +1,8 @@
 package com.example.ttkg.board.entity;
 
+import com.example.ttkg.board.Dto.BoardCreateRequest;
+import com.example.ttkg.board.Dto.BoardDto;
+import com.example.ttkg.user.model.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,16 +11,19 @@ import lombok.*;
 @NoArgsConstructor
 @Entity
 @Builder
-@Table(name = "boards")
+@Table(name = "tt_boards")
 public class Board extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "board_idx_generator")
     @SequenceGenerator(name="board_idx_generator", sequenceName = "board_idx_seq", allocationSize = 1)
+    @Column(name="board_idx")
     private Long boardIdx;
 
     @Enumerated(EnumType.STRING)
     private BoardCategory category;
+
+    /*private UserEntity user;*/
 
     @Column(name = "title")
     private String title;
@@ -41,5 +47,10 @@ public class Board extends BaseEntity{
         this.title = dto.getTitle();
         this.body = dto.getBody();
     }*/
+
+    public void update(BoardCreateRequest boardCreateRequest) {
+        this.title = boardCreateRequest.getTitle();
+        this.body = boardCreateRequest.getBody();
+    }
 
 }

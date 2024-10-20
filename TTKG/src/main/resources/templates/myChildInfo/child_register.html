@@ -5,6 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <th:block th:replace="fragments/metaFragment::metadataFragment"></th:block>
     <title>톡톡유치원 - 자녀등록</title>
     <style>
         body {
@@ -64,16 +65,49 @@
     </style>
 </head>
 <body>
+<header th:replace="fragments/headerFragment::headerFragment"></header>
+<form th:action="child_register_pro" method="post" th:object="${req}" novalidate>
+    <div>
+        <label for="name">자녀 이름</label>
+        <input type="text" id="name" name="name" th:field="*{child_name}" placeholder="자녀의 이름을 입력하세요.">
+    </div>
 
-<form th:action="child_register_pro" method="post" th:object="${childDTO}" novalidate>
-    <label for="name">자녀 이름</label>
-    <input type="text" id="name" name="name" th:field="*{child_name}" placeholder="자녀의 이름을 입력하세요.">
-    <label for="age">생년월일</label>
-    <input type="date" id="age" name="age" th:field="*{child_birth}" placeholder="자녀의 이름을 입력하세요.">
+    <div>
+        <label for="age">생년월일</label>
+        <input type="date" id="age" name="age" th:field="*{child_birth}" placeholder="자녀의 이름을 입력하세요.">
+    </div>
 
+    <div>
+        <label for="name">자녀의 주 거주지</label>
+        <input type="text" id="addr" name="addr" th:field="*{child_addr}" placeholder="자녀의 주 거주지를 입력하세요.">
+    </div>
+
+    <div>
+        <span>자녀의 성별</span>
+        <div>
+            <input type="radio" id="Male" name="child_gender" value="Male">
+            <label for="Male">남</label>
+        </div>
+        <div>
+            <input type="radio" id="Female" name="child_gender" value="Female">
+            <label for="Female">여</label>
+        </div>
+    </div>
+
+    <div>
+        <span>알러지 여부</span>
+        <div>
+            <input type="radio" id="true" name="child_allergy" value="true">
+            <label for="true">해당 있음</label>
+        </div>
+        <div>
+            <input type="radio" id="false" name="child_allergy" value="false">
+            <label for="false">해당 없음</label>
+        </div>
+    </div>
     <button type="submit">등록</button>
-    <button type="button" th:onclick="|location.href='@{/childInfoMain}'|">취소</button>
+    <button type="button" th:onclick="|location.href='@{/children}'|">취소</button>
 </form>
-
+<footer th:replace="fragments/footerFragment::footerFragment"></footer>
 </body>
 </html>

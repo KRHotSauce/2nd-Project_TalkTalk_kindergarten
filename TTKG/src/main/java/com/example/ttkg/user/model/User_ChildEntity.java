@@ -24,9 +24,8 @@ public class User_ChildEntity {
     @JoinColumn(name="child_idx")
     private ChildEntity child;
 
-    @ManyToOne
-    @JoinColumn(name="kinderCode",referencedColumnName = "kinderCode")
-    KinderEntity kinderCode;
+    @Column(name="kinderCode")
+    private String kinderCode;
 
     public User_ChildEntity(){
         this.kinderCode=null;

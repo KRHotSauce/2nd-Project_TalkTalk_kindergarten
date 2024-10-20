@@ -67,8 +67,10 @@ public class UserController {
 
     /**로그인 프로세스 컨트롤러*/
     @PostMapping("login_pro")
-    public String login_pro(@RequestParam String loginId, @RequestParam String password, HttpSession session, Model model) {
+    public String login_pro(@RequestParam(value = "loginId") String loginId, @RequestParam(value = "password") String password, HttpSession session, Model model) {
         //로그인 로직 로그인 아이디로 entity 찾은 후 비교 그 이후 loginId로 UserLoginDTO 불러냄
+        System.out.println("id: " + loginId);
+        System.out.println("pass: " + password);
         if (userService.CheckPasswordByLoginId(loginId, password)) {
             UserLoginDTO userLoginDTO = userService.getUserLoginDTO(loginId);
             session.setAttribute("userLoginDTO", userLoginDTO); //로그인 정보는 세션에 저장

@@ -9,9 +9,9 @@
 <body>
     
     <header th:fragment="kinderHeader">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-subtle" aria-label="Ninth navbar example">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-subtle text-black" aria-label="Ninth navbar example">
             <div class="container-xl">
-                <a class="navbar-brand" href="#">유치원 이름</a>
+                <a class="navbar-brand" th:href="@{/kinderMain}">유치원 이름</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarsExample07XL" aria-controls="navbarsExample07XL" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -24,23 +24,26 @@
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
                                 aria-expanded="false">우리원 소개</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">인사말</a></li>
-                                <li><a class="dropdown-item" href="#">선생님 소개</a></li>
-                                <li><a class="dropdown-item" href="#">유치원 전경</a></li>
-                                <li><a class="dropdown-item" href="">공지사항</a></li>
+                                <li><a class="dropdown-item" th:href="@{/greeting}">인사말</a></li>
+                                <li><a class="dropdown-item" th:href="@{/teacher_intro}">선생님 소개</a></li>
+                                <li><a class="dropdown-item" th:href="@{/overview}">유치원 전경</a></li>
+                                <li><a class="dropdown-item" th:href="@{/notice}">공지사항</a></li>
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">월간일정표</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown"
-                                aria-expanded="true">알림장</a>
+                               aria-expanded="true">알림장</a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#">햇님반</a></li>
                                 <li><a class="dropdown-item" href="#">달님반</a></li>
                                 <li><a class="dropdown-item" href="#">별님반</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" th:href="@{/kinderLessonPlan}">월간일정표</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" th:href="@{/kinderMeal}">식단표</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">소통공간</a>
@@ -60,7 +63,12 @@
                     </ul>
                 </div>
             </div>
+            <div style="align-content:end">
+                <a style="text-align:right" th:href="@{/}">시작 페이지로</a>
+            </div>
         </nav>
+
+
     </header>
 
 

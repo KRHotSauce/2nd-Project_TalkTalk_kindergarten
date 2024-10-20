@@ -1,5 +1,6 @@
 package com.example.ttkg.user.service;
 
+import com.example.ttkg.user.DTO.ChildCreateRequest;
 import com.example.ttkg.user.DTO.ChildDTO;
 import com.example.ttkg.user.model.ChildEntity;
 import com.example.ttkg.user.model.UserEntity;
@@ -68,10 +69,8 @@ public class User_ChildService {
     }
 
     /** 아이 DB 저장 후 유저_자녀테이블까지 저장*/
-    public void RegisterChild(ChildDTO childDTO, long userIdx) {
-        ChildEntity childEntity = new ChildEntity();
-        childEntity.setChildName(childDTO.getChild_name());
-        childEntity.setChildBirth(childDTO.getChild_birth());
+    public void RegisterChild(ChildCreateRequest req, long userIdx) {
+        ChildEntity childEntity = req.toEntity();
         ChildEntity saveChildEntity=childService.saveAndReturnChildEntity(childEntity); //생성된 child_id 받아오기 위해 넣어줌
 
         long childIdx=saveChildEntity.getChildIdx();

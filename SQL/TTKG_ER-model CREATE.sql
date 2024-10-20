@@ -1,6 +1,7 @@
 -- 기존 테이블 삭제
 drop table "User" cascade constraints;
 DROP TABLE Users CASCADE CONSTRAINTS;
+DROP TABLE boards CASCADE CONSTRAINTS;
 DROP TABLE CHILD CASCADE CONSTRAINTS;
 DROP TABLE ALBUM CASCADE CONSTRAINTS;
 DROP TABLE class_teacher CASCADE CONSTRAINTS;
@@ -192,6 +193,7 @@ ALTER TABLE class_teacher ADD CONSTRAINT FK_kinder_TO_class_teacher FOREIGN KEY 
 --child에 kindercode추가
 alter table child add kindercode varchar2(255);
 alter table child add constraint FK_kinder_TO_CHILD FOREIGN KEY (kindercode) references kinder (kindercode);
+alter table child add gender char(1);
 
 
 commit;

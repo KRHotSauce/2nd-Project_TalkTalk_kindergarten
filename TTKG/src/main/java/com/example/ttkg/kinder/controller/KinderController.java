@@ -13,21 +13,41 @@ public class KinderController {
         this.kinderService = kinderService;
     }
 
-    @GetMapping("kinderPage")
+    @GetMapping("kinderMain")
     public String KinderPage() {
         return "kinderPage/kinderMain";
     }
 
     @GetMapping("kinderMeal")
     public String KinderMeal() {
-
-        System.out.println("유치원 이름 : "+kinderService.findByKinderCode("K001").getKinderName());
         return "kinderPage/kinderMeal";
     }
 
     @GetMapping("kinderLessonPlan")
     public String KinderLessonPlan() {
         return "kinderPage/kinderLessonPlan";
+    }
+    /**원장 인사말*/
+    @GetMapping("greeting")
+    public String greeting() {
+        return "kinderPage/kinderIntro/greeting";
+    }
+    /**유치원 전경*/
+    @GetMapping("overview")
+    public String overview() {
+        return "kinderPage/kinderIntro/kinder-overview";
+    }
+    
+    /**공지사항*/
+    @GetMapping("notice")
+    public String notice() {
+        return "kinderPage/kinderIntro/notice";
+    }
+    
+    /**선생님 소개*/
+    @GetMapping("teacher_intro")
+    public String teacher_intro() {
+        return "kinderPage/kinderIntro/teacher-intro";
     }
 
 }

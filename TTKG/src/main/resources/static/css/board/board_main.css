@@ -1,0 +1,41 @@
+.content_wrapper {
+    width: 100%;
+    max-width: var(--max-content-width);
+    margin: 0 auto;
+}
+
+.board_sort_box .board_sort_wrapper{
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.board_sort_wrapper {
+    text-align: center;
+}
+
+.board_sort_wrapper div {
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 30px;
+    margin-bottom: 20px;
+}
+
+.board_sort_wrapper .selected a {
+    color: var(--sub-color);
+}
+
+.content_wrapper .write_box {
+    justify-content: end !important;
+}
+
+.able_sort{
+    cursor: pointer;
+}
+
+.write_box .btn-success {
+    background-color: var(--main-color);
+    color: black;
+}
+
+

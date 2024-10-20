@@ -34,7 +34,8 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .failureUrl("/login?error=true")
                         .permitAll()
-                );
+                )
+                .csrf().disable();
 //                .oauth2Login(oauth2 -> oauth2
 //                        .loginPage("login")
 //                        .defaultSuccessUrl("/login/google-login_success", true)

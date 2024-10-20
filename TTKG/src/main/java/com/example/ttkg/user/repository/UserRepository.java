@@ -4,7 +4,9 @@ import com.example.ttkg.user.model.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
@@ -16,5 +18,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByUserIdx(Long userIdx);
     Optional<UserEntity> findUserLoginIdByUserNameAndUserEmail(String userName, String userEmail);
     Optional<UserEntity> findByUserEmail(String userEmail);
+    List<UserEntity> findByUserIdxIn(Set<Long> userIdxs);
 }
 

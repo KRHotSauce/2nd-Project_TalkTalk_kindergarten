@@ -5,7 +5,11 @@ import com.example.ttkg.board.Dto.BoardDto;
 import com.example.ttkg.board.entity.Board;
 import com.example.ttkg.board.entity.BoardCategory;
 import com.example.ttkg.board.repository.BoardRepository;
+import com.example.ttkg.board.repository.CommentRepository;
+import com.example.ttkg.user.model.UserEntity;
+import com.example.ttkg.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,13 +20,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class BoardService {
 
-    @Autowired
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
+    private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     public void write(Board board){
         boardRepository.save(board);
@@ -45,13 +52,15 @@ public class BoardService {
     }
 
     @Transactional
-    public Long writeBoard(BoardCreateRequest req, BoardCategory category) throws IOException {
-        Board savedBoard = boardRepository.save(req.toEntity(category));
+    public Long writeBoard(BoardCreateRequest req, BoardCategory category, Long userIdx) throws IOException {
+        /*UserEntity loginUser = userRepository.findByUserId(loginId);*/
+        UserEntity user = userRepository.findByUserIdx(userIdx);
+        Board savedBoard = boardRepository.save(req.toEntity(user));
 
         return savedBoard.getBoardIdx();
     }
 
-    public Page<Board> getBoardList(BoardCategory category, PageRequest pageRequest, String searchType, String keyword) {
+    public Page<BoardDto> getBoardList(BoardCategory category, PageRequest pageRequest, String searchType, String keyword) {
         if (searchType != null && keyword != null) {
             /*if (searchType.equals("title")) {
                 return boardRepository.findAllByCategoryAndTitle(category, keyword, pageRequest);
@@ -59,22 +68,40 @@ public class BoardService {
                 return boardRepository.findAllByCategoryAndUserNickname(category, keyword, pageRequest);
             }*/
         }
-        return boardRepository.findAllByCategory(category, pageRequest);
+        if(category == BoardCategory.of("ALL")){
+            Page<Board> boardList = boardRepository.findAll(pageRequest);
+            return boardList.map(BoardDto::of);
+        }
+        Page<Board> boardList = boardRepository.findAllByCategory(category, pageRequest);
+        return boardList.map(BoardDto::of);
     }
+
 
     public List<BoardDto> boardDtoList(){
         List<Board> boardEntitise = boardRepository.findAll();
 
 
         return boardEntitise.stream()
-                .map(board -> BoardDto.of(board, formatBoardDate(board)))
+                .map(BoardDto::of)
                 .collect(Collectors.toList());
     }
 
     public BoardDto boardRead(Long id){
         Board board = boardRepository.findById(id).get();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        return BoardDto.of(board, board.getCreatedAt().format(dateFormatter));
+        return BoardDto.of(board);
     }
+
+    public void boardDelete(Long boardIdx){
+        boardRepository.deleteById(boardIdx);
+    }
+
+    @Transactional
+    public void boardEdit(BoardCreateRequest req){
+        Optional<Board> optBoard = boardRepository.findById(req.getBoardIdx());
+        Board board = optBoard.get();
+        board.update(req);
+    }
+
+
 }
