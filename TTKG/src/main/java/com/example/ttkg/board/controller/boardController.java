@@ -5,7 +5,7 @@ import com.example.ttkg.board.Dto.BoardDto;
 import com.example.ttkg.board.Dto.BoardSearchRequest;
 import com.example.ttkg.board.entity.Board;
 import com.example.ttkg.board.entity.BoardCategory;
-import com.example.ttkg.board.service.BoardService;
+import com.example.ttkwg.board.service.BoardService;
 import com.example.ttkg.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
