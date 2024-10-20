@@ -36,7 +36,7 @@ CREATE TABLE kinderDetail (
     officeedu VARCHAR2(255),
     subofficeedu VARCHAR2(255),
     kindername VARCHAR2(255),
-    establish NUMBER,
+    establish VARCHAR2(255),
     rppnname VARCHAR2(255),
     idgrname VARCHAR2(255),
     edate DATE,
@@ -44,6 +44,7 @@ CREATE TABLE kinderDetail (
     addr VARCHAR2(255),
     tel_no VARCHAR2(255),
     fax_no VARCHAR2(255),
+    hpaddr VARCHAR2(255),
     opertime VARCHAR2(255),
     cl_cnt3 NUMBER,
     cl_cnt4 NUMBER,
@@ -146,7 +147,7 @@ CREATE TABLE kinder (
     kinderCode VARCHAR2(255) PRIMARY KEY,
     kindername VARCHAR2(255),
     addr VARCHAR2(255),
-    establish NUMBER
+    establish varchar2(255)
 );
 
 CREATE TABLE kinder_community (
@@ -191,3 +192,6 @@ ALTER TABLE class_teacher ADD CONSTRAINT FK_kinder_TO_class_teacher FOREIGN KEY 
 --child에 kindercode추가
 alter table child add kindercode varchar2(255);
 alter table child add constraint FK_kinder_TO_CHILD FOREIGN KEY (kindercode) references kinder (kindercode);
+
+
+commit;
