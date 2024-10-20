@@ -69,7 +69,11 @@ CREATE TABLE kinderDetail (
 CREATE TABLE child (
     child_idx NUMBER PRIMARY KEY,
     child_name VARCHAR2(255) NOT NULL,
-    child_birth DATE NOT NULL
+    child_birth DATE NOT NULL,
+    child_addr varchar2(255),
+    child_gender varchar2(255),
+    child_allergy char(1),
+    kinderCode varchar2(255)
 );
 
 CREATE TABLE TT_boards (
@@ -89,6 +93,7 @@ CREATE TABLE User_child (
     user_idx NUMBER NOT NULL,
     child_idx NUMBER NOT NULL,
     kinderCode VARCHAR2(255),
+    access_state number(1) default 0, -- 0이면 기본 1이면 승낙 2이면 승낙대기
     PRIMARY KEY (user_idx, child_idx)
 );
 
@@ -193,7 +198,5 @@ ALTER TABLE class_teacher ADD CONSTRAINT FK_kinder_TO_class_teacher FOREIGN KEY 
 --child에 kindercode추가
 alter table child add kindercode varchar2(255);
 alter table child add constraint FK_kinder_TO_CHILD FOREIGN KEY (kindercode) references kinder (kindercode);
-alter table child add gender char(1);
-
 
 commit;

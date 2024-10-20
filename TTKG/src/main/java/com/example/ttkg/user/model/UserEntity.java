@@ -51,9 +51,8 @@ public  class UserEntity {
     @Column(name = "resi_date", nullable = true)
     private LocalDateTime resiDate;
 
-    @ManyToOne
-    @JoinColumn(name="kinderCode",referencedColumnName = "kinderCode")
-    KinderEntity kinderCode;
+    @Column(name="kindercode",nullable = true)
+    String kinderCode;
 
     @OneToMany(mappedBy = "users",cascade = CascadeType.REMOVE)
     private Set<User_ChildEntity> user_childEntities=new HashSet<>();

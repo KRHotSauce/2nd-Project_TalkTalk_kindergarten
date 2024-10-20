@@ -1,12 +1,11 @@
 package com.example.ttkg.user.service;
 
+import com.example.ttkg.kinder.model.KinderEntity;
 import com.example.ttkg.user.DTO.ChildCreateRequest;
-import com.example.ttkg.user.DTO.ChildDTO;
 import com.example.ttkg.user.model.ChildEntity;
 import com.example.ttkg.user.model.UserEntity;
 import com.example.ttkg.user.model.User_ChildEntity;
 import com.example.ttkg.user.model.User_Child_Idx;
-import com.example.ttkg.user.repository.UserRepository;
 import com.example.ttkg.user.repository.User_ChildRepository;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +35,10 @@ public class User_ChildService {
         return user_childRepository.existsByUsers(user);
     }
 
+    public boolean existByKinderCode(String kinderCode){
+        return user_childRepository.existsByKinderCode(kinderCode);
+    }
+
     public List<User_ChildEntity> getUser_childListByUserIdx(Long user_idx) {
         UserEntity userEntity=userService.getUserEntityByUserIdx(user_idx);
         return user_childRepository.findByUsers(userEntity);
@@ -45,6 +48,10 @@ public class User_ChildService {
     public boolean ExistChildByUserId(Long user_idx) {
         UserEntity userEntity=userService.getUserEntityByUserIdx(user_idx);
         return existByUserIdx(user_idx);
+    }
+
+    public User_ChildEntity getUser_ChildEntityByChildIdx(Long child_idx){
+       return user_childRepository.findByChild(childService.getChildRealEntity(child_idx));
     }
 
     /** User_child 엔티티로 차일드 조회해서 리스트로 가져오기*/
@@ -68,6 +75,8 @@ public class User_ChildService {
                 .collect(Collectors.toList());
     }
 
+
+
     /** 아이 DB 저장 후 유저_자녀테이블까지 저장*/
     public void RegisterChild(ChildCreateRequest req, long userIdx) {
         ChildEntity childEntity = req.toEntity();
@@ -84,8 +93,46 @@ public class User_ChildService {
             user_childEntity.setChild(saveChildEntity);
             user_childRepository.save(user_childEntity);
         }
+    }
 
+    public void applyKinder(long childIdx,String kinderCode) {
+        User_ChildEntity user_childEntity=user_childRepository.findByChild(childService.getChildRealEntity(childIdx));
+        user_childEntity.setKinderCode(kinderCode);
+        user_childEntity.setAccessState(2);
+        user_childRepository.save(user_childEntity);
+    }
+
+    /** 신청허가여부와 킨더코드로 유저차일드 가져오기*/
+    public List<ChildEntity> getChildEntityByKinder(String KinderCode,int accessState){
+        return user_childRepository.findByKinderCodeAndAccessState(KinderCode, accessState)
+                .stream()
+                .map(User_ChildEntity::getChild)
+                .toList();
 
     }
+
+    public void approveApply(long childIdx,String kinderCode){
+        User_ChildEntity user_childEntity=user_childRepository.findByChild(childService.getChildRealEntity(childIdx));
+        user_childEntity.setAccessState(1);
+        user_childEntity.setKinderCode(kinderCode);
+        user_childRepository.save(user_childEntity);
+
+        ChildEntity childEntity=user_childEntity.getChild();
+        childEntity.setKinderCode(kinderCode);
+        childService.saveAndReturnChildEntity(childEntity);
+
+        UserEntity userEntity=user_childEntity.getUsers();
+        userEntity.setKinderCode(kinderCode);
+        userService.saveUser(userEntity);
+
+    }
+
+    public void denyApply(long childIdx){
+        User_ChildEntity user_childEntity=user_childRepository.findByChild(childService.getChildRealEntity(childIdx));
+        user_childEntity.setAccessState(0);
+        user_childEntity.setKinderCode(null);
+        user_childRepository.save(user_childEntity);
+    }
+
 
 }

@@ -44,5 +44,6 @@ public class UserDTO {
     private int userKind;
 
     private LocalDateTime resiDate;
+
 }
 

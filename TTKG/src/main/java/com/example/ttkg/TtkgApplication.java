@@ -13,6 +13,7 @@ public class TtkgApplication {
         System.setProperty("server.servlet.context-path", "/talktalkkinder");
         SpringApplication.run(TtkgApplication.class, args);
         System.out.println("실행중");
+
     }
 
 }

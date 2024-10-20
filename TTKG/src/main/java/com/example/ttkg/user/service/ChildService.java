@@ -27,6 +27,10 @@ public class ChildService {
         ChildEntity childEntity = childRepository.findByChildIdx(childIdx);
         return ChildDTO.of(childEntity);
     }
+    public ChildEntity getChildRealEntity(Long childIdx){
+        return childRepository.findByChildIdx(childIdx);
+    }
+
 
 
 

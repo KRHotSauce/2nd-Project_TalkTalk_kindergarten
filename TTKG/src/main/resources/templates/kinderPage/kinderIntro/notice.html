@@ -32,12 +32,10 @@
     <!-- 본문 -->
     <div class="kinder_main_wrapper">
         <div class="list-group" id="myList" role="tablist">
-
             <a th:each="notice : ${notices}" class="list-group-item list-group-item-action" data-bs-toggle="list"
                 th:href="@{#}" role="tab">
                 <p th:text="${notice.body}"></p>
             </a>
-
         </div>
         <div class="d-flex justify-content-center">
             <nav aria-label="Page navigation example">

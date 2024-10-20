@@ -9,5 +9,7 @@ import lombok.Setter;
 public class UserLoginDTO {
     private Long userIdx;
     private String userNickname;
+    private String KinderCode;
+    private boolean userKind;
 
 }

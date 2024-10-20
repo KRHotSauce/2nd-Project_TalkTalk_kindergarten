@@ -26,6 +26,10 @@ public class User_ChildEntity {
 
     @Column(name="kinderCode")
     private String kinderCode;
+  
+    //0은 디폴트 1은 유치원 승낙상태 2는 신청상태
+    @Column(name="access_state")
+    private int accessState;
 
     public User_ChildEntity(){
         this.kinderCode=null;

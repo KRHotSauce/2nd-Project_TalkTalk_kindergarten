@@ -120,6 +120,8 @@ public class UserService {
         UserLoginDTO userLoginDTO = new UserLoginDTO();
         userLoginDTO.setUserIdx(userEntity.getUserIdx());
         userLoginDTO.setUserNickname(userEntity.getUserNickname());
+        userLoginDTO.setUserKind(userEntity.isUserKind());
+        userLoginDTO.setKinderCode(userEntity.getKinderCode());
         return userLoginDTO;
     }
 
@@ -163,8 +165,13 @@ public class UserService {
     public boolean checkExistByLoginId(String loginId) {
         return userRepository.existsByLoginId(loginId);
     }
+
     public boolean checkExistByUserNickname(String userNickname) {
         return userRepository.existsByUserNickname(userNickname);
+    }
+
+    public void saveUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 
 
