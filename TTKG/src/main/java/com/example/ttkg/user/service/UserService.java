@@ -2,9 +2,9 @@ package com.example.ttkg.user.service;
 
 import com.example.ttkg.user.DTO.UserDTO;
 import com.example.ttkg.user.DTO.UserLoginDTO;
+import com.example.ttkg.user.DTO.UserViewDTO;
 import com.example.ttkg.user.model.UserEntity;
 import com.example.ttkg.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,17 +16,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
-
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JavaMailSender mailSender;
 
-    @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JavaMailSender mailSender) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -36,15 +33,13 @@ public class UserService {
     //dto를 받아 entity로 변환
     public UserEntity convertToEntityFromDTO(UserDTO userDTO) {
         UserEntity userEntity = new UserEntity();
-        userEntity.setUserId(userDTO.getUserId());
+        userEntity.setUserIdx(userDTO.getUserIdx());
         userEntity.setLoginId(userDTO.getLoginId());
         userEntity.setPassword(userDTO.getPassword());
         userEntity.setUserEmail(userDTO.getUserEmail());
         userEntity.setUserNickname(userDTO.getUserNickname());
         userEntity.setUserName(userDTO.getUserName());
-        userEntity.setUserKind(userDTO.getUserKind());
-        userEntity.setProfileImg(userDTO.getProfileImg());
-        userEntity.setVerified(userDTO.isVerified());
+        userEntity.setUserKind(userDTO.getUserKind()==1);
         userEntity.setResiDate(userDTO.getResiDate());
         return userEntity;
     }
@@ -52,15 +47,13 @@ public class UserService {
     public UserDTO convertToDTOFromEntity(UserEntity userEntity) {
         UserDTO userDTO = new UserDTO();
         String encryptedPassword=passwordEncoder.encode(userEntity.getPassword());
-        userDTO.setUserId(userEntity.getUserId());
+        userDTO.setUserIdx(userEntity.getUserIdx());
         userDTO.setLoginId(userEntity.getLoginId());
         userDTO.setPassword(encryptedPassword);
         userDTO.setUserEmail(userEntity.getUserEmail());
         userDTO.setUserNickname(userEntity.getUserNickname());
         userDTO.setUserName(userEntity.getUserName());
-        userDTO.setUserKind(userEntity.getUserKind());
-        userDTO.setProfileImg(userEntity.getProfileImg());
-        userDTO.setVerified(userEntity.getVerified());
+        userDTO.setUserKind(userEntity.isUserKind() ? 1 : 0);
         userDTO.setResiDate(userEntity.getResiDate());
         return userDTO;
     }
@@ -68,7 +61,7 @@ public class UserService {
     /**
      * 회원가입 서비스
      */
-    public void RegisterUserService(UserDTO userDTO) {
+    public void RegisterUserService(UserDTO userDTO,int userKind) {
 
         //아이디,닉네임,이메일 중복검사
         if (    !userRepository.existsByLoginId(userDTO.getLoginId()) &&
@@ -85,10 +78,10 @@ public class UserService {
             userEntityRegister.setUserEmail(userDTO.getUserEmail());
             userEntityRegister.setUserNickname(userDTO.getUserNickname());
             userEntityRegister.setUserName(userDTO.getUserName());
-            userEntityRegister.setUserKind(userDTO.getUserKind());
-            userEntityRegister.setProfileImg(null);
-            userEntityRegister.setVerified(false);
+            userEntityRegister.setUserKind(userDTO.getUserKind()==1);
             userEntityRegister.setResiDate(LocalDateTime.now()); //등록날짜 저장
+            if(userKind==0)
+                userEntityRegister.setKinderCode(userDTO.getKinderCode());
             userRepository.save(userEntityRegister);//DB에 회원가입 저장
         }
     }
@@ -103,29 +96,40 @@ public class UserService {
         }
         return false;
     }
-    /**같은 유저존재확인 userId로 구분*/
-    public boolean CheckPasswordByUserId(long userId, String password) {
-       return passwordEncoder.matches(password, userRepository.findByUserId(userId).getPassword());
+    /**같은 유저존재확인 UserIdx로 구분*/
+    public boolean CheckPasswordByUserIdx(long UserIdx, String password) {
+       return passwordEncoder.matches(password, userRepository.findByUserIdx(UserIdx).getPassword());
     }
 
-    /** userId받아서 유저 DTO 뱉는 메서드*/
-    public UserDTO getUserByUserId(long userId) {
-        UserEntity userEntity=userRepository.findByUserId(userId);
+    /** UserIdx받아서 유저 DTO 뱉는 메서드*/
+    public UserDTO getUserDTOByUserIdx(long UserIdx) {
+        UserEntity userEntity=userRepository.findByUserIdx(UserIdx);
         return convertToDTOFromEntity(userEntity);
+    }
+
+    public UserViewDTO getUserViewDTOByUserIdx(Long userIdx) {
+        UserEntity userEntity = userRepository.findByUserIdx(userIdx);
+        return UserViewDTO.of(userEntity);
+    }
+
+    public UserEntity getUserEntityByUserIdx(long UserIdx) {
+        return userRepository.findByUserIdx(UserIdx);
     }
 
     /** 로그인시 로그인 아이디로 세션에 저장할 유저 로그인 DTO 뱉는 서비스*/
     public UserLoginDTO getUserLoginDTO(String loginId) {
         UserEntity userEntity = userRepository.findByLoginId(loginId).orElseThrow();
         UserLoginDTO userLoginDTO = new UserLoginDTO();
-        userLoginDTO.setUserId(userEntity.getUserId());
+        userLoginDTO.setUserIdx(userEntity.getUserIdx());
         userLoginDTO.setUserNickname(userEntity.getUserNickname());
+        userLoginDTO.setUserKind(userEntity.isUserKind());
+        userLoginDTO.setKinderCode(userEntity.getKinderCode());
         return userLoginDTO;
     }
 
     /*유저 정보 업데이트 서비스*/
     public void updateUser(UserDTO userDTO) {
-        if (userRepository.existsByUserId(userDTO.getUserId())) {
+        if (userRepository.existsByUserIdx(userDTO.getUserIdx())) {
             System.out.println("서비스 실행됨");
             userRepository.save(convertToEntityFromDTO(userDTO));
         }
@@ -163,8 +167,13 @@ public class UserService {
     public boolean checkExistByLoginId(String loginId) {
         return userRepository.existsByLoginId(loginId);
     }
+
     public boolean checkExistByUserNickname(String userNickname) {
         return userRepository.existsByUserNickname(userNickname);
+    }
+
+    public void saveUser(UserEntity userEntity) {
+        userRepository.save(userEntity);
     }
 
 

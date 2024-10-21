@@ -2,27 +2,170 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <meta charset="UTF-8">
+    <th:block th:replace="fragments/metaFragment::metadataFragment"></th:block>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>read</title>
+    <link rel="stylesheet" th:href="@{/css/board/board_read.css}">
 </head>
 <body>
-<div class="container mt-4">
-    <h1 class="mb-4">게시글 제목</h1>
-    <p class="text-muted">작성자: 홍길동 | 작성일: 2023-09-20</p>
-    <div class="card mb-4 custom-card">
-        <div class="card-body">
-            <p>게시글 내용이 여기에 들어갑니다. 내용을 추가해 주세요.</p>
+<header th:replace="fragments/headerFragment::headerFragment"></header>
+<div class="container mt-4 main_container">
+    <h1 class="mb-4 read_title" th:text="${content.title}">게시글 제목</h1>
+    <p class="text-muted"th:text="'작성자: ' + ${content.author} + ' | 작성일: ' + ${content.formattedAt}">작성자: 홍길동 | 작성일: 2023-09-20</p>
+    <div class="card mb-4 custom-card comment_body">
+        <div class="card-body" style="white-space:pre-line;" th:text="${content.body}">
+            <!--<p>게시글 내용이 여기에 들어갑니다. 내용을 추가해 주세요.</p>
             <p>더 많은 내용...</p>
             <p>여기에 내용을 계속 추가하세요. 내용이 많을 경우, 스크롤이 가능하게 됩니다.</p>
-            <p>예를 들어, 이 게시글은 사용자가 세로로 스크롤하여 내용을 볼 수 있도록 만들어졌습니다.</p>
+            <p>예를 들어, 이 게시글은 사용자가 세로로 스크롤하여 내용을 볼 수 있도록 만들어졌습니다.</p>-->
         </div>
     </div>
-    <a href="boardmain" class="btn btn-primary">목록으로 돌아가기</a>
+    <div class="comment_title">댓글</div>
+    <div id="comments-section">
+        <!--댓글들 들어가는 장소-->
+    </div>
+    <div class="card mb-4 custom-card comment_box">
+        <div class="comment-card-element">
+            <div class="comment_author" id="author" th:text="${user.userName}"></div>
+            <label>
+                <input type="text" id="comment" placeholder="댓글을 남겨보세요">
+            </label>
+            <button class="ms-2" type="button" onclick="commentSubmit()">등록</button>
+        </div>
+    </div>
+    <div class="action_buttons">
+        <div>
+            <button type="button" th:if="${user.userIdx == content.userIdx}" th:onclick="|location.href='@{/board/edit(boardIdx=${content.boardIdx}, category=${param.category}, page=${param.page})}'|" th:text="수정"></button>
+            <!--삭제 function이랑 연결  confirm 으로 예 아니오 받아서 아니오면 그냥 냅두고 예 이면 ajax 통신으로 삭제 및 redirect 시키기-->
+            <button type="button" th:if="${user.userIdx == content.userIdx}"  id="delete_button" th:text="삭제"></button>
+        </div>
+        <button th:onclick="|location.href='@{/board/main(category=${param.category}, page=${param.page})}'|" th:text="목록"></button>
+    </div>
 </div>
+<footer th:replace="fragments/footerFragment::footerFragment"></footer>
+<script th:inline="javascript">
+    var input = document.getElementById("comment");
+    var userIdx = [[${user.userIdx}]];
+    var boardIdx = [[${param.boardIdx}]];
 
+    $(document).ready(function() {
+        // 페이지 로드 시 댓글을 불러옴
+        loadComments();
+    });
+    // 댓글 save 해주는 및  ajax함수
+    function commentSubmit() {
+        $.ajax({
+            type: "POST",
+            url: `/talktalkkinder/board/comment/write`,
+            data: JSON.stringify({
+                body: input.value,
+                userIdx: userIdx,
+                <!--배열로 가져와지는 문제가 생겨 [0]을 삽입-->
+                boardIdx: boardIdx[0]
+            }),
+            contentType: "application/json",
+            success: function(response) {
+                comment.value = '';
+                <!--저장 하나 새로 했으니 다시 불러오기-->
+                loadComments();
+            },
+            error: function(response) {
+            }
+        });
+    }
+
+    // 서버로부터 댓글 데이터를 가져와 렌더링하는 함수
+    function loadComments() {
+        var boardIdx = [[${param.boardIdx}]];
+        $.ajax({
+            type: "GET",
+            url: `/talktalkkinder/board/comment/read?boardIdx=` + boardIdx,
+            success: function(response) {
+                renderComments(response);  // 서버로부터 받은 댓글 데이터를 화면에 렌더링
+            },
+            error: function(error) {
+                console.error('Error loading comments:', error);
+            }
+        });
+    }
+
+    // 댓글을 렌더링하는 함수
+    function renderComments(comments) {
+        const $commentsSection = $('#comments-section');
+        const userIdx = [[${content.userIdx}]];
+        $commentsSection.empty(); <!--기존 댓글을 모두 지움-->
+
+        <!--댓글 데이터가 없을 경우 표시-->
+        if (comments.length === 0) {
+            $commentsSection.append('<p>댓글이 없습니다. 첫 번째 댓글을 작성해보세요!</p>');
+        } else {
+            <!--댓글이 있을 경우 순회하면서 HTML 요소로 렌더링-->
+            comments.forEach(function(comment) {
+                const $commentElement = $(`
+                    <div class="comment">
+                        <div class="comment-header">
+                            <strong>${comment.userName}</strong>
+                        </div>
+                        <div class="comment-body">
+                            ${comment.body}
+                        </div>
+                        <div class="comment-footer">
+                            <span class="text-muted">${new Date(comment.formattedAt).toLocaleString()}</span>
+                        </div>
+                    </div>
+                `);
+
+                if(userIdx === comment.userIdx){
+                    console.log(comment);
+                    $commentElement.find('.comment-header').append(`<span class="authors_comment">작성자</span>`);
+                }
+
+                <!--댓글을 comments-section에 추가-->
+                $commentsSection.append($commentElement);
+
+            });
+        }
+    }
+    <!--인풋 엔터 감지 추가-->
+    input.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            commentSubmit();
+        }
+    });
+    function deleteBoard() {
+        if(!confirm("게시글을 삭제하시겠습니까?"))
+            return
+        $.ajax({
+            type: "POST",
+            url: `/talktalkkinder/board/delete`,
+            data: { boardIdx : boardIdx },
+            success: function(response) {
+                alert("게시글이 성공적으로 삭제되었습니다.")
+                location.href="/talktalkkinder/board/main?category=FREE";
+            },
+            error: function(error) {
+                console.error('Error during delete:', error);
+            }
+        });
+
+    }
+    document.getElementById("delete_button").addEventListener("click", deleteBoard);
+
+    let commentInput = document.querySelector(".comment-card-element input");
+    $(".comment-card-element input").keyup( function() {
+        console.log(commentInput.value);
+        let comment_confirm_button = document.querySelector(".comment-card-element button");
+        if(commentInput.value){
+            comment_confirm_button.classList.add("comment_alive");
+        }else {
+            comment_confirm_button.classList.remove("comment_alive");
+        }
+    });
+</script>
+<script th:inline="javascript">
+
+</script>
 </body>
 </html>

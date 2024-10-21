@@ -1,0 +1,130 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <title>톡톡유치원 - 자녀 정보</title>
+    <th:block th:replace="fragments/metaFragment :: metadataFragment"></th:block>
+    <link rel="stylesheet" th:href="@{/css/child/childrenPage.css}">
+</head>
+<body>
+<!-- Top menu 영역-->
+<header th:replace="fragments/headerFragment::headerFragment"></header>
+<!-- Left Sidebar 영역 -->
+<!-- Main content 영역 -->
+
+<div th:if="${session.userLoginDTO.userKind}" class="container mt-4 main_container">
+    <div class="main-content-style">
+        <div th:if="${existChildFlag}">
+            <table class="children_table">
+                <thead>
+                <tr>
+                    <th style="width: 10%">이름</th>
+                    <th style="width: 15%">생일</th>
+                    <th style="width: 8%">성별</th>
+                    <th style="width: 44%">주소</th>
+                    <th style="width: 23%">유치원 명</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="child : ${childList}">
+                    <tr th:onclick="|location.href='@{child_info(childIdx = ${child.childIdx})}'|">
+                        <td>
+                            <span th:text="${child.childName}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${child.childBirth}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${child.childGender}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${child.childAddr}"></span>
+                        </td>
+                        <td>
+                            <span th:if="${child.kinderCode!=null}" th:text="${child.kinderCode}"></span>
+                            <span th:if="${child.kinderCode==null}">등록된 유치원이 없습니다.</span>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="child_add_button">
+            <a th:href="@{child_register}">자녀 등록</a>
+        </div>
+    </div>
+</div>
+
+<!--선생님 쪽 뷰-->
+<div th:if="${!session.userLoginDTO.isUserKind()}" class="container mt-4 main_container">
+    <div class="main-content-style">
+        <div th:if="${existChildFlag}">
+            <table class="children_table">
+                <thead>
+                <tr>
+                    <th style="width: 10%">이름</th>
+                    <th style="width: 15%">생일</th>
+                    <th style="width: 8%">성별</th>
+                    <th style="width: 44%">주소</th>
+                    <th style="width: 23%">유치원 명</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:if="${applyChildList!=null}" th:each="applychild : ${applyChildList}">
+                    <tr>
+                        <td>
+                            <span th:text="${applychild.childName}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${applychild.childBirth}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${applychild.childGender}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${applychild.childAddr}"></span>
+                        </td>
+                        <td>
+                            <form th:action="@{/approveKinderApply}" method="post">
+                                <input type="hidden" name="childIdx" th:value="${applychild.childIdx}" />
+                                <input type="hidden" name="kinderCode" th:value="${session.userLoginDTO.kinderCode}" />
+                                <button class="child_add_button" type="submit">승인</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form id="" th:action="@{/deniedKinderApply}" method="post">
+                                <input type="hidden" name="childIdx" th:value="${applychild.childIdx}" />
+                                <button class="child_add_button" type="submit">거부</button>
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+                <th:block th:if="${childEntityList!=null}" th:each="childEntityList : ${childEntityList}">
+                    <tr>
+                        <td>
+                            <span th:text="${childEntityList.childName}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${childEntityList.childBirth}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${childEntityList.childGender}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${childEntityList.childAddr}"></span>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--footer 영역-->
+<footer th:replace="fragments/footerFragment::footerFragment"></footer>
+
+<!--bootstrap javascript-->
+
+</body>
+</html>

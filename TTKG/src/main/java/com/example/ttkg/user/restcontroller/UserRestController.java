@@ -16,7 +16,7 @@ public class UserRestController {
     }
 
     // 아이디 중복 체크 API
-    @GetMapping("/api/check_loginId")
+    @GetMapping("/check-loginId")
     public boolean checkLoginId(@RequestParam("loginId") String loginId) {
         System.out.println("API ID 매핑 성공");
         return userService.checkExistByLoginId(loginId);

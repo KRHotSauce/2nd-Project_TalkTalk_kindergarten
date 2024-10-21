@@ -83,11 +83,10 @@
 <!--        </select>-->
 
 <!--        히든타입    -->
-        <input type="hidden" id="userId" th:field="*{userId}" placeholder="아이디를 입력하세요" required>
+        <input type="hidden" id="userId" th:field="*{userIdx}" placeholder="아이디를 입력하세요" required>
         <input type="hidden" id="userKind" th:field="*{userKind}" placeholder="아이디를 입력하세요" required>
         <input type="hidden" id="resiDate" th:field="*{resiDate}" placeholder="아이디를 입력하세요" required>
-        <input type="hidden" id="profileImg" th:field="*{profileImg}" placeholder="아이디를 입력하세요" required>
-        <input type="hidden" id="verified" th:field="*{verified}" placeholder="아이디를 입력하세요" required>
+
 
         <button type="submit">수정하기</button>
         <button type="button" th:onclick="|location.href='@{/}'|">취소</button>

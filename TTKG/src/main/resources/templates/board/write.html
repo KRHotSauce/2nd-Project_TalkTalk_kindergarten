@@ -16,41 +16,48 @@
 <div class="container mt-4">
     <h2>게시글 작성</h2>
 
-    <form action="save_post.html" method="POST">
-        <!-- 글 번호 (수정 시 표시, 작성 시 숨길 수 있음) -->
+    <form action="/talktalkkinder/write_pro" method="POST" th:object="${boardCreateRequest}">
+        <!-- 글 번호 (수정 시 표시, 작성 시 숨길 수 있음)
         <div class="mb-3">
             <label for="postId" class="form-label">글 번호</label>
             <input type="text" class="form-control" id="postId" name="postId" value="1" readonly>
-        </div>
-
-        <!-- 글 제목 -->
+        </div>-->
         <div class="mb-3">
+            <!-- 글 제목 -->
             <label for="title" class="form-label">글 제목</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="글 제목을 입력하세요">
+            <!-- category 선택 드롭다운 -->
+            <label for="category" class="form-label">카테고리</label>
+            <select class="form-control" id="category" name="category">
+                <option th:value="FREE" th:text="'자유게시판'" th:selected="${category == 'FREE'}"></option>
+                <option th:value="QNA" th:text="'질문답변'" th:selected="${category == 'QNA'}"></option>
+                <option th:value="BABY" th:text="'아기돌봄'" th:selected="${category == 'BABY'}"></option>
+            </select>
+
         </div>
 
         <!-- 작성자 -->
         <div class="mb-3">
-            <label for="author" class="form-label">작성자</label>
-            <input type="text" class="form-control" id="author" name="author" placeholder="작성자를 입력하세요">
+            <div class="form-label">작성자</div>
+            <span class="form-control" th:text="${author}"></span>
         </div>
 
-        <!-- 작성일자 (자동 입력 가능, 수정 시) -->
+        <!-- 작성일자 (자동 입력 가능, 수정 시)
         <div class="mb-3">
-            <label for="date" class="form-label">작성일자</label>
-            <input type="text" class="form-control" id="date" name="date" value="2024-09-20" readonly>
-        </div>
+            <label for="content_date" class="form-label">작성일자</label>
+            <input type="text" class="form-control" id="content_date" name="content_date" value="2024-09-20" readonly>
+        </div>-->
 
         <!-- 글 내용 -->
         <div class="mb-3">
-            <label for="content" class="form-label">글 내용</label>
-            <textarea class="form-control" id="content" name="content" rows="10" placeholder="내용을 입력하세요"></textarea>
+            <label for="body" class="form-label">글 내용</label>
+            <textarea class="form-control" id="body" name="body" rows="10" wrap="hard" placeholder="내용을 입력하세요"></textarea>
         </div>
 
         <!-- 저장 및 취소 버튼 -->
         <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-primary">저장</button>
-            <a href="boardmain" class="btn btn-secondary">취소</a>
+            <a th:href="@{/board/main(category=${param.category}, page=${param.page})}" class="btn btn-secondary">취소</a>
         </div>
     </form>
 </div>

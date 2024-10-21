@@ -4,10 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.UniqueElements;
@@ -18,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 public class UserDTO {
 
-    private Long userId;
+    private Long userIdx;
 
     @NotBlank(message = "아이디를 입력해주십시오.")
     @Pattern(regexp = "^[A-Za-z0-9]{4,20}$", message = "4~20자리의 영문과 숫자로 구성해주십시오.")
@@ -41,12 +38,14 @@ public class UserDTO {
     @NotBlank(message = "성함을 입력해 주십시오.")
     private String userName;
 
-    @NotBlank
-    @Pattern(regexp = "^[TP]")
-    private String userKind;
+    String kinderCode;
+
+    @NotNull
+    @Min(0)
+    @Max(1)
+    private int userKind;
 
     private LocalDateTime resiDate;
-    private String profileImg;
-    private boolean verified;
+
 }
 
