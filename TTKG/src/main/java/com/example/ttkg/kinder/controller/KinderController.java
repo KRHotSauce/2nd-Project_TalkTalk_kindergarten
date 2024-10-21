@@ -23,24 +23,13 @@ public class KinderController {
         this.noticeLetterService = noticeLetterService;
     }
 
-    @GetMapping("kinder/kinderMain")
+    @GetMapping("kinderMain")
     public String RedirectKinderMain(HttpSession session, Model model) {
-        UserLoginDTO user=(UserLoginDTO) session.getAttribute("userLoginDTO");
-        if(user==null){
-            return "login/loginRequired";
-        }
-        String kinderCode=user.getKinderCode();
+       return "kinderPage/kinderMain";
 
-        if(kinderCode==null){
-            return "kinderPage/notExistKinderCode";
-        }
-        return "redirect:kinder/kinderMain/"+kinderCode;
     }
 
-    @GetMapping("/kinder/kinderMain/{kinderCode}")
-    public String KinderMain(@PathVariable("kinderCode")String kinderCode, Model model) {
-        return "kinderPage/kinderMain";
-    }
+
 
     @GetMapping("kinderMeal")
     public String KinderMeal() {
