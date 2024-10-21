@@ -24,7 +24,7 @@ public class ChildDTO {
     private Integer childAge;
     private String childAddr;
     private String childGender;
-    private Boolean childAllergy;
+    private String childAllergy;
     private String kinderCode;
 
     /*생년월일 이용해서 나이 계산

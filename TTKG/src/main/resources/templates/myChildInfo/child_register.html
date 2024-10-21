@@ -6,108 +6,199 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <th:block th:replace="fragments/metaFragment::metadataFragment"></th:block>
+    <link rel="stylesheet" th:href="@{/css/child/childRegister.css}">
     <title>톡톡유치원 - 자녀등록</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        .form-container {
-            width: 400px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-container h2 {
-            text-align: center;
-        }
-
-        .form-container input[type="text"],
-        .form-container input[type="password"],
-        .form-container input[type="email"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .form-container input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-        }
-
-        .form-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .form-container button:hover {
-            background-color: #45a049;
-        }
-
-        .valid {
-            border-color: green;
-        }
-
-        .invalid {
-            border-color: red;
-        }
-    </style>
 </head>
 <body>
 <header th:replace="fragments/headerFragment::headerFragment"></header>
-<form th:action="child_register_pro" method="post" th:object="${req}" novalidate>
-    <div>
-        <label for="name">자녀 이름</label>
-        <input type="text" id="name" name="name" th:field="*{child_name}" placeholder="자녀의 이름을 입력하세요.">
-    </div>
+<div class="container mt-4 main_container">
+    <div class="child_register_wrapper">
+        <form name="child_register" class="register_form" th:action="child_register_pro" method="post" th:object="${req}" novalidate>
+            <div class="register_general">
+                <div>
+                    <label hidden for="name">자녀 이름</label>
+                    <input class="register_input" type="text" id="name" name="child_name" th:field="*{child_name}" placeholder="자녀의 이름을 입력하세요.">
+                </div>
 
-    <div>
-        <label for="age">생년월일</label>
-        <input type="date" id="age" name="age" th:field="*{child_birth}" placeholder="자녀의 이름을 입력하세요.">
-    </div>
+                <div>
+                    <label hidden for="birth">생년월일</label>
+                    <input class="register_input" type="date" id="birth" name="child_birth" th:field="*{child_birth}" placeholder="자녀의 이름을 입력하세요.">
+                </div>
 
-    <div>
-        <label for="name">자녀의 주 거주지</label>
-        <input type="text" id="addr" name="addr" th:field="*{child_addr}" placeholder="자녀의 주 거주지를 입력하세요.">
-    </div>
+                <div>
+                    <label hidden for="addr">자녀의 주 거주지</label>
+                    <input class="register_input" type="text" id="addr" name="child_addr" th:field="*{child_addr}" placeholder="자녀의 주 거주지를 입력하세요.">
+                </div>
+            </div>
 
-    <div>
-        <span>자녀의 성별</span>
-        <div>
-            <input type="radio" id="Male" name="child_gender" value="Male">
-            <label for="Male">남</label>
-        </div>
-        <div>
-            <input type="radio" id="Female" name="child_gender" value="Female">
-            <label for="Female">여</label>
-        </div>
-    </div>
+            <div>
+                <span>자녀의 성별</span>
+                <div>
+                    <input class="gender_radio" type="radio" id="Male" name="child_gender" value="Male">
+                    <label for="Male">남</label>
+                </div>
+                <div>
+                    <input class="gender_radio" type="radio" id="Female" name="child_gender" value="Female">
+                    <label for="Female">여</label>
+                </div>
+            </div>
 
-    <div>
-        <span>알러지 여부</span>
-        <div>
-            <input type="radio" id="true" name="child_allergy" value="true">
-            <label for="true">해당 있음</label>
-        </div>
-        <div>
-            <input type="radio" id="false" name="child_allergy" value="false">
-            <label for="false">해당 없음</label>
-        </div>
+            <div>
+                <div>
+                    <span>알러지 여부</span>
+                    <div>
+                        <input class="allergy_radio" type="radio" id="true" name="child_allergy" value="true">
+                        <label for="true">해당 있음</label>
+                    </div>
+                    <div>
+                        <input class="allergy_radio" type="radio" id="false" name="child_allergy" value="false">
+                        <label for="false">해당 없음</label>
+                    </div>
+                </div>
+                <div class="allergy_menu">
+                    <div>
+                        <label for="peanuts">땅콩</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="peanuts" value="peanuts">
+                    </div>
+                    <div>
+                        <label for="tree_nuts">견과류</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="tree_nuts" value="tree_nuts">
+                    </div>
+                    <div>
+                        <label for="milk">우유</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="milk" value="milk">
+                    </div>
+                    <div>
+                        <label for="egg">달걀</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="egg" value="egg">
+                    </div>
+                    <div>
+                        <label for="fish">생선</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="fish" value="fish">
+                    </div>
+                    <div>
+                        <label for="shellfish">갑각류</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="shellfish" value="shellfish">
+                    </div>
+                    <div>
+                        <label for="soy">콩</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="soy" value="soy">
+                    </div>
+                    <div>
+                        <label for="wheat">밀</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="wheat" value="wheat">
+                    </div>
+                    <div>
+                        <label for="seashell">조개</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="seashell" value="seashell">
+                    </div>
+                    <div>
+                        <label for="peach">복숭아</label>
+                        <input class="allergy_true_checkboxes" type="checkbox" id="peach" value="peach">
+                    </div>
+                </div>
+            </div>
+            <button type="submit">등록</button>
+            <button type="button" th:onclick="|location.href='@{/children}'|">취소</button>
+        </form>
     </div>
-    <button type="submit">등록</button>
-    <button type="button" th:onclick="|location.href='@{/children}'|">취소</button>
-</form>
+</div>
 <footer th:replace="fragments/footerFragment::footerFragment"></footer>
+<script>
+    <!--.focusout(fn); - 포커스가 나갓을때 fn 실행-->
+
+    <!--영어 이름들 한글로 반환하여 message 만들때 사용하는 obj 및 함수-->
+    let englishObj = {
+        'name': '이름',
+        'birth': '생년월일',
+        'addr': '주소',
+        'gender': '성별',
+        'allergy': '알레르기',
+        'peanuts': '땅콩',
+        'tree_nuts': '견과류',
+        'milk': '우유',
+        'egg': '달걀',
+        'fish': '생선',
+        'shellfish': '갑각류',
+        'soy': '콩',
+        'wheat': '밀',
+        'seashell': '조개',
+        'peach': '복숭아',
+    };
+
+    function inputDecoder (id) {
+        if(id in englishObj){
+            return englishObj[id];
+        }
+    }
+
+    <!--성별, 알러지 radio 버튼 클릭했는지 확인 및 안 클릭 했으면 message 추가 및 반환 함수-->
+    function radioExists (message, radio) {
+        let radioChecked = document.querySelectorAll('.' + radio + "_radio");
+        if(!radioChecked[0].checked && !radioChecked[1].checked){
+            if(message)
+                message += ", ";
+
+            message += inputDecoder(radio);
+        }else {
+        }
+        return message;
+    }
+
+    <!--allergy radio 어디 클릭 했는지 여부에 따라 class 추가 및 삭제 함수-->
+    function allergyMenu(element) {
+        allergy_menu = document.querySelector('.allergy_menu');
+        if(element.target.id == 'true'){
+            allergy_menu.classList.add('allergy_true');
+        }else {
+            allergy_menu.classList.remove('allergy_true');
+        }
+    }
+
+    <!--form submit 시 value가 있는지 없는지만 체크 (및 유효성 검사 할 예정)-->
+    <!--그리고 allergy 여부 true 했을 시 allergy 선택한 것들을 하나의 String으로 만든 뒤-->
+    <!--해당 input 밸류에 넣어 form 보냄-->
+    document.child_register.addEventListener('submit', (event) => {
+        let message = "";
+        document.querySelectorAll('.register_input').forEach(input => {
+            if(!input.value){
+                if(message) {
+                    message += ", ";
+                }
+                message += inputDecoder(input.id);
+            }
+        });
+
+        message = radioExists(message, 'gender');
+        message = radioExists(message, 'allergy');
+
+
+        if(message){
+            event.preventDefault();
+            alert(message + " 정보를 입력하여 주십시오.");
+        }else {
+            let true_checkbox = document.querySelector('#true');
+            if(true_checkbox.checked) {
+                let allergy_list = "";
+                let allergy_checkboxes = document.querySelectorAll('.allergy_true_checkboxes')
+                allergy_checkboxes.forEach((checkbox) => {
+                    if(checkbox.checked){
+                        if(allergy_list){
+                            allergy_list += ", ";
+                        }
+                        allergy_list += inputDecoder(checkbox.id);
+                    }
+                });
+                true_checkbox.value = allergy_list;
+            }
+        }
+    });
+
+
+
+    <!--알러지 radio 어떤게 선택 됐는지 탐지-->
+    document.querySelectorAll('.allergy_radio').forEach((radio) =>
+                              radio.addEventListener('change', allergyMenu));
+</script>
 </body>
 </html>
