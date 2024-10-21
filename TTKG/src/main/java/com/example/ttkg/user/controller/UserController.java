@@ -53,8 +53,19 @@ public class UserController {
             mav.addObject("userDTO", userDTO); //DTO 유효성검사 안뽑아주기위해서 MAV로 넣어줌
             return "login/register";
         }
-        userService.RegisterUserService(userDTO);
-        return "login/register_success"; //성공시 알림창 뜨고 메인으로 이동
+
+        if(userDTO.getKinderCode()==null&&userDTO.getUserKind()==1){
+            userService.RegisterUserService(userDTO,userDTO.getUserKind());
+            return "login/register_success"; //성공시 알림창 뜨고 메인으로 이동
+        }
+
+        if(userDTO.getKinderCode()!=null&&userDTO.getUserKind()==0){
+            userService.RegisterUserService(userDTO,0);
+            return "login/register_success";
+        }
+
+        return "login/register";
+
     }
 
     /**로그인 뷰 이동 컨트롤러*/

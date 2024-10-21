@@ -3,10 +3,13 @@ package com.example.ttkg.kinder.controller;
 import com.example.ttkg.kinder.model.NoticeLetterEntity;
 import com.example.ttkg.kinder.service.KinderService;
 import com.example.ttkg.kinder.service.NoticeLetterService;
+import com.example.ttkg.user.DTO.UserLoginDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -20,8 +23,22 @@ public class KinderController {
         this.noticeLetterService = noticeLetterService;
     }
 
-    @GetMapping("kinderMain")
-    public String KinderPage() {
+    @GetMapping("kinder/kinderMain")
+    public String RedirectKinderMain(HttpSession session, Model model) {
+        UserLoginDTO user=(UserLoginDTO) session.getAttribute("userLoginDTO");
+        if(user==null){
+            return "login/loginRequired";
+        }
+        String kinderCode=user.getKinderCode();
+
+        if(kinderCode==null){
+            return "kinderPage/notExistKinderCode";
+        }
+        return "redirect:kinder/kinderMain/"+kinderCode;
+    }
+
+    @GetMapping("/kinder/kinderMain/{kinderCode}")
+    public String KinderMain(@PathVariable("kinderCode")String kinderCode, Model model) {
         return "kinderPage/kinderMain";
     }
 

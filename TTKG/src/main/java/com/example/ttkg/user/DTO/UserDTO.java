@@ -38,6 +38,8 @@ public class UserDTO {
     @NotBlank(message = "성함을 입력해 주십시오.")
     private String userName;
 
+    String kinderCode;
+
     @NotNull
     @Min(0)
     @Max(1)
