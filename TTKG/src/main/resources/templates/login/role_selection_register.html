@@ -1,44 +1,62 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-    <title>회원가입/회원종류선택</title>
+    <title>카드 가운데 정렬</title>
     <th:block th:replace="fragments/metaFragment :: metadataFragment"></th:block>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
     <style>
-        .extra-options {
-            margin-top: 10px;
-            text-align: center;
+        .card {
+            width: 60%; /* 카드 크기를 60%로 설정 */
+            border: none;
         }
-
-        .extra-options a {
-            display: block;
-            margin: 5px 0;
-            text-decoration: none;
-            color: #4CAF50;
+        .main-content-style {
+            min-height: 100vh; /* 전체 화면 높이 맞추기 */
+        }
+        body{
+            background: var(--main-color);
+        }
+        header{
+            background-color: white;
         }
     </style>
 </head>
-
 <body>
 <!-- Top menu 영역-->
-<!--<header th:replace="fragments/headerFragment::headerFragment"></header>-->
+<header th:replace="fragments/loginHeaderFragment::loginFragment"></header>
 <!-- Left Sidebar 영역 -->
-<!--<div th:replace="fragments/leftSidebarFragments::leftSidebarFragments"></div>-->
 <!-- Main content 영역 -->
 
-<div class="container mt-4">
-    <div class="main-content-style">
-        <a th:href="@{register?userKind=1}">학부모로 가입하기</a><br>
-        <a th:href="@{register?userKind=0}">선생님으로 가입하기</a>
+<div class="container mt-4 main-content-style d-flex justify-content-center align-items-center">
+    <div class="row row-cols-1 row-cols-md-2 g-8 justify-content-center">
+        <div class="col d-flex justify-content-center">
+            <a th:href="@{register?userKind=1}" class="text-decoration-none">
+                <div class="card mx-auto">
+                    <img src="img/login/regi_parents.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">학부모 계정으로 가입하기</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col d-flex justify-content-center">
+            <a th:href="@{register?userKind=0}" class="text-decoration-none">
+                <div class="card mx-auto">
+                    <img src="img/login/regi_teacher.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">선생님 계정으로 가입하기</h5>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
-</div>
-<div class="extra-options">
-    <a th:href="@{/login}">이미 계정이 있습니까? 로그인</a>
 </div>
 
 <!--footer 영역-->
-<!--<footer th:replace="fragments/footerFragment::footerFragment"></footer>-->
 
 <!--bootstrap javascript-->
-
 </body>
 </html>

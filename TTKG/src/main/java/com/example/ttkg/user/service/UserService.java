@@ -172,6 +172,10 @@ public class UserService {
         return userRepository.existsByUserNickname(userNickname);
     }
 
+    public boolean checkExistByUserEmail(String userEmail){
+        return userRepository.existsByUserEmail(userEmail);
+    }
+
     public void saveUser(UserEntity userEntity) {
         userRepository.save(userEntity);
     }

@@ -1,90 +1,251 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
-    <head>
-        <title>톡톡유치원:유치원파인더</title>
-        <th:block
+<head>
+    <title>톡톡유치원:유치원파인더</title>
+    <th:block
             th:replace="fragments/metaFragment :: metadataFragment"></th:block>
-        <script type="text/javascript"
+    <script type="text/javascript"
             src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ihu6c8i0aa"></script>
-        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-    </head>
-    <body>
-        <!-- Top menu 영역-->
-        <header th:replace="fragments/headerFragment::headerFragment"></header>
-        <!-- Left Sidebar 영역 -->
-        <!-- Main content 영역 -->
-
-        <div class="container mt-4">
-            <div class="main-content-style">
-                <div id="map" style="width:100%;height:400px;"></div>
-                <script>
-            var mapOptions={
-                center:new naver.maps.LatLng(37.3595704,127.105399),
-                zoom:10
-            };
-            var map=new naver.maps.Map('map',mapOptions);
-           
-
-        </script>
-            </div>
-            <p></p>
-            <div>
-                <table id="resultTable"
-                    style="border-collapse: collapse;"></table>
-                <script>
-                $(document).ready(function() {
-    // AJAX를 통해 프록시 경로로 API 호출
-    $.ajax({
-        url: "/talktalkkinder/api/kinder-finder/init",  // Spring Boot에서 설정한 프록시 경로
-        method: "GET",
-        dataType: "json",  // 응답을 JSON으로 기대
-        success: function(data) {
-            console.log(data);  // 데이터가 제대로 오는지 확인
-
-            // 테이블로 데이터를 표시하는 함수 호출
-            displayData(data);
-        },
-        error: function(xhr, status, error) {
-            console.error("AJAX Error:", status, error);  // 오류 출력
+    <script type="text/javascript"
+            src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ihu6c8i0aa&submodules=geocoder"></script>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    '
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .iw_inner h3 {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
         }
-    });
 
-    // 데이터를 테이블로 표시하는 함수
-    function displayData(data) {
-        let resultTable = "<table style='border: 1px solid black; width: 100%; background-color: white;'>";
+        .iw_inner p {
+            font-size: 14px;
+            color: #555;
+        }
 
-        // 첫 번째 행: 컬럼명(헤더)
-        resultTable += "<tr>";
-        $.each(data.kinderInfo[0], function(key) {
-            resultTable += `<th style='border: 1px solid black; padding: 5px; background-color: lightgray;'>${key}</th>`;
-        });
-        resultTable += "</tr>";
+        .kinderSearchTable {
+            width: 60%;
+            height: 600px;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
 
-        // 데이터 행 생성
-        $.each(data.kinderInfo, function(index, row) {
-            resultTable += "<tr>";
-            $.each(row, function(key, value) {
-                resultTable += `<td style='border: 1px solid black; padding: 5px;'>${value}</td>`;
-            });
-            resultTable += "</tr>";
-        });
+        .finder-style {
+            display: flex;
+            align-items: flex-start; /* 세로 정렬(위쪽 정렬) */
+            border: 1px solid black;
+        }
 
-        resultTable += "</table>";
+        #searchResult {
+            max-height: calc(100% - 38px);
+            overflow-y: auto;
 
-        // 테이블을 화면에 삽입
-        $("#resultTable").html(resultTable);
-    }
-});
+        }
 
+        .input-group {
+            margin-bottom: 0;
+        }
 
-            </script>
+        .container {
+
+        }
+    </style>
+</head>
+<body>
+<!-- Top menu 영역-->
+<header th:replace="fragments/headerFragment::headerFragment"></header>
+<!-- Left Sidebar 영역 -->
+<!-- Main content 영역 -->
+<div class="wrapper">
+    <div class="content-wrapper">
+        <div class="container mb-10 mt-4">
+            <div class="main-content-style finder-style">
+                <div id="map" style="width:40%;height:600px;"></div>
+                <div class="kinderSearchTable">
+                    <div class="input-group">
+                        <input type="text" id="searchInput" class="form-control" placeholder="유치원 이름을 입력해주세요"
+                               aria-label="Recipient's username"
+                               aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="button" id="searchBtn">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    <div class="list-group" id="searchResult">
+                    </div>
+                </div>
             </div>
         </div>
+        <a th:href="@{/kinderDetail}">상세페이지</a>
+    </div>
+    <!--footer 영역-->
+    <footer th:replace="fragments/footerFragment::footerFragment"></footer>
+</div>
 
-        <!--footer 영역-->
-        <footer th:replace="fragments/footerFragment::footerFragment"></footer>
 
-        <!--bootstrap javascript-->
+<script>
+    window.onload = function () {
+        var mapDiv = document.getElementById('map');
+        var map = new naver.maps.Map(mapDiv, {
+            center: new naver.maps.LatLng(37.578472, 126.97727),
+            zoom: 14
+        });
 
-    </body>
+        var mapElement = $('#map');
+        var markers = []; // 마커 배열
+        var kinderDataList = []; // 유치원 데이터 리스트
+
+        if (mapElement.length) {
+            console.log("Map element is ready!");
+            $.ajax({
+                url: "/talktalkkinder/api/kinder-finder/init",  // 유치원 데이터를 반환하는 API
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);  // 데이터가 제대로 오는지 확인
+                    kinderDataList = data.kinderInfo;
+                    displayData(kinderDataList);
+                    kinderDataList.forEach(function (kinderData, index) {
+                        var address = kinderData.addr;
+                        geocodeAddress(address, kinderData); // index 대신 데이터를 넘김
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", status, error);
+                }
+            });
+
+            naver.maps.Event.addListener(map, 'click', function (e) {
+                markers.forEach(function (markerInfo) {
+                    if (markerInfo.infowindow.getMap()) {
+                        markerInfo.infowindow.close();
+                    }
+                });
+            });
+
+            // 주소를 기반으로 좌표를 구하고 마커 생성
+            function geocodeAddress(address, kinderData) {
+                naver.maps.Service.geocode({
+                    query: address
+                }, function (status, response) {
+                    if (status !== naver.maps.Service.Status.OK) {
+                        return alert('Something went wrong!');
+                    }
+
+                    var result = response.v2,
+                        items = result.addresses;
+
+                    if (items.length > 0) {
+                        var item = items[0];
+                        var x = parseFloat(item.x);  // 경도
+                        var y = parseFloat(item.y);  // 위도
+
+                        addMarker(y, x, kinderData);  // 데이터와 함께 마커 추가
+                    } else {
+                        alert('No results found.');
+                    }
+                });
+            }
+
+            // 마커 생성 및 저장
+            function addMarker(y, x, kinderData) {
+                var contentString = `
+                    <div class="iw_inner">
+                        <h3>${kinderData.kindername}</h3>
+                            <p>${kinderData.addr}</p><br>
+                            <p>${kinderData.establish} | ${kinderData.officeedu}>${kinderData.subofficeedu}</p><br>
+                            <p>tel : ${kinderData.telno} </p>
+                    </div>
+                `;
+
+                var marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(y, x),
+                    map: map
+                });
+
+                var infowindow = new naver.maps.InfoWindow({
+                    content: contentString
+                });
+
+                markers.push({
+                    marker: marker, // 마커 저장
+                    data: kinderData, // 유치원 정보 저장
+                    infowindow: infowindow // 정보창 저장
+                });
+
+                naver.maps.Event.addListener(marker, "click", function (e) {
+                    toggleInfoWindow(marker, infowindow);
+                });
+            }
+
+            // 정보창 열고 닫기
+            function toggleInfoWindow(marker, infowindow) {
+                if (infowindow.getMap()) {
+                    infowindow.close();
+                } else {
+                    infowindow.open(map, marker);
+                }
+            }
+
+            // 검색 버튼 클릭 이벤트
+            document.getElementById('searchBtn').addEventListener('click', function () {
+                var searchTerm = document.getElementById('searchInput').value.trim();
+                var filteredData = kinderDataList.filter(function (kinder) {
+                    return kinder.kindername.includes(searchTerm);  // 유치원 이름에서 검색어를 찾음
+                });
+                displayData(filteredData);  // 필터링된 데이터를 테이블에 표시
+            });
+
+            // 검색 결과 리스트 출력 함수
+            function displayData(data) {
+                var resultTable = '';
+
+                data.forEach(function (kinderData) {
+                    resultTable += `
+        <a href="#" class="list-group-item list-group-item-action" data-addr="${kinderData.addr}">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">${kinderData.kindername}</h5>
+                <small>[${kinderData.establish}]</small>
+            </div>
+            <p class="mb-1">${kinderData.addr}</p>
+            <small>Tel.${kinderData.telno}</small>
+        </a>`;
+                });
+
+                document.getElementById('searchResult').innerHTML = resultTable;  // 리스트 업데이트
+
+                // 리스트 아이템 클릭 시 해당 유치원의 마커 정보 찾아서 이동
+                var listItems = document.querySelectorAll('#searchResult a');
+                listItems.forEach(function (item) {
+                    item.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        var address = this.getAttribute('data-addr');  // 클릭한 유치원의 주소를 가져옴
+
+                        // 해당 유치원의 주소에 해당하는 마커를 찾음
+                        var markerInfo = markers.find(function (m) {
+                            return m.data.addr === address;  // 주소로 마커 검색
+                        });
+
+                        if (markerInfo) {
+                            map.panTo(markerInfo.marker.getPosition());  // 마커 위치로 지도 중앙 이동
+                            map.setZoom(16);  // 줌 레벨 조정
+                            toggleInfoWindow(markerInfo.marker, markerInfo.infowindow);  // 정보창 열기
+                        }
+                    });
+                });
+            }
+        }
+    };
+
+</script>
+
+
+<!--bootstrap javascript-->
+
+</body>
 </html>
