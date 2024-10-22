@@ -35,7 +35,7 @@ public class ChildCreateRequest {
 
     public ChildEntity toEntity() {
         System.out.println(child_gender);
-        if (child_gender.equals("Male")){
+        if (child_gender.equals("male")){
             child_gender = "M";
         }else {
             child_gender = "F";

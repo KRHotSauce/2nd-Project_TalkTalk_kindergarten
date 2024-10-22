@@ -11,19 +11,125 @@
 }
 
 .register_general div input {
-    border: 1px solid black;
+    border: var(--border-solid-one);
 }
 
 .register_general div:first-child input{
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    border: 1px solid black;
+    border: var(--border-solid-one);
     border-bottom: none;
 }
 
 .register_general div:last-child input{
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    border: 1px solid black;
+    border: var(--border-solid-one);
     border-top: none;
+}
+
+.register_general .register_input_focus {
+    border: 2px solid var(--sub-color) !important;
+}
+
+.register_general .register_input_top {
+    border-top: none !important;
+}
+
+.register_general .register_input_bottom {
+    border-bottom: none !important;
+}
+
+.gender_allergy_box {
+    margin-top: 10px;
+    border-radius: 10px;
+    border: var(--border-solid-one);
+}
+
+.button_box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px;
+    width: 100%;
+    height: 50px;
+}
+
+.gender_allergy_box > .button_box{
+    border-bottom: var(--border-solid-one);
+}
+
+.button_box div {
+    width: 100%;
+}
+
+.select_button{
+    padding: 8px;
+    width: 100%;
+    background-color: white;
+    border: var(--border-solid-one);
+}
+
+#male_button, #allergy_O_button {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#female_button, #allergy_X_button {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-left: none;
+}
+
+.unfocused_button{
+    border-right: none;
+}
+
+.focussed_button {
+    border: 1px solid var(--sub-color) !important;
+    color: var(--sub-color);
+}
+
+.allergy_menu{
+    max-height: 0px;
+    overflow: hidden;
+    padding: 0 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.allergy_menu div {
+    line-height: 40px;
+}
+
+.text_green {
+    color: var(--sub-color) !important;
+}
+
+.allergy_true {
+    border-top: var(--border-solid-one);
+    max-height: 500px;
+}
+
+.submit_cancel_button {
+    display: flex;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.submit_cancel_button button {
+    width: 50%;
+    padding: 15px;
+    border: none;
+    background-color: var(--main-color);
+    border-radius: 10px
+}
+
+.submit_cancel_button button:first-child {
+
+}
+
+.submit_cancel_button button:last-child {
+    margin-left: 10px;
 }

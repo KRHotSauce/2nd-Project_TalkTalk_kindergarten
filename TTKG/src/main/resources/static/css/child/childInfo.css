@@ -49,7 +49,7 @@
 
 .section_info_double {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .section_info_button {
