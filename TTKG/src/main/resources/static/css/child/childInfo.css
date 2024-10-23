@@ -60,3 +60,17 @@
     background-color: var(--main-color);
     color: var(--sub-color);
 }
+
+.child_list_button{
+    margin-top: 10px;
+    text-align: end;
+}
+
+.child_list_button button{
+    right: 0px;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--main-color);
+    color: var(--sub-color);
+}

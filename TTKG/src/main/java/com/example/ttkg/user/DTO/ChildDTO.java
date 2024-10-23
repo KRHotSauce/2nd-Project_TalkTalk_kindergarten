@@ -33,6 +33,12 @@ public class ChildDTO {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일");
         String formattedBirth = child.getChildBirth().format(formatter);
         Integer age = LocalDate.now().getYear() - child.getChildBirth().getYear() + 1;
+        String gender = "";
+        if(child.getChildGender().equals("M")) {
+            gender = "남아";
+        }else {
+            gender = "여아";
+        }
 
         return ChildDTO.builder()
                 .childIdx(child.getChildIdx())
@@ -40,7 +46,7 @@ public class ChildDTO {
                 .childBirth(formattedBirth)
                 .childAge(age)
                 .childAddr(child.getChildAddr())
-                .childGender(child.getChildGender())
+                .childGender(gender)
                 .childAllergy(child.getChildAllergy())
                 .build();
     }

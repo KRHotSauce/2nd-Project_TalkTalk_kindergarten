@@ -123,11 +123,8 @@
     padding: 15px;
     border: none;
     background-color: var(--main-color);
+    color: var(--sub-color);
     border-radius: 10px
-}
-
-.submit_cancel_button button:first-child {
-
 }
 
 .submit_cancel_button button:last-child {

@@ -2,6 +2,7 @@ package com.example.ttkg.user.service;
 
 import com.example.ttkg.kinder.model.KinderEntity;
 import com.example.ttkg.user.DTO.ChildCreateRequest;
+import com.example.ttkg.user.DTO.ChildDTO;
 import com.example.ttkg.user.model.ChildEntity;
 import com.example.ttkg.user.model.UserEntity;
 import com.example.ttkg.user.model.User_ChildEntity;
@@ -55,7 +56,7 @@ public class User_ChildService {
     }
 
     /** User_child 엔티티로 차일드 조회해서 리스트로 가져오기*/
-    public List<ChildEntity> findChildEntityListByUserIdx(Long userIdx){
+    public List<ChildDTO> findChildEntityListByUserIdx(Long userIdx){
 
 //        List<ChildEntity> childEntityList=new ArrayList<ChildEntity>();
 //        try {
@@ -72,6 +73,7 @@ public class User_ChildService {
         return getUser_childListByUserIdx(userIdx)
                 .stream()
                 .map(User_ChildEntity::getChild)
+                .map(ChildDTO::of)
                 .collect(Collectors.toList());
     }
 

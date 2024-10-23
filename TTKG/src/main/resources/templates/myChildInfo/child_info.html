@@ -71,14 +71,12 @@
             </div>
             <div class="section_info">
                 <div>유치원</div>
-                <div>다니는 유치원명<!-- a tag로 바로 이동하게 하기--></div>
-                <div th:if="${user_child.kinderCode==null and user_child.accessState==0}">
-                    <button class="section_info_button" data-bs-toggle="modal" data-bs-target="#kinderSearchModal">
+                <div th:if="${user_child.kinderCode != null and user_child.accessState==0}">다니는 유치원명<!-- a tag로 바로 이동하게 하기--></div>
+                <button th:if="${user_child.kinderCode==null and user_child.accessState==0}" class="section_info_button" data-bs-toggle="modal" data-bs-target="#kinderSearchModal">
 <!--                        th:onclick="|location.href=@{kinder_regist(userIdx=${user.userIdx},childIdx=
-                    ${child.childIdx})}|-->
-                        유치원 등록
-                    </button>
-                </div>
+                ${child.childIdx})}|-->
+                    유치원 등록
+                </button>
             </div>
             <div class="section_info">
                 <div>
@@ -91,6 +89,9 @@
             </div>
         </div>
     </section>
+    <div class="child_list_button">
+        <button type="button" th:onclick="|location.href='@{/children}'|">목록으로</button>
+    </div>
 </div>
 
 <!--유치원 등록 모달-->
