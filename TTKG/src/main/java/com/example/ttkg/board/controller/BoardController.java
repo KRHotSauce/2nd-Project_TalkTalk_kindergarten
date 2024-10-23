@@ -77,6 +77,10 @@ public class BoardController {
     @GetMapping("/board/write")
     public String toWritePage(Model model, @RequestParam(value = "category", defaultValue = "FREE")String category,
                               HttpSession session) {
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
+        if(userLoginDTO==null){
+            return "login/loginRequired";
+        }
         BoardCategory boardCategory = BoardCategory.of(category);
         if (boardCategory == null) {
             model.addAttribute("message", "카테고리가 존재하지 않습니다.");
@@ -86,7 +90,6 @@ public class BoardController {
 
         /*model.addAttribute("message", savedBoardId + "번 글이 등록되었습니다.");
         model.addAttribute("nextUrl", "/boards/" + category + "/" + savedBoardId);*/
-        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
         model.addAttribute("author", userRepository.findByUserIdx(userLoginDTO.getUserIdx()).getUserName());
         model.addAttribute("category", category);
         model.addAttribute("boardCreateRequest", new BoardCreateRequest());
@@ -110,16 +113,14 @@ public class BoardController {
         return "redirect:board/read?boardIdx=" + savedBoardId;
     }
 
-    @GetMapping("/modify")
-    public String toModifyPage(Model model) {
-
-        return "board/modify";
-    }
-
     @GetMapping("/board/read")
     public String toReadPage(Model model, @RequestParam(value = "boardIdx") Long boardIdx,
-                             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page, HttpSession session) {
+                             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                             HttpSession session) {
         UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
+        if(userLoginDTO==null){
+            return "login/loginRequired";
+        }
         model.addAttribute("comments", commentService.findAll(boardIdx));
         model.addAttribute("user", userRepository.findByUserIdx(userLoginDTO.getUserIdx()));
         model.addAttribute("content", boardService.boardRead(boardIdx));
@@ -127,7 +128,12 @@ public class BoardController {
     }
 
     @GetMapping("/board/edit")
-    public String editBoard(@RequestParam(value = "boardIdx") Long boardIdx, Model model){
+    public String editBoard(@RequestParam(value = "boardIdx") Long boardIdx,
+                            Model model, HttpSession session){
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
+        if(userLoginDTO==null){
+            return "login/loginRequired";
+        }
         model.addAttribute("content", boardService.boardRead(boardIdx));
         model.addAttribute("boardCreateRequest", new BoardCreateRequest());
         return "board/edit";

@@ -72,6 +72,7 @@
 }
 
 .board_section_board {
+  min-height: 263px;
   position: relative;
   padding: 10px 0;
   border: 1px solid lightgray;
@@ -119,10 +120,18 @@
 
 .board_contents li {
   font-size: 15px;
+  display: flex;
 }
 
-.announcment_board {
+.board_contents h6, .board_contents span {
+    display: block;
 }
 
-.another_board {
+.board_contents h6 {
+    margin-left: 5px;
+}
+
+.board_contents span {
+    margin-left: auto;
+    margin-right: 10px;
 }

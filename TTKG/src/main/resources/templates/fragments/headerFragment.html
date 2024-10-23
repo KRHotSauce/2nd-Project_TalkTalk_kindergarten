@@ -94,19 +94,9 @@
         <a th:href="@{/board/main(category=ALL)}">전체 게시판</a>
       </div>
       <div>
-        <a th:if="${session.userLoginDTO==null}" th:href="@{/child_info_pre}"
-          >자녀 정보</a
-        >
-        <a
-          th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==1}"
-          th:href="@{/child_info_pre}"
-          >자녀 정보</a
-        >
-        <a
-          th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==0}"
-          th:href="@{/child_info_pre}"
-          >원생 정보</a
-        >
+        <a th:if="${session.userLoginDTO==null}" th:href="@{/child_info_pre}">자녀 정보</a>
+        <a th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==1}" th:href="@{/child_info_pre}">자녀 정보</a>
+        <a th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==0}" th:href="@{/child_info_pre}">원생 정보</a>
       </div>
       <div hidden>
         <a href="#">자료실</a>
