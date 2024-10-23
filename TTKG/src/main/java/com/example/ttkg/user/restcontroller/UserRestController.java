@@ -28,4 +28,10 @@ public class UserRestController {
         System.out.println("API 닉네임 매핑 성공 -------");
         return userService.checkExistByUserNickname(userNickname);
     }
+
+    @GetMapping("/check-userEmail")
+    public boolean checkUserEmail(@RequestParam("userEmail") String userEmail) {
+        System.out.println("API 이메일 매핑 성공 -------");
+        return userService.checkExistByUserEmail(userEmail);
+    }
 }

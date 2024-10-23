@@ -49,8 +49,11 @@ public class UserController {
     @PostMapping("/register_pro")
     public String register_pro(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView("login/register");
+        System.out.println("설마 유효성검사겠어?");
         if (result.hasErrors()) {
             mav.addObject("userDTO", userDTO); //DTO 유효성검사 안뽑아주기위해서 MAV로 넣어줌
+            System.out.println("진짜야?");
+            result.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
             return "login/register";
         }
 

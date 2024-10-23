@@ -3,7 +3,15 @@
 <head>
     <th:block th:replace="fragments/metaFragment::metadataFragment"></th:block>
     <link rel="stylesheet" th:href="@{/css/main_content.css}">
-    <title></title>
+    <title>톡톡유치원/메인페이지</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+    </style>
 </head>
 <body>
 <!-- Top menu 영역-->
@@ -11,145 +19,124 @@
 <!-- Left Sidebar 영역 -->
 <!--<div th:replace="fragments/leftSidebarFragments::leftSidebarFragments"></div>-->
 <!-- Main content 영역 -->
-
-<section class="content_wrapper">
-    <div class="carousel_background">
-        <div class="main_content_carousel">
-            <div
-                id="carouselExampleCaptions"
-                class="carousel slide carousel-fade"
-                data-bs-ride="carousel"
-            >
-                <div class="carousel-indicators">
-                    <button
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="0"
-                        class="active"
-                        aria-current="true"
-                        aria-label="Slide 1"
-                    ></button>
-                    <button
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="1"
-                        aria-label="Slide 2"
-                    ></button>
-                    <button
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide-to="2"
-                        aria-label="Slide 3"
-                    ></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="5000">
-                        <img
-                            src="img/mainCarousel/child01.jpg"
-                            class="d-block w-100"
-                            alt="..."
-                        />
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <img
-                            src="img/mainCarousel/child02.jpg"
-                            class="d-block w-100"
-                            alt="..."
-                        />
-                    </div>
-                    <div class="carousel-item" data-bs-interval="5000">
-                        <img
-                            src="img/mainCarousel/child03.jpg"
-                            class="d-block w-100"
-                            alt="..."
-                        />
-                    </div>
-                </div>
-                <button
-                        class="carousel-control-prev"
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide="prev"
+<div class="wrapper">
+    <section class="content_wrapper">
+        <div class="carousel_background">
+            <div class="main_content_carousel">
+                <div
+                        id="carouselExampleCaptions"
+                        class="carousel slide carousel-fade"
+                        data-bs-ride="carousel"
                 >
+                    <div class="carousel-indicators">
+                        <button
+                                type="button"
+                                data-bs-target="#carouselExampleCaptions"
+                                data-bs-slide-to="0"
+                                class="active"
+                                aria-current="true"
+                                aria-label="Slide 1"
+                        ></button>
+                        <button
+                                type="button"
+                                data-bs-target="#carouselExampleCaptions"
+                                data-bs-slide-to="1"
+                                aria-label="Slide 2"
+                        ></button>
+                        <button
+                                type="button"
+                                data-bs-target="#carouselExampleCaptions"
+                                data-bs-slide-to="2"
+                                aria-label="Slide 3"
+                        ></button>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-bs-interval="5000">
+                            <img
+                                    src="img/mainCarousel/child01.jpg"
+                                    class="d-block w-100"
+                                    alt="..."
+                            />
+                        </div>
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <img
+                                    src="img/mainCarousel/child02.jpg"
+                                    class="d-block w-100"
+                                    alt="..."
+                            />
+                        </div>
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <img
+                                    src="img/mainCarousel/child03.jpg"
+                                    class="d-block w-100"
+                                    alt="..."
+                            />
+                        </div>
+                    </div>
+                    <button
+                            class="carousel-control-prev"
+                            type="button"
+                            data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="prev"
+                    >
               <span
                       class="carousel-control-prev-icon carousel-icon"
                       aria-hidden="true"
               ></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button
-                        class="carousel-control-next"
-                        type="button"
-                        data-bs-target="#carouselExampleCaptions"
-                        data-bs-slide="next"
-                >
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                            class="carousel-control-next"
+                            type="button"
+                            data-bs-target="#carouselExampleCaptions"
+                            data-bs-slide="next"
+                    >
               <span
                       class="carousel-control-next-icon carousel-icon"
                       aria-hidden="true"
               ></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="icons_list">
-        <div class="icon_list_box">
-            <i class="fa-solid fa-house"></i>
-            <h3>알리미 서비스 안내</h3>
-        </div>
-        <div class="icon_list_box">
-            <i class="fa-regular fa-clipboard"></i>
-            <h3>공시항목 소개</h3>
-        </div>
-        <div class="icon_list_box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <h3>유치원·어린이집 조회</h3>
-        </div>
-        <div class="icon_list_box">
-            <i class="fa-solid fa-chart-simple"></i>
-            <h3>유치원·어린이집 비교</h3>
-        </div>
-        <div class="icon_list_box">
-            <i class="fa-regular fa-envelope"></i>
-            <h3>오류 및 허위정보 신고</h3>
-        </div>
-    </div>
-    <div class="board_background">
-        <div class="board_section">
-            <!-- 게시판1 -->
-            <div class="board_section_board announcment_board">
-                <div class="board_header">
-                    <h4 class="board_title">공지사항</h4>
-                    <button class="board_more_button"><span>+</span></button>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-                <ul class="board_contents">
-                    <li>공지1</li>
-                    <li>공지2</li>
-                    <li>공지3</li>
-                    <li>공지4</li>
-                    <li>공지5</li>
-                </ul>
-            </div>
-            <!-- 게시판2 어떤 게시판이냐에 따라 class 바꾸기 -->
-            <div class="board_section_board another_board">
-                <div class="board_header">
-                    <h4 class="board_title">가입인사</h4>
-                    <button class="board_more_button"><span>+</span></button>
-                </div>
-                <ul class="board_contents">
-                    <li>가입인사1</li>
-                    <li>가입인사2</li>
-                    <li>가입인사3</li>
-                    <li>가입인사4</li>
-                    <li>가입인사5</li>
-                </ul>
             </div>
         </div>
-    </div>
-</section>
 
-<!--footer 영역-->
-<footer th:replace="fragments/footerFragment::footerFragment"></footer>
+        <div class="board_background">
+            <div class="board_section">
+                <!-- 게시판1 -->
+                <div class="board_section_board announcment_board">
+                    <div class="board_header">
+                        <h4 class="board_title">공지사항</h4>
+                        <button class="board_more_button"><span>+</span></button>
+                    </div>
+                    <ul class="board_contents">
+                        <li>공지1</li>
+                        <li>공지2</li>
+                        <li>공지3</li>
+                        <li>공지4</li>
+                        <li>공지5</li>
+                    </ul>
+                </div>
+                <!-- 게시판2 어떤 게시판이냐에 따라 class 바꾸기 -->
+                <div class="board_section_board another_board">
+                    <div class="board_header">
+                        <h4 class="board_title">가입인사</h4>
+                        <button class="board_more_button"><span>+</span></button>
+                    </div>
+                    <ul class="board_contents">
+                        <li>가입인사1</li>
+                        <li>가입인사2</li>
+                        <li>가입인사3</li>
+                        <li>가입인사4</li>
+                        <li>가입인사5</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--footer 영역-->
+    <footer th:replace="fragments/footerFragment::footerFragment"></footer>
+</div>
 
 <!--bootstrap javascript-->
 <script

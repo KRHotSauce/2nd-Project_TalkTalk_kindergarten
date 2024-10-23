@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<!-- 부트스트랩 CSS -->
+<style>
+    .logo-img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+</style>
+<header th:fragment="loginFragment">
+    <!-- 네비게이션 바 -->
+    <nav id="top_nav">
+        <div class="all_wrapper">
+            <div class="top_nav_logo">
+                <a th:href="@{/}">
+                    <img
+                            src="/talktalkkinder/img/logo/TalkTalkLogo_75-removebg-preview.png"
+                            alt="로고"
+                            class="d-inline-block align-text-top logo-img"
+                    />
+                </a>
+            </div>
+            <!-- 로그인/회원가입 버튼 -->
+            <div class="top_nav_user">
+                <!-- 비로그인 상태일 때 로그인/회원가입 버튼 표시 -->
+                <div class="top_nav_loginBox" th:if="${session.userLoginDTO == null}">
+                    <a th:href="@{/login}">로그인</a>
+                    <a th:href="@{/roleSelect}">회원가입</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</header>
