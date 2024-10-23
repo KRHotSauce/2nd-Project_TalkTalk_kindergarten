@@ -40,6 +40,7 @@ header {
 
 .top_nav_logo {
   grid-area: icon;
+  width:100%;
 }
 
 .top_nav_navbar {
@@ -273,4 +274,8 @@ body header .slide_down {
 /*중간 컨테이너 크기 최소값 지정*/
 .main_container {
     min-height: var(--max-content-height);
+}
+
+.logo-img{
+  object-fit: contain;
 }

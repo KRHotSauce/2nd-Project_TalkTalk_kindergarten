@@ -49,12 +49,26 @@ public class UserController {
     @PostMapping("/register_pro")
     public String register_pro(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView("login/register");
+        System.out.println("설마 유효성검사겠어?");
         if (result.hasErrors()) {
             mav.addObject("userDTO", userDTO); //DTO 유효성검사 안뽑아주기위해서 MAV로 넣어줌
+            System.out.println("진짜야?");
+            result.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
             return "login/register";
         }
-        userService.RegisterUserService(userDTO);
-        return "login/register_success"; //성공시 알림창 뜨고 메인으로 이동
+
+        if(userDTO.getKinderCode()==null&&userDTO.getUserKind()==1){
+            userService.RegisterUserService(userDTO,userDTO.getUserKind());
+            return "login/register_success"; //성공시 알림창 뜨고 메인으로 이동
+        }
+
+        if(userDTO.getKinderCode()!=null&&userDTO.getUserKind()==0){
+            userService.RegisterUserService(userDTO,0);
+            return "login/register_success";
+        }
+
+        return "login/register";
+
     }
 
     /**로그인 뷰 이동 컨트롤러*/

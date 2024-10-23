@@ -11,6 +11,11 @@ public class KinderInfoController {
         return "kinderFinder/finderMain";
     }
 
+    @GetMapping("kinderDetail")
+    public String kinderDetail() {
+        return "kinderFinder/kinderDetail";
+    }
+
 
 
 }

@@ -3,10 +3,13 @@ package com.example.ttkg.kinder.controller;
 import com.example.ttkg.kinder.model.NoticeLetterEntity;
 import com.example.ttkg.kinder.service.KinderService;
 import com.example.ttkg.kinder.service.NoticeLetterService;
+import com.example.ttkg.user.DTO.UserLoginDTO;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -21,9 +24,12 @@ public class KinderController {
     }
 
     @GetMapping("kinderMain")
-    public String KinderPage() {
-        return "kinderPage/kinderMain";
+    public String RedirectKinderMain(HttpSession session, Model model) {
+       return "kinderPage/kinderMain";
+
     }
+
+
 
     @GetMapping("kinderMeal")
     public String KinderMeal() {

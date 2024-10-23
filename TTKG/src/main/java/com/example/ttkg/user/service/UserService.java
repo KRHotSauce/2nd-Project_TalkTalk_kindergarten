@@ -61,7 +61,7 @@ public class UserService {
     /**
      * 회원가입 서비스
      */
-    public void RegisterUserService(UserDTO userDTO) {
+    public void RegisterUserService(UserDTO userDTO,int userKind) {
 
         //아이디,닉네임,이메일 중복검사
         if (    !userRepository.existsByLoginId(userDTO.getLoginId()) &&
@@ -80,6 +80,8 @@ public class UserService {
             userEntityRegister.setUserName(userDTO.getUserName());
             userEntityRegister.setUserKind(userDTO.getUserKind()==1);
             userEntityRegister.setResiDate(LocalDateTime.now()); //등록날짜 저장
+            if(userKind==0)
+                userEntityRegister.setKinderCode(userDTO.getKinderCode());
             userRepository.save(userEntityRegister);//DB에 회원가입 저장
         }
     }
@@ -168,6 +170,10 @@ public class UserService {
 
     public boolean checkExistByUserNickname(String userNickname) {
         return userRepository.existsByUserNickname(userNickname);
+    }
+
+    public boolean checkExistByUserEmail(String userEmail){
+        return userRepository.existsByUserEmail(userEmail);
     }
 
     public void saveUser(UserEntity userEntity) {
