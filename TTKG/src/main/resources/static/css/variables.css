@@ -4,7 +4,7 @@
     --another-color: #f0ebc8;
     --max-content-width: 1012px;
     --max-content-height: 594px;
-
+    --border-solid-one: 1px solid black;
 
     /*글꼴*/
     --font-family: 'Noto Sans KR', sans-serif;

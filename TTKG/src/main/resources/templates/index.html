@@ -107,20 +107,20 @@
                 <div class="board_section_board announcment_board">
                     <div class="board_header">
                         <h4 class="board_title">자유 게시판</h4>
-                        <button class="board_more_button"><span>+</span></button>
+                        <button th:onclick="|location.href='@{/board/main(category = FREE)}'|" class="board_more_button"><span>+</span></button>
                     </div>
                     <ul class="board_contents" th:each="free : ${freeList}">
-                        <li><h6 th:text="${free.title}"></h6><span th:text="${free.formattedAt}"></span></li>
+                        <li th:onclick="|location.href='@{/board/read(boardIdx = ${free.boardIdx})}'|"><h6 th:text="${free.title}"></h6><span th:text="${free.formattedAt}"></span></li>
                     </ul>
                 </div>
                 <!-- 게시판2 어떤 게시판이냐에 따라 class 바꾸기 -->
                 <div class="board_section_board another_board">
                     <div class="board_header">
                         <h4 class="board_title">질문 게시판</h4>
-                        <button class="board_more_button"><span>+</span></button>
+                        <button th:onclick="|location.href='@{/board/main(category = QNA)}'|" class="board_more_button"><span>+</span></button>
                     </div>
                     <ul class="board_contents" th:each="qna : ${qnaList}">
-                        <li><h6 th:text="${qna.title}"></h6><span th:text="${qna.formattedAt}"></span></li>
+                        <li th:onclick="|location.href='@{/board/read(boardIdx = ${qna.boardIdx})}'|"><h6 th:text="${qna.title}"></h6><span th:text="${qna.formattedAt}"></span></li>
                     </ul>
                 </div>
             </div>

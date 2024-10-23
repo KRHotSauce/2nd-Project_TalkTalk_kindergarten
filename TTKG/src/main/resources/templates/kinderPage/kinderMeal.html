@@ -20,6 +20,13 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 
+    <style>
+        .red_back{
+            background-color: red;
+            border-color: red;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -30,7 +37,7 @@
 <div class="kinder_main_wrapper">
     <div id='calendar'></div>
 
-    <script>
+    <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function() {
             var kinderCode = "K001"; // 특정 유치원의 코드를 지정합니다.
             var calendarEl = document.getElementById('calendar');
@@ -60,6 +67,30 @@
                             alert('Failed to load events');
                         }
                     });
+                },
+                eventContent: function(arg) {
+                    var title = arg.event.title.split(', ').join('<br/>');
+                    <!--더미데이터 중에 해당하는 음식이 생선찌개하고 콩나물국 밖에 없어서-->
+                    let allergy = /*[[${allergy != null ? allergy : "''"}]]*/;
+                    let allergies = allergy.split(" ");
+                    if(allergies.includes("생선")) {
+                        if(title.includes("생선찌개")) {
+                            return { html: `<div class="fc-event-title allergy_day">${title}</div>` };
+                        }
+                    }
+                    if(allergies.includes("콩")) {
+                        if(title.includes("콩나물국")) {
+                            return { html: `<div class="fc-event-title allergy_day">${title}</div>` };
+                        }
+                    }
+                    return { html: `<div class="fc-event-title">${title}</div>` };
+                },
+                eventDidMount: function(info) {
+                    <!--아래 calendar.render()이 진행된 이후 class보고 class 추가해주는 곳-->
+                    let allergy_day = info.el.querySelector(".allergy_day");
+                    if(allergy_day) {
+                        info.el.classList.add("red_back"); // 부모 요소에 클래스 추가
+                    }
                 }
             });
             calendar.render();

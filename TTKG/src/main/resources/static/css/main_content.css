@@ -118,6 +118,11 @@
 .board_contents li {
   font-size: 15px;
   display: flex;
+  cursor: pointer;
+}
+
+.board_contents li:hover{
+  color: var(--sub-color);
 }
 
 .board_contents h6,
