@@ -9,15 +9,23 @@
   background-size: cover;
   border-bottom: 1px solid lightgray;
 } */
+
 .body{
   height:100%;
   margin:0;
 }
+
 .wrapper{
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
+
+.content_wrapper{
+  flex:1;
+}
+
+
 .main_content_carousel,
 .board_section,
 .icons_list {
@@ -25,9 +33,7 @@
   max-width: 1012px;
   margin: 0 auto;
 }
-.content_wrapper{
-  flex:1;
-}
+
 
 
 .icons_list {
