@@ -10,7 +10,6 @@
   <style>
     * {
       font-family: var(--font-family-noto-sans-kr);
-      font-weight: var(--font-weight-normal);
     }
   </style>
   <header th:fragment="headerFragment">
@@ -20,7 +19,7 @@
         <div class="top_nav_logo">
           <a th:href="@{/}">
             <img
-              src="/talktalkkinder/img/logo/TalkTalkLogo_75-removebg-preview.png"
+              src="/talktalkkinder/img/logo/TalkTalkLogo_75_2.png"
               alt="로고"
               class="d-inline-block align-text-top logo-img"
             />
@@ -94,9 +93,19 @@
         <a th:href="@{/board/main(category=ALL)}">전체 게시판</a>
       </div>
       <div>
-        <a th:if="${session.userLoginDTO==null}" th:href="@{/child_info_pre}">자녀 정보</a>
-        <a th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==1}" th:href="@{/child_info_pre}">자녀 정보</a>
-        <a th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==0}" th:href="@{/child_info_pre}">원생 정보</a>
+        <a th:if="${session.userLoginDTO==null}" th:href="@{/child_info_pre}"
+          >자녀 정보</a
+        >
+        <a
+          th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==1}"
+          th:href="@{/child_info_pre}"
+          >자녀 정보</a
+        >
+        <a
+          th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==0}"
+          th:href="@{/child_info_pre}"
+          >원생 정보</a
+        >
       </div>
       <div hidden>
         <a href="#">자료실</a>

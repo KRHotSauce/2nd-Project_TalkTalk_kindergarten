@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class UserController {
@@ -74,14 +75,13 @@ public class UserController {
     /**로그인 뷰 이동 컨트롤러*/
     @GetMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error, Model model) {
-        if (error != null)
-            model.addAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다");
         return "login/login";
     }
 
     /**로그인 프로세스 컨트롤러*/
     @PostMapping("login_pro")
-    public String login_pro(@RequestParam(value = "loginId") String loginId, @RequestParam(value = "password") String password, HttpSession session, Model model) {
+    public String login_pro(@RequestParam(value = "loginId") String loginId, @RequestParam(value = "password") String password,
+                            HttpSession session, Model model,RedirectAttributes redirectAttributes) {
         //로그인 로직 로그인 아이디로 entity 찾은 후 비교 그 이후 loginId로 UserLoginDTO 불러냄
         System.out.println("id: " + loginId);
         System.out.println("pass: " + password);
@@ -89,10 +89,10 @@ public class UserController {
             UserLoginDTO userLoginDTO = userService.getUserLoginDTO(loginId);
             session.setAttribute("userLoginDTO", userLoginDTO); //로그인 정보는 세션에 저장
             return "login/login_success";
-        } else {
-            model.addAttribute("loginError", "아이디 또는 비밀번호가 올바르지 않습니다.");
-            return "login/login";
         }
+        redirectAttributes.addFlashAttribute("loginFailed",userService.CheckPasswordByLoginId(loginId,password));
+            return "redirect:/login";
+
     }
 
     /**로그아웃 컨트롤러*/
@@ -147,17 +147,18 @@ public class UserController {
     }
 
     @PostMapping("find-id_pro")
-    public String findId_pro(@Valid @RequestParam String userName,
-                             @RequestParam String userEmail, Model model) {
+    public String findId_pro(@RequestParam("userName") String userName,
+                             @RequestParam("userEmail") String userEmail, Model model,RedirectAttributes redirectAttributes) {
 
         try {
             String LoginId= userService.findUserLoginIdByUserNameAndUserEmail(userName, userEmail);
             model.addAttribute("loginId", LoginId);
-            return "login/find-id_success";
+            redirectAttributes.addFlashAttribute("successMessage","회원님의 아이디는 "+LoginId+"입니다.");
+            return "redirect:/find-id";
         }
         catch(IllegalArgumentException e){
-            model.addAttribute("errorMessage", "입력한 정보와 일치하는 아이디가 없습니다.");
-            return "login/find-id";
+            redirectAttributes.addFlashAttribute("errorMessage","일치하는 이름 혹은 이메일이 없습니다");
+            return "redirect:/find-id";
         }
 
     }
@@ -168,15 +169,14 @@ public class UserController {
     }
 
     @PostMapping("find-password_pro")
-    public String findPasswordPro(@RequestParam String loginId, Model model) {
-        try {
-            userService.logicTemporaryPassword(loginId);
-            return "login/find-pass_success";
-        }
-        catch(IllegalArgumentException e){
-            model.addAttribute("errorMessage",e.getMessage());
-            return "login/find-pass";
-        }
+    public String findPasswordPro(@RequestParam String loginId, Model model,RedirectAttributes redirectAttributes) {
+            if(userService.checkExistByLoginId(loginId)){
+                userService.logicTemporaryPassword(loginId);
+                return "login/find-pass_success";
+            }
+            redirectAttributes.addFlashAttribute("errorMessage","아이디가 존재하지 않습니다.");
+            return "redirect:/find-pass";
+
     }
 
 }

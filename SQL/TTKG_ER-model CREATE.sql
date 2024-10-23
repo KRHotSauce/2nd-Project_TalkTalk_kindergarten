@@ -72,7 +72,7 @@ CREATE TABLE child (
     child_birth DATE NOT NULL,
     child_addr varchar2(255),
     child_gender varchar2(255),
-    child_allergy char(1),
+    child_allergy varchar2(255),
     kinderCode varchar2(255)
 );
 
@@ -198,5 +198,6 @@ ALTER TABLE class_teacher ADD CONSTRAINT FK_kinder_TO_class_teacher FOREIGN KEY 
 --child에 kindercode추가
 alter table child add kindercode varchar2(255);
 alter table child add constraint FK_kinder_TO_CHILD FOREIGN KEY (kindercode) references kinder (kindercode);
+alter table child modify (child_allergy varchar(255));
 
 commit;

@@ -1,9 +1,525 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
+    <th:block th:replace="fragments/metaFragment :: metadataFragment"></th:block>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/includes/header_include_style.css}">
+    <link rel="stylesheet" th:href="@{/css/main_content.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
+    <style>
+
+        body {
+            background: var(--main-color);
+        }
+
+        .main-content-style {
+            min-height: 100vh; /* 전체 화면 높이 맞추기 */
+        }
+
+        header {
+            background-color: white;
+        }
+
+        .form-container {
+            width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            background-color: white;
+        }
+        .rootBtn{
+        background-color: var(--main-color);
+            border-color: var(--main-color);
+        }
+    </style>
+    <title>회원 정보 수정</title>
+</head>
+<body>
+<!-- Top menu 영역-->
+<header th:replace="fragments/loginHeaderFragment::loginFragment"></header>
+<!-- Left Sidebar 영역 -->
+<!-- Main content 영역 -->
+<div class="main-content-style d-flex justify-content-center align-items-center">
+    <div class="container form-container ">
+        <form id="registerForm" th:action="@{/register_pro}" method="post" th:object="${userDTO}">
+            <h1 class="h3 mb-3 fw-normal">회원가입</h1>
+            <div class="row g-3 input-group-sm">
+
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control " id="loginId" th:field="*{loginId}" placeholder="id"
+                               required readonly>
+                        <label for="loginId">아이디</label>
+                        <div class="valid-feedback">
+                            good!
+                        </div>
+                        <div class="invalid-feedback" id="loginIdFeedback">
+                            <!-- 이 부분에 오류 메시지가 동적으로 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control" th:field="*{password}" id="password"
+                               placeholder="id" required>
+                        <label for="password">비밀번호</label>
+                        <div class="valid-feedback">
+                            good!
+                        </div>
+                        <div class="invalid-feedback" id="passwordFeedback">
+                            <!-- 이 부분에 오류 메시지가 동적으로 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" th:field="*{userNickname}" id="userNickname"
+                               placeholder="id" required>
+                        <label for="userNickname">닉네임</label>
+                        <div class="valid-feedback">
+                            good!
+                        </div>
+                        <div class="invalid-feedback" id="userNicknameFeedback">
+                            <!-- 이 부분에 오류 메시지가 동적으로 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="userName" th:field="*{userName}" placeholder="id"
+                               required>
+                        <label for="userName">이름</label>
+                        <div class="valid-feedback">
+                            good!
+                        </div>
+                        <div class="invalid-feedback" id="userNamedFeedback">
+                            <!-- 이 부분에 오류 메시지가 동적으로 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-12">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="userEmail" th:field="*{userEmail}" placeholder="id"
+                               required>
+                        <label for="userEmail">이메일</label>
+                        <div class="valid-feedback">
+                            good!
+                        </div>
+                        <div class="invalid-feedback" id="userEmailFeedback">
+                            <!-- 이 부분에 오류 메시지가 동적으로 표시됩니다 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div th:if="*{userKind==0}" class="row g-3">
+                <div class="col-md-12">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control is-valid" id="kinderName" name="kinderName" readonly
+                               placeholder="유치원을 선택해주세요" required>
+                        <button class="section_info_button btn btn-outline-secondary" type="button"
+                                data-bs-toggle="modal" data-bs-target="#kinderSearchModal">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    <div class="valid-feedback">
+                        good!
+                    </div>
+                </div>
+                <div>
+                    <input type="hidden" th:field="*{kinderCode}" id="KinderCode" name="KinderCode" readonly required>
+                </div>
+            </div>
+            <div class="row g-3">
+                <div class="col-12">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="invalidCheck3"
+                               aria-describedby="invalidCheck3Feedback" required>
+                        <label class="form-check-label" for="invalidCheck3">
+                            개인 정보 이용정책에 동의하시겠습니까?
+                        </label>
+                        <div id="invalidCheck3Feedback" class="invalid-feedback">
+                            동의 후 진행가능합니다
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" th:field="*{userKind}" id="userKind" name="userKind" required>
+            <div class="row g-3 justify-content-end">
+                <div class="col-md-auto">
+                    <button class="btn btn-primary rootBtn" type="submit">가입</button>
+                    <button class="btn btn-primary rootBtn" type="button" th:onclick="|location.href='@{/}'|">취소
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- 유치원 선택 모달창    -->
+    <div class="modal fade" id="kinderSearchModal" tabindex="-1" role="dialog" aria-labelledby="kinderSearchModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="kinderSearchModalLabel">유치원 찾기</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- 검색창 -->
+                    <div class="input-group mb-3">
+                        <input type="text" id="kinderSearchInput" class="form-control" placeholder="유치원 이름을 입력하세요"/>
+                        <button type="button" id="searchKinderBtn" class="btn btn-outline-secondary"><i
+                                class="bi bi-search"></i></button>
+                    </div>
+
+
+                    <!-- 검색 결과 리스트 -->
+                    <!-- 검색 결과 테이블 -->
+                    <table class="table table-hover mt-3">
+                        <thead>
+                        <tr>
+                            <th>유치원 이름</th>
+                            <th>유치원 주소</th>
+                        </tr>
+                        </thead>
+                        <tbody id="kinderResults">
+                        <!-- 검색 결과가 여기에 동적으로 추가됩니다 -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="applyKinderBtn" class="btn btn-success" data-bs-dismiss="modal">선택
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- 유치원 찾기 -->
+<script>
+    $(document).ready(function () {
+        let selectedKinder = null;  // 선택된 유치원 객체를 저장할 변수
+
+        // 검색 버튼 클릭 시 검색 실행
+        $('#searchKinderBtn').on('click', function () {
+            const query = $('#kinderSearchInput').val();  // 검색어 가져오기
+            if (!query) {
+                alert('검색어를 입력하세요.');
+                return;
+            }
+
+            searchKinder(query);  // 검색 함수 호출
+        });
+
+        // 검색 결과 표시 함수
+        function searchKinder(query) {
+            $.ajax({
+                url: `/talktalkkinder/api/searchKinder`,  // 서버 API 경로
+                method: 'GET',
+                data: {query: query},  // 검색어 전송
+
+                success: function (data) {
+                    const $kinderResults = $('#kinderResults');
+                    $kinderResults.empty();  // 기존 검색 결과 초기화
+
+                    if (data.length === 0) {
+                        $kinderResults.append('<tr><td colspan="2">검색 결과가 없습니다.</td></tr>');
+                        return;
+                    }
+
+                    // 검색 결과를 테이블로 추가
+                    data.forEach((kinder, index) => {
+                        const tableRow = `
+                        <tr class="clickable-row" data-index="${index}">
+                            <td>${kinder.kindername}</td>
+                            <td>${kinder.addr}</td>
+                        </tr>
+                    `;
+                        $kinderResults.append(tableRow);
+                    });
+
+                    // 테이블 행 클릭 시 선택 처리
+                    $('.clickable-row').on('click', function () {
+                        // 클릭된 행을 선택 상태로 표시
+                        $('.clickable-row').removeClass('table-active');  // 이전 선택 해제
+                        $(this).addClass('table-active');
+
+                        // 선택된 kinder 객체 저장
+                        const index = $(this).data('index');
+                        selectedKinder = data[index];
+                        // console.log("서버에서 받은 데이터: ", data);  // 서버에서 받은 데이터를 출력// 선택된 유치원 객체 저장
+                        // console.log(selectedKinder);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error:", error);
+                    alert('유치원 검색 중 오류가 발생했습니다.');
+                }
+            });
+        }
+
+
+        // 신청 버튼 클릭 시 선택된 유치원 정보를 서버로 전송
+        $('#applyKinderBtn').on('click', function () {
+            if (!selectedKinder) {
+                alert('유치원을 선택하세요.');
+                return;
+            }
+            $("#KinderCode").val(selectedKinder.kindercode);  // kinderCode 입력 필드에 값 설정
+            $("#kinderName").val(selectedKinder.kindername);
+
+            // $('.modal-backdrop').remove();
+
+
+            // 선택된 유치원 객체를 서버로 전송
+        });
+    });
+
+    // 유효성 검사
+    $(document).ready(function () {
+
+        var form = $('#registerForm');
+
+        form.on('submit', function (event) {
+            // 기본 HTML5 유효성 검사를 진행
+            if (!form[0].checkValidity()) {
+                event.preventDefault();  // 제출을 중단
+                event.stopPropagation(); // 이벤트 전파 중단
+            }
+
+            // 폼에 'was-validated' 클래스를 추가하여 부트스트랩 유효성 검사를 트리거
+            form.addClass('was-validated');
+        });
+
+        // 아이디 유효성 검사
+        $('#loginId').on('input', function () {
+            var loginId = $(this).val();
+
+            // 값이 없는 경우 처리
+            if (!loginId) {
+                $('#loginId').removeClass('is-valid').addClass('is-invalid');
+                $('#loginIdFeedback').text('아이디를 입력해주십시오.');
+                return;
+            }
+
+            // 패턴 검사
+            var pattern = /^[A-Za-z][A-Za-z0-9]{3,19}$/;
+            if (!pattern.test(loginId)) {
+                $('#loginId').removeClass('is-valid').addClass('is-invalid');
+                $('#loginIdFeedback').text('4~20자리의 영문과 숫자로 구성해주십시오.');
+                return;
+            }
+
+            // 중복 검사 (AJAX로 서버에 요청)
+            $.ajax({
+                url: '/talktalkkinder/api/check-loginId',
+                method: 'GET',
+                data: { loginId: loginId },
+                success: function (response) {
+                    if (!response) {
+                        $('#loginId').removeClass('is-invalid').addClass('is-valid');
+                        $('#loginIdFeedback').text('');
+                    } else {
+                        $('#loginId').removeClass('is-valid').addClass('is-invalid');
+                        $('#loginIdFeedback').text('이미 사용 중인 아이디입니다.');
+                    }
+                },
+                error: function () {
+                    console.error("서버와의 통신에 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        $('#password').on('input', function () {
+            var password = $(this).val();
+
+            // 값이 없는 경우 처리
+            if (!password) {
+                $('#password').removeClass('is-valid').addClass('is-invalid');
+                $('#passwordFeedback').text('비밀번호를 입력해주십시오.');
+                return;
+            }
+
+            // 패턴 검사
+            var pattern = /^(?=.*[A-Za-z])(?=.*[0-9])(?=.*[!@#$%^&*+=-]).{8,15}$/;
+            if (!pattern.test(password)) {
+                $('#password').removeClass('is-valid').addClass('is-invalid');
+                $('#passwordFeedback').text('1개 이상의 영문,숫자,특수문자로 이루어진 8~15자리');
+                return;
+            }
+            else {
+                $('#password').removeClass('is-invalid').addClass('is-valid');
+                $('#passwordFeedback').text('');
+            }
+        });
+
+        $('#userNickname').on('input', function () {
+            var userNickname = $(this).val();
+
+            // 값이 없는 경우 처리
+            if (!userNickname) {
+                $('#userNickname').removeClass('is-valid').addClass('is-invalid');
+                $('#userNicknameFeedback').text('닉네임을 입력해주십시오.');
+                return;
+            }
+
+            // 패턴 검사
+            var pattern = /^[가-힣a-zA-Z0-9]{2,10}$/;
+            if (!pattern.test(userNickname)) {
+                $('#userNickname').removeClass('is-valid').addClass('is-invalid');
+                $('#userNicknameFeedback').text('2~10자리의 영문,한글,숫자만 사용 가능합니다.');
+                return;
+            }
+
+            // 중복 검사 (AJAX로 서버에 요청)
+            $.ajax({
+                url: '/talktalkkinder/api/check-userNickname',
+                method: 'GET',
+                data: { userNickname: userNickname },
+                success: function (response) {
+                    if (!response) {
+                        $('#userNickname').removeClass('is-invalid').addClass('is-valid');
+                        $('#userNicknameFeedback').text('');
+                    } else {
+                        $('#userNickname').removeClass('is-valid').addClass('is-invalid');
+                        $('#userNicknameFeedback').text('이미 사용 중인 닉네임입니다.');
+                    }
+                },
+                error: function () {
+                    console.error("서버와의 통신에 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        $('#userName').on('input', function () {
+            var userName = $(this).val();
+
+            // 값이 없는 경우 처리
+            if (!userName) {
+                $('#userName').removeClass('is-valid').addClass('is-invalid');
+                $('#userNameFeedback').text('이름을 입력해주십시오.');
+                return;
+            }
+
+            // 패턴 검사
+            var pattern = /^[가-힣a-zA-Z]+$/;
+            if (!pattern.test(userName)) {
+                $('#userName').removeClass('is-valid').addClass('is-invalid');
+                $('#userNameFeedback').text('영문,한글만 사용 가능합니다.');
+                return;
+            }else {
+                $('#userName').removeClass('is-invalid').addClass('is-valid');
+                $('#userNameFeedback').text('');
+            }
+        });
+
+        $('#userEmail').on('input', function () {
+            var userEmail = $(this).val();
+
+            // 값이 없는 경우 처리
+            if (!userEmail) {
+                $('#userEmail').removeClass('is-valid').addClass('is-invalid');
+                $('#userEmailFeedback').text('이메일을 입력해주세요.');
+                return;
+            }
+
+            // 패턴 검사
+            var pattern = /^[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,}$/;
+            if (!pattern.test(userEmail)) {
+                $('#userEmail').removeClass('is-valid').addClass('is-invalid');
+                $('#userEmailFeedback').text('올바르지 않은 이메일입니다.');
+                return;
+            }
+
+            // 중복 검사 (AJAX로 서버에 요청)
+            $.ajax({
+                url: '/talktalkkinder/api/check-userEmail',
+                method: 'GET',
+                data: { userEmail: userEmail },
+                success: function (response) {
+                    if (!response) {
+                        $('#userEmail').removeClass('is-invalid').addClass('is-valid');
+                        $('#userEmailFeedback').text('');
+                    } else {
+                        $('#userEmail').removeClass('is-valid').addClass('is-invalid');
+                        $('#userEmailFeedback').text('이미 사용 중인 이메일입니다.');
+                    }
+                },
+                error: function () {
+                    console.error("서버와의 통신에 오류가 발생했습니다.");
+                }
+            });
+        });
+
+        // 다른 필드에 대한 유효성 검사는 위와 비슷한 방식으로 처리 (이메일, 비밀번호 등)
+        document.getElementById('submitBtn').addEventListener('click',function(event){
+        var checkbox=document.getElementById('invalidCheck3');
+        var kinderSelect=document.getElementById('invalidCheck3');
+         // 체크박스가 선택되지 않았을 때
+        if (!checkBox.checked) {
+            checkBox.classList.add('is-invalid');
+            checkBox.classList.remove('is-valid');
+            event.preventDefault(); // 폼 제출 중단
+        }
+        else if(!kinderSearchInput){
+            kinderSelect.classList.add('is-invalid');
+            kinderSelect.classList.remove('is-valid');
+            event.preventDefault();
+        }
+        else {
+            // 체크박스가 선택되었을 때
+            checkBox.classList.remove('is-invalid');
+            checkBox.classList.add('is-valid');
+            //유치원 선택
+            kinderSelect.classList.remove('is-invalid');
+            kinderSelect.classList.add('is-valid);
+        }
+
+
+});
+
+
+    });
+</script>
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
+    <title>회원</title>
     <style>
         body {
             font-family: Arial, sans-serif;
