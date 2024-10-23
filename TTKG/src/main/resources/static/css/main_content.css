@@ -10,6 +10,7 @@
   border-bottom: 1px solid lightgray;
 } */
 
+
 .body{
   height:100%;
   margin:0;
@@ -125,4 +126,7 @@
 }
 
 .another_board {
+}
+* {
+    font-family: var(--font-family);
 }

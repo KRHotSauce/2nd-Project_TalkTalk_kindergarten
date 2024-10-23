@@ -8,6 +8,11 @@
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
             crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/includes/header_include_style.css}">
+    <link rel="stylesheet" th:href="@{/css/main_content.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
     <style>
 
         body {
@@ -54,7 +59,8 @@
 
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                            <input type="text" class="form-control " id="loginId" th:field="*{loginId}" placeholder="id" required>
+                        <input type="text" class="form-control " id="loginId" th:field="*{loginId}" placeholder="id"
+                               required>
                         <label for="loginId">아이디</label>
                         <div class="valid-feedback">
                             good!
@@ -66,7 +72,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="password" class="form-control" th:field="*{password}" id="password" placeholder="id" required>
+                        <input type="password" class="form-control" th:field="*{password}" id="password"
+                               placeholder="id" required>
                         <label for="password">비밀번호</label>
                         <div class="valid-feedback">
                             good!
@@ -80,7 +87,8 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" th:field="*{userNickname}" id="userNickname" placeholder="id" required>
+                        <input type="text" class="form-control" th:field="*{userNickname}" id="userNickname"
+                               placeholder="id" required>
                         <label for="userNickname">닉네임</label>
                         <div class="valid-feedback">
                             good!
@@ -92,7 +100,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="userName" th:field="*{userName}" placeholder="id" required>
+                        <input type="text" class="form-control" id="userName" th:field="*{userName}" placeholder="id"
+                               required>
                         <label for="userName">이름</label>
                         <div class="valid-feedback">
                             good!
@@ -106,7 +115,8 @@
             <div class="row g-3">
                 <div class="col-md-12">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="userEmail" th:field="*{userEmail}" placeholder="id" required>
+                        <input type="email" class="form-control" id="userEmail" th:field="*{userEmail}" placeholder="id"
+                               required>
                         <label for="userEmail">이메일</label>
                         <div class="valid-feedback">
                             good!
@@ -120,23 +130,25 @@
             <div th:if="*{userKind==0}" class="row g-3">
                 <div class="col-md-12">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control is-valid" id="kinderName" name="kinderName" readonly placeholder="유치원을 선택해주세요" required>
-                        <button class="section_info_button btn btn-outline-secondary" type="button" data-bs-toggle="modal" data-bs-target="#kinderSearchModal">
+                        <input type="text" class="form-control is-valid" id="kinderName" name="kinderName" readonly
+                               placeholder="유치원을 선택해주세요" required>
+                        <button class="section_info_button btn btn-outline-secondary" type="button"
+                                data-bs-toggle="modal" data-bs-target="#kinderSearchModal">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
                     <div class="valid-feedback">
-                        Looks good!
+                        good!
                     </div>
                 </div>
                 <div>
-                <input type="hidden" th:field="*{kinderCode}" id="KinderCode" name="KinderCode" readonly required>
+                    <input type="hidden" th:field="*{kinderCode}" id="KinderCode" name="KinderCode" readonly required>
                 </div>
             </div>
             <div class="row g-3">
                 <div class="col-12">
                     <div class="form-check">
-                        <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3"
+                        <input class="form-check-input" type="checkbox" id="invalidCheck3"
                                aria-describedby="invalidCheck3Feedback" required>
                         <label class="form-check-label" for="invalidCheck3">
                             개인 정보 이용정책에 동의하시겠습니까?
@@ -151,7 +163,8 @@
             <div class="row g-3 justify-content-end">
                 <div class="col-md-auto">
                     <button class="btn btn-primary rootBtn" type="submit">가입</button>
-                    <button class="btn btn-primary rootBtn" type="button" th:onclick="|location.href='@{/}'|">취소</button>
+                    <button class="btn btn-primary rootBtn" type="button" th:onclick="|location.href='@{/}'|">취소
+                    </button>
                 </div>
             </div>
         </form>
@@ -169,7 +182,8 @@
                     <!-- 검색창 -->
                     <div class="input-group mb-3">
                         <input type="text" id="kinderSearchInput" class="form-control" placeholder="유치원 이름을 입력하세요"/>
-                        <button type="button" id="searchKinderBtn" class="btn btn-outline-secondary"><i class="bi bi-search"></i></button>
+                        <button type="button" id="searchKinderBtn" class="btn btn-outline-secondary"><i
+                                class="bi bi-search"></i></button>
                     </div>
 
 
@@ -188,7 +202,8 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="applyKinderBtn" class="btn btn-success" data-bs-dismiss="modal">선택</button>
+                    <button type="button" id="applyKinderBtn" class="btn btn-success" data-bs-dismiss="modal">선택
+                    </button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                 </div>
             </div>
@@ -454,10 +469,40 @@
         });
 
         // 다른 필드에 대한 유효성 검사는 위와 비슷한 방식으로 처리 (이메일, 비밀번호 등)
+        document.getElementById('submitBtn').addEventListener('click',function(event){
+        var checkbox=document.getElementById('invalidCheck3');
+        var kinderSelect=document.getElementById('kinderSearchInput');
+        var userKind=document.getElementById('userKind');
+         // 체크박스가 선택되지 않았을 때
+         if (!checkBox.checked) {
+        checkBox.classList.add('is-invalid');
+        checkBox.classList.remove('is-valid');
+        event.preventDefault();  // 폼 제출 중단
+        } else {
+        // 체크박스가 선택되었을 때
+        checkBox.classList.remove('is-invalid');
+        checkBox.classList.add('is-valid');
+        }
+
+    // userKind가 0일 때만 유치원 선택 유효성 검사
+
+        if (userKind === 0 && !kinderSelect.value) {
+            kinderSelect.classList.add('is-invalid');
+            kinderSelect.classList.remove('is-valid');
+            event.preventDefault();  // 폼 제출 중단
+        } else if (userKind === 0 && kinderSelect.value) {
+            // 유치원 선택이 유효할 때
+            kinderSelect.classList.remove('is-invalid');
+            kinderSelect.classList.add('is-valid');
+        }
+
+
+});
+
+
     });
 </script>
 </body>
-
 
 
 </html>

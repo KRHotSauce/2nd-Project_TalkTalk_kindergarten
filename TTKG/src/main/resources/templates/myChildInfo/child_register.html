@@ -7,105 +7,151 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <th:block th:replace="fragments/metaFragment::metadataFragment"></th:block>
     <link rel="stylesheet" th:href="@{/css/child/childRegister.css}">
+    <link rel="stylesheet" th:href="@{/css/includes/header_include_style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
+    <style>
+        .body{
+           font-family:var(--font-family);
+           height:100%;
+           margin:0;
+       }
+
+       .wrapper{
+             display: flex;
+             flex-direction: column;
+             min-height: 100vh;
+       }
+
+       .content_wrapper{
+             flex:1;
+       }
+    </style>
     <title>톡톡유치원 - 자녀등록</title>
 </head>
 <body>
 <header th:replace="fragments/headerFragment::headerFragment"></header>
-<div class="container mt-4 main_container">
-    <div class="child_register_wrapper">
-        <form name="child_register" class="register_form" th:action="child_register_pro" method="post" th:object="${req}" novalidate>
-            <div class="register_general">
-                <div>
-                    <label hidden for="name">자녀 이름</label>
-                    <input onfocus="inputFocus('name')" onblur="inputFocus('name')" class="register_input" type="text" id="name" name="child_name" th:field="*{child_name}" placeholder="자녀의 이름을 입력하세요.">
-                </div>
 
-                <div>
-                    <label hidden for="birth">생년월일</label>
-                    <input onfocus="inputFocus('birth')" onblur="inputFocus('birth')" class="register_input" type="date" id="birth" name="child_birth" th:field="*{child_birth}" placeholder="자녀의 이름을 입력하세요.">
-                </div>
+<div class="wrapper">
+    <div class="content-wrapper">
+        <div class="container mt-4 main_container">
+            <div class="child_register_wrapper">
+                <form name="child_register" class="register_form" th:action="child_register_pro" method="post"
+                      th:object="${req}" novalidate>
+                    <div class="register_general">
+                        <div>
+                            <label hidden for="name">자녀 이름</label>
+                            <input onfocus="inputFocus('name')" onblur="inputFocus('name')" class="register_input"
+                                   type="text" id="name" name="child_name" th:field="*{child_name}"
+                                   placeholder="자녀의 이름을 입력하세요.">
+                        </div>
 
-                <div>
-                    <label hidden for="addr">자녀의 주 거주지</label>
-                    <input onfocus="inputFocus('addr')" onblur="inputFocus('addr')" class="register_input" type="text" id="addr" name="child_addr" th:field="*{child_addr}" placeholder="자녀의 주 거주지를 입력하세요.">
-                </div>
-            </div>
-            <div class="gender_allergy_box">
-                <div class="button_box">
-                    <span hidden>자녀의 성별</span>
-                    <label hidden for="gender"></label>
-                    <input hidden class="gender_text" type="text" id="gender" name="child_gender">
-                    <div>
-                        <button type="button" id="male_button" class="select_button left_select_button" onclick="selectButtonClick('left', 'male', '0')">남자</button>
-                    </div>
-                    <div>
-                        <button type="button" id="female_button" class="select_button right_select_button" onclick="selectButtonClick('right', 'female', '0')">여자</button>
-                    </div>
-                </div>
+                        <div>
+                            <label hidden for="birth">생년월일</label>
+                            <input onfocus="inputFocus('birth')" onblur="inputFocus('birth')" class="register_input"
+                                   type="date" id="birth" name="child_birth" th:field="*{child_birth}"
+                                   placeholder="자녀의 이름을 입력하세요.">
+                        </div>
 
-                <div>
-                    <div class="button_box">
-                        <span hidden>알러지 여부</span>
-                        <label hidden for="allergy"></label>
-                        <input hidden class="allergy_text" type="text" id="allergy" name="child_allergy">
                         <div>
-                            <button type="button" id="allergy_O_button" class="select_button left_select_button" onclick="selectButtonClick('left', 'true', '1')">알러지 O</button>
-                        </div>
-                        <div>
-                            <button type="button" id="allergy_X_button" class="select_button right_select_button" onclick="selectButtonClick('right', 'false', '1')">알러지 X</button>
+                            <label hidden for="addr">자녀의 주 거주지</label>
+                            <input onfocus="inputFocus('addr')" onblur="inputFocus('addr')" class="register_input"
+                                   type="text" id="addr" name="child_addr" th:field="*{child_addr}"
+                                   placeholder="자녀의 주 거주지를 입력하세요.">
                         </div>
                     </div>
-                    <div class="allergy_menu">
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="peanuts" value="peanuts">
-                            <label for="peanuts">땅콩</label>
+                    <div class="gender_allergy_box">
+                        <div class="button_box">
+                            <span hidden>자녀의 성별</span>
+                            <label hidden for="gender"></label>
+                            <input hidden class="gender_text" type="text" id="gender" name="child_gender">
+                            <div>
+                                <button type="button" id="male_button" class="select_button left_select_button"
+                                        onclick="selectButtonClick('left', 'male', '0')">남자
+                                </button>
+                            </div>
+                            <div>
+                                <button type="button" id="female_button" class="select_button right_select_button"
+                                        onclick="selectButtonClick('right', 'female', '0')">여자
+                                </button>
+                            </div>
                         </div>
+
                         <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="tree_nuts" value="tree_nuts">
-                            <label for="tree_nuts">견과류</label>
-                        </div>
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="milk" value="milk">
-                            <label for="milk">우유</label>
-                        </div>
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="egg" value="egg">
-                            <label for="egg">달걀</label>
-                        </div>
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="fish" value="fish">
-                            <label for="fish">생선</label>
-                        </div>
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="shellfish" value="shellfish">
-                            <label for="shellfish">갑각류</label>
-                        </div>
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="soy" value="soy">
-                            <label for="soy">콩</label>
-                        </div>
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="wheat" value="wheat">
-                            <label for="wheat">밀</label>
-                        </div>
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="seashell" value="seashell">
-                            <label for="seashell">조개</label>
-                        </div>
-                        <div>
-                            <input class="allergy_true_checkboxes" type="checkbox" id="peach" value="peach">
-                            <label for="peach">복숭아</label>
+                            <div class="button_box">
+                                <span hidden>알러지 여부</span>
+                                <label hidden for="allergy"></label>
+                                <input hidden class="allergy_text" type="text" id="allergy" name="child_allergy">
+                                <div>
+                                    <button type="button" id="allergy_O_button" class="select_button left_select_button"
+                                            onclick="selectButtonClick('left', 'true', '1')">알러지 O
+                                    </button>
+                                </div>
+                                <div>
+                                    <button type="button" id="allergy_X_button"
+                                            class="select_button right_select_button"
+                                            onclick="selectButtonClick('right', 'false', '1')">알러지 X
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="allergy_menu">
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="peanuts" value="peanuts">
+                                    <label for="peanuts">땅콩</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="tree_nuts"
+                                           value="tree_nuts">
+                                    <label for="tree_nuts">견과류</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="milk" value="milk">
+                                    <label for="milk">우유</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="egg" value="egg">
+                                    <label for="egg">달걀</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="fish" value="fish">
+                                    <label for="fish">생선</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="shellfish"
+                                           value="shellfish">
+                                    <label for="shellfish">갑각류</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="soy" value="soy">
+                                    <label for="soy">콩</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="wheat" value="wheat">
+                                    <label for="wheat">밀</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="seashell"
+                                           value="seashell">
+                                    <label for="seashell">조개</label>
+                                </div>
+                                <div>
+                                    <input class="allergy_true_checkboxes" type="checkbox" id="peach" value="peach">
+                                    <label for="peach">복숭아</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <div class="submit_cancel_button">
+                        <button type="submit">등록</button>
+                        <button type="button" th:onclick="|location.href='@{/children}'|">취소</button>
+                    </div>
+                </form>
             </div>
-            <div class="submit_cancel_button">
-                <button type="submit">등록</button>
-                <button type="button" th:onclick="|location.href='@{/children}'|">취소</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>
+
 <footer th:replace="fragments/footerFragment::footerFragment"></footer>
 <script>
     <!--.focusout(fn); - 포커스가 나갓을때 fn 실행-->

@@ -15,6 +15,7 @@
 }
 
 .board_sort_wrapper div {
+    font-family: var(--font-family);
     font-size: 17px;
     font-weight: bold;
     line-height: 30px;
