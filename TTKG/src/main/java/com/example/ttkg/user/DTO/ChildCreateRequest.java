@@ -31,11 +31,11 @@ public class ChildCreateRequest {
     private String child_gender;
 
     @NotBlank(message = "자녀의 알러지 여부를 입력해 주십시오.")
-    private Boolean child_allergy;
+    private String child_allergy;
 
     public ChildEntity toEntity() {
         System.out.println(child_gender);
-        if (child_gender.equals("Male")){
+        if (child_gender.equals("male")){
             child_gender = "M";
         }else {
             child_gender = "F";

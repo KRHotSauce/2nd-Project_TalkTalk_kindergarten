@@ -43,7 +43,7 @@ public class ChildEntity {
     private String childGender;
 
     @Column(name = "child_allergy", nullable = false)
-    private Boolean childAllergy;
+    private String childAllergy;
 
     @Column(name = "kinderCode")
     private String kinderCode;
