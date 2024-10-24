@@ -153,8 +153,13 @@
 </div>
 
 <footer th:replace="fragments/footerFragment::footerFragment"></footer>
-<script>
+<script th:inline="javascript">
     <!--.focusout(fn); - 포커스가 나갓을때 fn 실행-->
+
+    let message = /*[[${message != null ? message : ''}]]*/;
+    if(message){
+        alert(message);
+    }
 
     <!--영어 이름들 한글로 반환하여 message 만들때 사용하는 obj 및 함수-->
     let englishObj = {

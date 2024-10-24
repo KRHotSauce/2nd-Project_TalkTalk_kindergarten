@@ -1,65 +1,83 @@
-.user_section_header, .child_section_header {
-    font-size: 25px;
-    font-weight: bold;
+.user_section_header,
+.child_section_header {
+  font-size: 25px;
+  font-weight: bold;
 }
 
-.user_section, .child_section {
-    padding: 15px;
-    border: 1px solid lightgray;
-    border-radius: 5px;
+.user_section,
+.child_section {
+  padding: 15px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
 }
 
 .user_section {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .main-content-style {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 .section_info {
-    display: flex;
+  display: flex;
 }
 
-.section_info div, .section_info_double {
-    font-size: 18px;
-    line-height: 40px;
+.section_info div,
+.section_info_double {
+  font-size: 18px;
+  line-height: 40px;
 }
 
 .section_info_double div div:first-child,
 .section_info div:first-child {
-    margin-right: 15px;
+  margin-right: 15px;
 }
 
 .section_info:not(.section_info:last-child) div:first-child::after,
 .section_info:last-child div div:first-child::after,
-.section_info_double div div:first-child::after{
-    content: ":";
-    margin-left: 15px;
+.section_info_double div div:first-child::after {
+  content: ":";
+  margin-left: 15px;
 }
 
 .section_info:last-child {
-    justify-content: space-between;
+  justify-content: space-between;
 }
 
 .section_info:last-child div,
-.section_info_double div{
-    display: flex
+.section_info_double div {
+  display: flex;
 }
 
 .section_info_double {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .section_info_button {
-    right: 0px;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    background-color: var(--main-color);
-    color: var(--sub-color);
+  right: 0px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--main-color);
+  color: var(--sub-color);
 }
-.body{
-    font-family:var(--font-family);
+
+.child_list_button {
+  margin-top: 10px;
+  text-align: end;
+}
+
+.child_list_button button {
+  right: 0px;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--main-color);
+  color: var(--sub-color);
+}
+
+.body {
+  font-family: var(--font-family);
 }

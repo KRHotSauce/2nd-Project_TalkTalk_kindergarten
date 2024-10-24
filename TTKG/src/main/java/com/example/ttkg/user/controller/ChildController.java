@@ -40,6 +40,7 @@ public class ChildController {
                 &&user_childService.existByKinderCode(user.getKinderCode())){
             List<ChildEntity> applyChildList=user_childService.getChildEntityByKinder(user.getKinderCode(),2);
             List<ChildEntity> childEntityList =user_childService.getChildEntityByKinder(user.getKinderCode(),1);
+            System.out.println(childEntityList.isEmpty());
             model.addAttribute("applyChildList",applyChildList);
             model.addAttribute("childEntityList",childEntityList);
             model.addAttribute("existChildFlag",true);
@@ -48,21 +49,32 @@ public class ChildController {
         }
         else if(user_childService.ExistChildByUserId(user.getUserIdx())){
             model.addAttribute("existChildFlag",true);
-            List<ChildEntity> childEntities=user_childService.findChildEntityListByUserIdx(user.getUserIdx());
+            List<ChildDTO> childEntities=user_childService.findChildEntityListByUserIdx(user.getUserIdx());
+            System.out.println(childEntities.isEmpty());
+            if(childEntities.size() == 1){
+                return "redirect:/child_info?childIdx=" + childEntities.get(0).getChildIdx();
+            }else if(childEntities.isEmpty()){
+                return "redirect:/child_register";
+            }
             model.addAttribute("childList",childEntities);
             return "myChildInfo/children";
         }
-
         else {
-            model.addAttribute("existChildFlag",false);
-            return "myChildInfo/children";
+            /*System.out.println("뭐꼬"); 애초에 자녀가 없는거라 자녀 등록으로 바로 ㄲ
+            model.addAttribute("existChildFlag",false);*/
+            return "redirect:/child_register?message=true";
         }
     }
 
     @GetMapping("/child_register")
-    public String child_register(Model model, HttpSession session) {
+    public String child_register(@RequestParam(value = "message", defaultValue = "false") String message, Model model, HttpSession session) {
         UserLoginDTO user = (UserLoginDTO) session.getAttribute("userLoginDTO");
         ChildCreateRequest req = new ChildCreateRequest();
+        String text = "자녀가 없으니 자녀 등록을 해주시길 바랍니다.";
+        if(message.equals("true")){
+            model.addAttribute("message", text);
+            System.out.println(text);
+        }
         model.addAttribute("req", req);
         return "myChildInfo/child_register";
     }
@@ -86,6 +98,20 @@ public class ChildController {
         model.addAttribute("childIdx",childService.getChildRealEntity(childIdx).getChildIdx());
 
         return "myChildInfo/child_info";
+    }
+
+    @GetMapping("/child_info_pre")
+    public String preChildInfo(HttpSession session) {
+        UserLoginDTO user = (UserLoginDTO) session.getAttribute("userLoginDTO");
+        List<ChildDTO> childEntities=user_childService.findChildEntityListByUserIdx(user.getUserIdx());
+
+        if(childEntities.size() == 1){
+            return "redirect:/child_info?childIdx=" + childEntities.get(0).getChildIdx();
+        }else if(childEntities.isEmpty()){
+            return "redirect:/child_register?message=true";
+        }
+
+        return "redirect:/child_info?childIdx=" + childEntities.get(0).getChildIdx();
     }
 
     @PostMapping("/approveKinderApply")

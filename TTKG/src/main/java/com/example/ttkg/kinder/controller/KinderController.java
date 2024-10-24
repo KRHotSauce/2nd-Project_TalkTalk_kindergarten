@@ -3,8 +3,11 @@ package com.example.ttkg.kinder.controller;
 import com.example.ttkg.kinder.model.NoticeLetterEntity;
 import com.example.ttkg.kinder.service.KinderService;
 import com.example.ttkg.kinder.service.NoticeLetterService;
+import com.example.ttkg.user.DTO.ChildDTO;
 import com.example.ttkg.user.DTO.UserLoginDTO;
+import com.example.ttkg.user.service.User_ChildService;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,16 +15,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+
 @Controller
+@RequiredArgsConstructor
 public class KinderController {
 
-    KinderService kinderService;
-    NoticeLetterService noticeLetterService;
-
-    public KinderController(KinderService kinderService, NoticeLetterService noticeLetterService) {
-        this.kinderService = kinderService;
-        this.noticeLetterService = noticeLetterService;
-    }
+    private final KinderService kinderService;
+    private final NoticeLetterService noticeLetterService;
+    private final User_ChildService user_childService;
 
     @GetMapping("kinderMain")
     public String RedirectKinderMain(HttpSession session, Model model) {
@@ -29,10 +34,26 @@ public class KinderController {
 
     }
 
-
-
     @GetMapping("kinderMeal")
-    public String KinderMeal() {
+    public String KinderMeal(Model model, HttpSession session) {
+        UserLoginDTO userLoginDTO = (UserLoginDTO) session.getAttribute("userLoginDTO");
+        List<ChildDTO> childList = user_childService.findChildEntityListByUserIdx(userLoginDTO.getUserIdx());
+        Iterator<ChildDTO> childIter = childList.iterator();
+        String allergy = "";
+        /*각 아이마다 생선이나 콩이 있나 확인 만일 나중에 식단이 더 추가되면
+        HashSet에 알레르기 정보를 저장 후 model로 넘기면 됨. 지금도 그 방법이 차라리 좋을지도...*/
+        while(childIter.hasNext()){
+            ChildDTO child = childIter.next();
+            String[] allergies = child.getChildAllergy().split(", ");
+            List<String> allergyList = new ArrayList<>(Arrays.asList(allergies));
+            if(allergyList.contains("생선")){
+                allergy += " 생선";
+            }
+            if(allergyList.contains("콩")){
+                allergy += " 콩";
+            }
+        }
+        model.addAttribute("allergy", allergy);
         return "kinderPage/kinderMeal";
     }
 

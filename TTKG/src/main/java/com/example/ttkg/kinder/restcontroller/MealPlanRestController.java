@@ -35,9 +35,9 @@ public class MealPlanRestController {
 
     @GetMapping("/kinder/{kinderCode}")
     public List<MealPlanEntity> getMealPlansOfMonthly(
-            @PathVariable String kinderCode,
-            @RequestParam(value = "startDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME) LocalDate start,
-            @RequestParam(value = "endDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE_TIME) LocalDate end) {
+            @PathVariable(value = "kinderCode") String kinderCode,
+            @RequestParam(value = "startDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam(value = "endDate") @DateTimeFormat(iso=DateTimeFormat.ISO.DATE) LocalDate end) {
         System.out.println("컨트롤러 실행중 kinderCode : "+kinderCode);
         System.out.println("날짜 정보 : "+start);
 
