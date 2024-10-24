@@ -58,6 +58,7 @@ public class ChildController {
                 return "redirect:/child_register";
             }
             model.addAttribute("childList",childEntities);
+
             return "myChildInfo/children";
         }
         else {

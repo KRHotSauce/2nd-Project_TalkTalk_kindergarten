@@ -58,7 +58,7 @@
                             <th style="width: 15%">생일</th>
                             <th style="width: 8%">성별</th>
                             <th style="width: 44%">주소</th>
-                            <th style="width: 23%">유치원 명</th>
+                            <th style="width: 23%">알레르기 여부</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -77,8 +77,8 @@
                                     <span th:text="${child.childAddr}"></span>
                                 </td>
                                 <td>
-                                    <span th:if="${child.kinderCode!=null}" th:text="${child.kinderCode}"></span>
-                                    <span th:if="${child.kinderCode==null}">등록된 유치원이 없습니다.</span>
+                                    <span th:if="${child.childAllergy == 'false'}">알레르기 없음</span>
+                                    <span th:if="${child.childAllergy != 'false'}" th:text="${child.childAllergy}"></span>
                                 </td>
                             </tr>
                         </th:block>
@@ -103,7 +103,7 @@
                             <th style="width: 15%">생일</th>
                             <th style="width: 8%">성별</th>
                             <th style="width: 44%">주소</th>
-                            <th style="width: 23%">유치원 명</th>
+                            <th style="width: 23%">상태</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -127,8 +127,6 @@
                                         <input type="hidden" name="kinderCode" th:value="${session.userLoginDTO.kinderCode}" />
                                         <button class="child_add_button" type="submit">승인</button>
                                     </form>
-                                </td>
-                                <td>
                                     <form th:action="@{/deniedKinderApply}" method="post">
                                         <input type="hidden" name="childIdx" th:value="${applychild.childIdx}" />
                                         <button class="child_add_button" type="submit">거부</button>
@@ -149,6 +147,9 @@
                                 </td>
                                 <td>
                                     <span th:text="${childEntityList.childAddr}"></span>
+                                </td>
+                                <td>
+                                    <span>재학중</span>
                                 </td>
                             </tr>
                         </th:block>

@@ -2,12 +2,6 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
     <title>톡톡유치원:유치원파인더</title>
-    <script type="text/javascript"
-            src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ihu6c8i0aa"></script>
-    <script type="text/javascript"
-            src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=ihu6c8i0aa&submodules=geocoder"></script>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -20,8 +14,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@800&display=swap" rel="stylesheet">
     <th:block th:replace="fragments/metaFragment :: metadataFragment"></th:block>
     <!-- 링크 아이콘    -->
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
-        <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-right"
+         viewBox="0 0 16 16">
+        <path fill-rule="evenodd"
+              d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
     </svg>
     <style>
         .iw_inner h3 {
@@ -72,6 +68,21 @@
         body {
             font-family: 'Noto Sans KR', sans-serif;
         }
+        .border-primary{
+            border-right:none;
+            border-left:none;
+            border-color : lightgray;
+        }
+        .tr{
+            border-color : lightgray;
+        }
+        .th {
+        border-color : lightgray;
+        }
+        .td {
+        border-color : lightgray;
+        }
+
     </style>
 </head>
 <body>
@@ -100,9 +111,54 @@
                 </div>
 
             </div>
+            <div class="kinderInfoTable mt-3">
+                <!-- 탭 네비게이션 -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary"
+                                type="button"
+                                role="tab" aria-controls="summary" aria-selected="true">기본 정보
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="basic-info-tab" data-bs-toggle="tab" data-bs-target="#basic-info"
+                                type="button"
+                                role="tab" aria-controls="basic-info" aria-selected="false">인원/학급수
+                        </button>
+                    </li>
+                </ul>
+
+                <!-- 탭 내용 -->
+
+                <div class="tab-content" id="myTabContent">
+                    <!-- 유치원 요약 정보 -->
+                    <div class="tab-pane fade show active" id="summary" role="tabpanel" aria-labelledby="summary-tab">
+                        <div class="info-box">
+                            <div class="row">
+                                <div class="col">
+                                    <table class="table table-striped-columns" id="detailTable">
+                                        <!--                                      받아올 테이블 들어갈 곳-->
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 기본 정보 -->
+                    <div class="tab-pane fade" id="basic-info" role="tabpanel" aria-labelledby="basic-info-tab">
+                        <div class="basic-info-title"></div>
+
+                        <div class="info-box" id="kinderNumberTable">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <a th:href="@{/kinderDetail}">상세페이지</a>
+
+
     <!--footer 영역-->
     <footer th:replace="fragments/footerFragment::footerFragment"></footer>
 </div>
@@ -175,17 +231,24 @@
             // 마커 생성 및 저장
             function addMarker(y, x, kinderData) {
                 var contentString = `
-                <div class="card rounded-0" style="width: 18rem;">
+                <div class="card rounded-0 d-flex w-auto">
                   <div class="card-body">
-                    <h3 class="card-title">${kinderData.kindername}</h3>
-                    <span class="badge text-bg-info card-subtitle mb-2 text-body-secondary">${kinderData.establish}</span>
+                    <span style="font-size:1.2rem; font-style:strong" class="card-title">${kinderData.kindername}</span>  <span class="badge text-bg-info card-subtitle mb-2 text-body-secondary">${kinderData.establish}</span>
+                    <br>
                     <p class="card-text">${kinderData.addr}</p> <br>
                     <p class="card-text">${kinderData.officeedu}>${kinderData.subofficeedu}</p> <br>
-                    <p class="card-text"> ${kinderData.telno} <a class="icon-link icon-link-hover card-link " href="${kinderData.hpaddr}">
-                        <i class="bi bi-houses"></i>
-                    </a>
-                    </p>
+                    <p class="card-text"> ${kinderData.telno}`;
 
+                    if(kinderData.hpaddr !=null){
+                    contentString+=`
+                    <a class="icon-link icon-link-hover card-link " href="${kinderData.hpaddr}">
+                        <i class="bi bi-houses"></i>
+                    </a>`;
+                    }
+
+                    contentString+=`
+                    </p>
+                  </div>
                   </div>
                 `;
 
@@ -206,6 +269,8 @@
 
                 naver.maps.Event.addListener(marker, "click", function (e) {
                     toggleInfoWindow(marker, infowindow);
+                    updateDetailTable(kinderData);
+
                 });
             }
 
@@ -261,9 +326,109 @@
                             map.panTo(markerInfo.marker.getPosition());  // 마커 위치로 지도 중앙 이동
                             map.setZoom(16);  // 줌 레벨 조정
                             toggleInfoWindow(markerInfo.marker, markerInfo.infowindow);  // 정보창 열기
+                             updateDetailTable(markerInfo.data);
                         }
                     });
                 });
+            }
+            function updateDetailTable(kinderData) {
+                var kinderDetailTable = `
+                    <thead>
+                        <tr>
+                            <th scope="col">교육청명</th>
+                            <th scope="col">${safeValue(kinderData.officeedu)}</th>
+                            <th scope="col">대표자명</th>
+                            <th scope="col">${safeValue(kinderData.rppnname)}</th>
+                            <th scope="col">운영시간</th>
+                            <th scope="col">${safeValue(kinderData.opertime)}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">교육지원청명</th>
+                            <td>${safeValue(kinderData.subofficeedu)}</td>
+                            <th>원장명</th>
+                            <td>${safeValue(kinderData.ldgrname)}</td>
+                            <th>홈페이지</th>
+                            <td>${safeValue(kinderData.hpaddr)}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">설립유형</th>
+                            <td>${safeValue(kinderData.establish)}</td>
+                            <th>설립일</th>
+                            <td>${safeValue(kinderData.edate)}</td>
+                            <th>FAX 번호</th>
+                            <td>${safeValue(kinderData.faxno)}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">유치원명</th>
+                            <td>${safeValue(kinderData.kindername)}</td>
+                            <th scope="row">개원일</th>
+                            <td>${safeValue(kinderData.odate)}</td>
+                            <th>전화번호</th>
+                            <td>${safeValue(kinderData.telno)}</td>
+                        </tr>
+                    </tbody>
+                `;
+
+                var kinderPeopleNumber = `
+                    <div class="row mb-3">
+                        <table class="table table-striped-columns table-bordered border-primary">
+                            <thead>
+                            <tr>
+                                <th scope="col">만 3세 학급수</th>
+                                <th scope="col">만 4세 학급수</th>
+                                <th scope="col">만 5세 학급수</th>
+                                <th scope="col">혼합학급수</th>
+                                <th scope="col">특수학급수</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>${safeValue(kinderData.clcnt3)}</td>
+                                <td>${safeValue(kinderData.clcnt4)}</td>
+                                <td>${safeValue(kinderData.clcnt5)}</td>
+                                <td>${safeValue(kinderData.mixclcnt)}</td>
+                                <td>${safeValue(kinderData.shclcnt)}</td>
+                            </tr>
+                            <tr>
+                                <th scope="col">만 3세 유아수</th>
+                                <th scope="col">만 4세 유아수</th>
+                                <th scope="col">만 5세 유아수</th>
+                                <th scope="col">혼합 유아 수</th>
+                                <th scope="col">특수 유아 수</th>
+                            </tr>
+                            <tr>
+                                <td>${safeValue(kinderData.ppcnt3)}</td>
+                                <td>${safeValue(kinderData.ppcnt4)}</td>
+                                <td>${safeValue(kinderData.ppcnt5)}</td>
+                                <td>${safeValue(kinderData.mixppcnt)}</td>
+                                <td>${safeValue(kinderData.shppcnt)}</td>
+                            </tr>
+                            <tr>
+                                <th scope="col">3세 모집 정원</th>
+                                <th scope="col">4세 모집 정원</th>
+                                <th scope="col">5세 모집 정원</th>
+                                <th scope="col">혼합 모집 정원</th>
+                                <th scope="col">특수학급 모집 정원</th>
+                            </tr>
+                            <tr>
+                                <td>${safeValue(kinderData.ag3fpcnt)}</td>
+                                <td>${safeValue(kinderData.ag4fpcnt)}</td>
+                                <td>${safeValue(kinderData.ag5fpcnt)}</td>
+                                <td>${safeValue(kinderData.mixfpcnt)}</td>
+                                <td>${safeValue(kinderData.spcnfpcnt)}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+
+                document.querySelector('#detailTable').innerHTML = kinderDetailTable;
+                document.querySelector('#kinderNumberTable').innerHTML = kinderPeopleNumber;
+            }
+                function safeValue(value) {
+                    return value == null ? '' : value;
             }
         }
     };
