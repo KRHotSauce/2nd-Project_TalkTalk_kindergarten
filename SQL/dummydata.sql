@@ -103,6 +103,54 @@ VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-04-25', 'YYYY-MM-DD'), 
 INSERT INTO notice_letter (letter_idx, kinderCode, notice_date, body) 
 VALUES (notice_letter_seq.NEXTVAL, 'K001', TO_DATE('2023-05-01', 'YYYY-MM-DD'), 'Notice 21');
 
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 된장찌개, 닭갈비, 김치', '국내산', TO_DATE('2024-10-01', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 미역국, 제육볶음, 깍두기', '국내산', TO_DATE('2024-10-02', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 콩나물국, 오징어볶음, 무생채', '국내산', TO_DATE('2024-10-03', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 소고기무국, 고등어조림, 나물', '국내산', TO_DATE('2024-10-04', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 계란국, 떡갈비, 열무김치', '국내산', TO_DATE('2024-10-07', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 생선찌개, 고추장불고기, 김', '국내산', TO_DATE('2024-10-08', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 북어국, 순두부찌개, 파김치', '국내산', TO_DATE('2024-10-09', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 갈비탕, 두부조림, 무나물', '국내산', TO_DATE('2024-10-10', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 콩비지찌개, 고등어구이, 오이무침', '국내산', TO_DATE('2024-10-11', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 육개장, 닭튀김, 참나물무침', '국내산', TO_DATE('2024-10-14', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 된장찌개, 닭갈비, 김치', '국내산', TO_DATE('2024-10-15', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 미역국, 제육볶음, 깍두기', '국내산', TO_DATE('2024-10-16', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 콩나물국, 오징어볶음, 무생채', '국내산', TO_DATE('2024-10-17', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 소고기무국, 고등어조림, 나물', '국내산', TO_DATE('2024-10-18', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 계란국, 떡갈비, 열무김치', '국내산', TO_DATE('2024-10-21', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 생선찌개, 고추장불고기, 김', '국내산', TO_DATE('2024-10-22', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 북어국, 순두부찌개, 파김치', '국내산', TO_DATE('2024-10-23', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 갈비탕, 두부조림, 무나물', '국내산', TO_DATE('2024-10-24', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 콩비지찌개, 고등어구이, 오이무침', '국내산', TO_DATE('2024-10-25', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 육개장, 닭튀김, 참나물무침', '국내산', TO_DATE('2024-10-28', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 된장찌개, 닭갈비, 김치', '국내산', TO_DATE('2024-10-29', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 미역국, 제육볶음, 깍두기', '국내산', TO_DATE('2024-10-30', 'YYYY-MM-DD'));
+INSERT INTO meal_plan (meal_idx, kinderCode, kind, meal_info, origin, meal_date) 
+VALUES (MEAL_PLAN_SEQ.nextval, 'K001', 1, '밥, 콩나물국, 오징어볶음, 무생채', '국내산', TO_DATE('2024-10-31', 'YYYY-MM-DD'));
+
+commit;
 
 
 

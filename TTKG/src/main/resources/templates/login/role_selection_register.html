@@ -12,16 +12,21 @@
         .card {
             width: 60%; /* 카드 크기를 60%로 설정 */
             border: none;
+            box-shadow: none; /* 카드의 외곽선을 제거 */
+            background-color: transparent; /* 카드 배경색을 투명하게 설정 */
         }
         .main-content-style {
             min-height: 100vh; /* 전체 화면 높이 맞추기 */
         }
         body{
             background: var(--main-color);
+            font-family:var(--font-family);
+
         }
-        header{
-            background-color: white;
+         .row {
+            background-color: transparent; /* 전체 카드 배경을 투명하게 설정 */
         }
+
     </style>
 </head>
 <body>
@@ -31,23 +36,28 @@
 <!-- Main content 영역 -->
 
 <div class="container mt-4 main-content-style d-flex justify-content-center align-items-center">
-    <div class="row row-cols-1 row-cols-md-2 g-8 justify-content-center">
+    <div class="row row-cols-1 row-cols-md-2 g-8
+                justify-content-center"
+         style="min-height:500px;">
         <div class="col d-flex justify-content-center">
             <a th:href="@{register?userKind=1}" class="text-decoration-none">
-                <div class="card mx-auto">
+                <div class="card mx-auto d-flex">
                     <img src="img/login/regi_parents.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">학부모 계정으로 가입하기</h5>
+                        <h2 class="card-title">학부모로 가입하기</h2>
                     </div>
                 </div>
             </a>
+        </div>
+        <div class="d-flex" style="height: 200px;">
+            <div class="vr"></div>
         </div>
         <div class="col d-flex justify-content-center">
             <a th:href="@{register?userKind=0}" class="text-decoration-none">
                 <div class="card mx-auto">
                     <img src="img/login/regi_teacher.png" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">선생님 계정으로 가입하기</h5>
+                        <h2 class="card-title">선생님으로 가입하기</h2>
                     </div>
                 </div>
             </a>

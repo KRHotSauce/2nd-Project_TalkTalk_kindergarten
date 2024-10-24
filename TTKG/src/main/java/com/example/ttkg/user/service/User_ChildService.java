@@ -105,10 +105,11 @@ public class User_ChildService {
     }
 
     /** 신청허가여부와 킨더코드로 유저차일드 가져오기*/
-    public List<ChildEntity> getChildEntityByKinder(String KinderCode,int accessState){
+    public List<ChildDTO> getChildEntityByKinder(String KinderCode,int accessState){
         return user_childRepository.findByKinderCodeAndAccessState(KinderCode, accessState)
                 .stream()
                 .map(User_ChildEntity::getChild)
+                .map(ChildDTO::of)
                 .toList();
 
     }

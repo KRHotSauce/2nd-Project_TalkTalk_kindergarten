@@ -7,6 +7,7 @@ import com.example.ttkg.user.DTO.ChildCreateRequest;
 import com.example.ttkg.user.DTO.ChildDTO;
 import com.example.ttkg.user.DTO.UserLoginDTO;
 import com.example.ttkg.user.model.ChildEntity;
+import com.example.ttkg.user.model.User_ChildEntity;
 import com.example.ttkg.user.service.ChildService;
 import com.example.ttkg.user.service.UserService;
 import com.example.ttkg.user.service.User_ChildService;
@@ -38,8 +39,8 @@ public class ChildController {
         else if(!user.isUserKind()
                 &&user.getKinderCode()!=null
                 &&user_childService.existByKinderCode(user.getKinderCode())){
-            List<ChildEntity> applyChildList=user_childService.getChildEntityByKinder(user.getKinderCode(),2);
-            List<ChildEntity> childEntityList =user_childService.getChildEntityByKinder(user.getKinderCode(),1);
+            List<ChildDTO> applyChildList=user_childService.getChildEntityByKinder(user.getKinderCode(),2);
+            List<ChildDTO> childEntityList =user_childService.getChildEntityByKinder(user.getKinderCode(),1);
             System.out.println(childEntityList.isEmpty());
             model.addAttribute("applyChildList",applyChildList);
             model.addAttribute("childEntityList",childEntityList);
@@ -94,9 +95,13 @@ public class ChildController {
         UserLoginDTO userLoginDTO = (UserLoginDTO)session.getAttribute("userLoginDTO");
         model.addAttribute("child", childService.getChildEntity(childIdx));
         model.addAttribute("user", userService.getUserViewDTOByUserIdx(userLoginDTO.getUserIdx()));
-        model.addAttribute("user_child",user_childService.getUser_ChildEntityByChildIdx(childIdx));
+        User_ChildEntity user_child=user_childService.getUser_ChildEntityByChildIdx(childIdx);
+        model.addAttribute("user_child",user_child);
         model.addAttribute("childIdx",childService.getChildRealEntity(childIdx).getChildIdx());
-
+        //유치원 이름 추가
+        if(user_child.getAccessState()==1 || user_child.getAccessState()==2) {
+            model.addAttribute("kinderName",kinderService.findByKinderCode(user_child.getKinderCode()).getKinderName());
+        }
         return "myChildInfo/child_info";
     }
 
@@ -122,6 +127,7 @@ public class ChildController {
 
     @PostMapping("/deniedKinderApply")
     public String deniedKinderApply(@RequestParam long childIdx) {
+        user_childService.denyApply(childIdx);
         return "redirect:/children";
     }
 }

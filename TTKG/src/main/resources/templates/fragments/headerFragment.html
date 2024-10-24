@@ -93,17 +93,17 @@
         <a th:href="@{/board/main(category=ALL)}">전체 게시판</a>
       </div>
       <div>
-        <a th:if="${session.userLoginDTO==null}" th:href="@{/child_info_pre}"
+        <a th:if="${session.userLoginDTO == null}" th:href="@{/children}"
           >자녀 정보</a
         >
         <a
-          th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==1}"
-          th:href="@{/child_info_pre}"
+          th:if="${session.userLoginDTO != null and session.userLoginDTO.userKind}"
+          th:href="@{/children}"
           >자녀 정보</a
         >
         <a
-          th:if="${session.userLoginDTO!=null and session.userLoginDTO.userKind==0}"
-          th:href="@{/child_info_pre}"
+          th:if="${session.userLoginDTO != null and !session.userLoginDTO.userKind}"
+          th:href="@{/children}"
           >원생 정보</a
         >
       </div>
@@ -116,10 +116,8 @@
       <div>
         <a th:href="@{/board/main(category=FREE)}">자유게시판</a>
       </div>
-      <div
-        th:if="${session.userLoginDTO!=null&&session.userLoginDTO.userKind==1}? 'hidden' : ''"
-      >
-        <a th:href="@{/child_register}">자녀 등록</a>
+      <div>
+        <a  th:if="${session.userLoginDTO == null or session.userLoginDTO.userKind}" th:href="@{/child_register}">자녀 등록</a>
       </div>
       <div hidden>
         <a href="#">공시자료 다운로드</a>
