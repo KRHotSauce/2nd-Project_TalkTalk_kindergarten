@@ -35,7 +35,14 @@ public class SecurityConfig {
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
-                .csrf().disable();
+                .csrf().disable()
+                .logout()
+                .logoutUrl("/logout")  // 로그아웃 처리 URL
+                .logoutSuccessUrl("/logoutSuccess")  // 로그아웃 성공 시 이동할 URL
+                .invalidateHttpSession(true)  // 세션 무효화
+                .deleteCookies("JSESSIONID")
+                .permitAll();// 쿠키 삭제
+
 //                .oauth2Login(oauth2 -> oauth2
 //                        .loginPage("login")
 //                        .defaultSuccessUrl("/login/google-login_success", true)

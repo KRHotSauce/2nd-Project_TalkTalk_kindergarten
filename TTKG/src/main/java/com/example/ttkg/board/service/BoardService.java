@@ -92,7 +92,10 @@ public class BoardService {
         return BoardDto.of(board);
     }
 
+    @Transactional
     public void boardDelete(Long boardIdx){
+        Board board = boardRepository.findById(boardIdx).isPresent() ? boardRepository.findById(boardIdx).get() : null;
+        commentRepository.deleteAllByBoardIdx(board);
         boardRepository.deleteById(boardIdx);
     }
 

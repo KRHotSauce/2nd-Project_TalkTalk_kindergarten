@@ -50,10 +50,8 @@ public class UserController {
     @PostMapping("/register_pro")
     public String register_pro(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model) {
         ModelAndView mav = new ModelAndView("login/register");
-        System.out.println("설마 유효성검사겠어?");
         if (result.hasErrors()) {
             mav.addObject("userDTO", userDTO); //DTO 유효성검사 안뽑아주기위해서 MAV로 넣어줌
-            System.out.println("진짜야?");
             result.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
             return "login/register";
         }
@@ -96,10 +94,9 @@ public class UserController {
     }
 
     /**로그아웃 컨트롤러*/
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.removeAttribute("userLoginDTO"); //세션에 userLoginDTO 삭제
-        return "login/logout_success";
+    @GetMapping("/logoutSuccess")
+    public String logoutSuccess() {
+        return "login/logout_success";  // 템플릿 폴더 안의 logout_success.html 반환
     }
 
     /**회원정보수정시 비밀번호 확인 컨트롤러*/
@@ -124,21 +121,28 @@ public class UserController {
     }
 
     /**회원정보 수정 프로세스 컨트롤러*/
-    @PatchMapping("editProfile_pro")
+    @PostMapping("editProfile_pro")
     public String editProfile_pro(@Valid @ModelAttribute("userDTO") UserDTO userDTO, BindingResult result, Model model
     ,HttpSession session) {
+        ModelAndView mav = new ModelAndView("login/editProfile");
         if (result.hasErrors()) {
-            System.out.println(result.getAllErrors());
-            model.addAttribute("userDTO", userDTO);
+            mav.addObject("userDTO", userDTO); //DTO 유효성검사 안뽑아주기위해서 MAV로 넣어줌
+            result.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
+            System.out.println("작동 1번");
             return "login/editProfile";
         }
-        else {
-            UserLoginDTO userLoginDTO=(UserLoginDTO)session.getAttribute("userLoginDTO");
-            userLoginDTO.setUserIdx(userDTO.getUserIdx());
-            userLoginDTO.setUserNickname(userDTO.getUserNickname());
-            session.setAttribute("userLoginDTO", userLoginDTO); //수정된 데이터 세션에 다시 넣어줌
+
+        if(userDTO.getUserKind()==1){
+            userService.updateUser(userDTO);
+            return "login/updateProfileSuccess"; //성공시 알림창 뜨고 메인으로 이동
+        }
+
+        if(userDTO.getKinderCode()!=null&&userDTO.getUserKind()==0){
+            userService.updateUser(userDTO);
             return "login/updateProfileSuccess";
         }
+        System.out.println("작동 2번");
+        return "login/editProfile";
     }
 
     @GetMapping("find-id")

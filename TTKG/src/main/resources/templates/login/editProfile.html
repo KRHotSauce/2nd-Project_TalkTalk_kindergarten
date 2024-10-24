@@ -39,8 +39,9 @@
         .form-container {
             background-color: white;
         }
-        .rootBtn{
-        background-color: var(--main-color);
+
+        .rootBtn {
+            background-color: var(--main-color);
             border-color: var(--main-color);
         }
     </style>
@@ -53,10 +54,9 @@
 <!-- Main content 영역 -->
 <div class="main-content-style d-flex justify-content-center align-items-center">
     <div class="container form-container ">
-        <form id="registerForm" th:action="@{/register_pro}" method="post" th:object="${userDTO}">
-            <h1 class="h3 mb-3 fw-normal">회원가입</h1>
+        <form id="registerForm" th:action="@{/editProfile_pro}" method="post" th:object="${userDTO}">
+            <h1 class="h3 mb-3 fw-normal">회원정보 수정</h1>
             <div class="row g-3 input-group-sm">
-
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control " id="loginId" th:field="*{loginId}" placeholder="id"
@@ -142,27 +142,27 @@
                     </div>
                 </div>
                 <div>
-                    <input type="hidden" th:field="*{kinderCode}" id="KinderCode" name="KinderCode" readonly required>
+                    <input type="hidden" th:if="*{kinderCode != null}" th:field="*{kinderCode}" id="KinderCode" name="KinderCode" readonly required>
                 </div>
             </div>
-            <div class="row g-3">
-                <div class="col-12">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="invalidCheck3"
-                               aria-describedby="invalidCheck3Feedback" required>
-                        <label class="form-check-label" for="invalidCheck3">
-                            개인 정보 이용정책에 동의하시겠습니까?
-                        </label>
-                        <div id="invalidCheck3Feedback" class="invalid-feedback">
-                            동의 후 진행가능합니다
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="row g-3">-->
+<!--                <div class="col-12">-->
+<!--                    <div class="form-check">-->
+<!--                        <input class="form-check-input" type="checkbox" id="invalidCheck3"-->
+<!--                               aria-describedby="invalidCheck3Feedback" required>-->
+<!--                        <label class="form-check-label" for="invalidCheck3">-->
+<!--                            개인 정보 이용정책에 동의하시겠습니까?-->
+<!--                        </label>-->
+<!--                        <div id="invalidCheck3Feedback" class="invalid-feedback">-->
+<!--                            동의 후 진행가능합니다-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <input type="hidden" th:field="*{userKind}" id="userKind" name="userKind" required>
             <div class="row g-3 justify-content-end">
                 <div class="col-md-auto">
-                    <button class="btn btn-primary rootBtn" type="submit">가입</button>
+                    <button class="btn btn-primary rootBtn" type="submit">수정</button>
                     <button class="btn btn-primary rootBtn" type="button" th:onclick="|location.href='@{/}'|">취소
                     </button>
                 </div>
@@ -331,7 +331,7 @@
             $.ajax({
                 url: '/talktalkkinder/api/check-loginId',
                 method: 'GET',
-                data: { loginId: loginId },
+                data: {loginId: loginId},
                 success: function (response) {
                     if (!response) {
                         $('#loginId').removeClass('is-invalid').addClass('is-valid');
@@ -363,8 +363,7 @@
                 $('#password').removeClass('is-valid').addClass('is-invalid');
                 $('#passwordFeedback').text('1개 이상의 영문,숫자,특수문자로 이루어진 8~15자리');
                 return;
-            }
-            else {
+            } else {
                 $('#password').removeClass('is-invalid').addClass('is-valid');
                 $('#passwordFeedback').text('');
             }
@@ -392,7 +391,7 @@
             $.ajax({
                 url: '/talktalkkinder/api/check-userNickname',
                 method: 'GET',
-                data: { userNickname: userNickname },
+                data: {userNickname: userNickname},
                 success: function (response) {
                     if (!response) {
                         $('#userNickname').removeClass('is-invalid').addClass('is-valid');
@@ -424,7 +423,7 @@
                 $('#userName').removeClass('is-valid').addClass('is-invalid');
                 $('#userNameFeedback').text('영문,한글만 사용 가능합니다.');
                 return;
-            }else {
+            } else {
                 $('#userName').removeClass('is-invalid').addClass('is-valid');
                 $('#userNameFeedback').text('');
             }
@@ -452,7 +451,7 @@
             $.ajax({
                 url: '/talktalkkinder/api/check-userEmail',
                 method: 'GET',
-                data: { userEmail: userEmail },
+                data: {userEmail: userEmail},
                 success: function (response) {
                     if (!response) {
                         $('#userEmail').removeClass('is-invalid').addClass('is-valid');
@@ -468,32 +467,23 @@
             });
         });
 
-        // 다른 필드에 대한 유효성 검사는 위와 비슷한 방식으로 처리 (이메일, 비밀번호 등)
-        document.getElementById('submitBtn').addEventListener('click',function(event){
-        var checkbox=document.getElementById('invalidCheck3');
-        var kinderSelect=document.getElementById('invalidCheck3');
-         // 체크박스가 선택되지 않았을 때
-        if (!checkBox.checked) {
-            checkBox.classList.add('is-invalid');
-            checkBox.classList.remove('is-valid');
-            event.preventDefault(); // 폼 제출 중단
-        }
-        else if(!kinderSearchInput){
-            kinderSelect.classList.add('is-invalid');
-            kinderSelect.classList.remove('is-valid');
-            event.preventDefault();
-        }
-        else {
-            // 체크박스가 선택되었을 때
-            checkBox.classList.remove('is-invalid');
-            checkBox.classList.add('is-valid');
-            //유치원 선택
-            kinderSelect.classList.remove('is-invalid');
-            kinderSelect.classList.add('is-valid);
-        }
+        //다른 필드에 대한 유효성 검사는 위와 비슷한 방식으로 처리 (이메일, 비밀번호 등)
+        document.getElementById('submitBtn').addEventListener('click', function (event) {
+            var kinderSelect = document.getElementById('invalidCheck3');
+            // 체크박스가 선택되지 않았을 때
+            if (!kinderSearchInput) {
+                kinderSelect.classList.add('is-invalid');
+                kinderSelect.classList.remove('is-valid');
+                event.preventDefault();
+            } else {
+                // 체크박스가 선택되었을 때
+                //유치원 선택
+                kinderSelect.classList.remove('is-invalid');
+                kinderSelect.classList.add('is-valid);
+            }
 
 
-});
+        });
 
 
     });
@@ -502,16 +492,6 @@
 
 
 </html>
-
-
-
-
-
-
-
-
-
-
 
 
 <!--<!DOCTYPE html>-->

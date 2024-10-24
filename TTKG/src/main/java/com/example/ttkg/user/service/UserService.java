@@ -129,10 +129,19 @@ public class UserService {
 
     /*유저 정보 업데이트 서비스*/
     public void updateUser(UserDTO userDTO) {
-        if (userRepository.existsByUserIdx(userDTO.getUserIdx())) {
-            System.out.println("서비스 실행됨");
-            userRepository.save(convertToEntityFromDTO(userDTO));
-        }
+        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+        userDTO.setPassword(encryptedPassword);
+        UserEntity userEntityRegister = new UserEntity();
+        userEntityRegister.setLoginId(userDTO.getLoginId());
+        userEntityRegister.setPassword(userDTO.getPassword());
+        userEntityRegister.setUserEmail(userDTO.getUserEmail());
+        userEntityRegister.setUserNickname(userDTO.getUserNickname());
+        userEntityRegister.setUserName(userDTO.getUserName());
+        userEntityRegister.setUserKind(userDTO.getUserKind()==1);
+        userEntityRegister.setResiDate(LocalDateTime.now()); //등록날짜 저장
+        if(userDTO.getKinderCode()!=null)
+            userEntityRegister.setKinderCode(userDTO.getKinderCode());
+        userRepository.save(userEntityRegister);//DB에 회원가입 저장
     }
 
     /*이메일과 이름으로 유저 로그인 아이디 찾기 서비스*/
